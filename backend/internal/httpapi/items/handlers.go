@@ -24,8 +24,8 @@ func InitHandler(merchant_id string) *Handler {
 	}
 }
 
-func (h *Handler) GetItems(w http.ResponseWriter, r *http.Request) {
-	url := h.ItemsURL + "/items"
+func (h *Handler) GetTypeItems(w http.ResponseWriter, r *http.Request, itemType string) {
+	url := h.ItemsURL + "/items" + itemType
 	resp, err := http.Get(url)
 	if err != nil {
 		respond.WriteError(w, http.StatusInternalServerError, "failed to fetch items")
@@ -40,6 +40,14 @@ func (h *Handler) GetItems(w http.ResponseWriter, r *http.Request) {
 	}
 
 	respond.WriteJSON(w, http.StatusOK, result)
+}
+
+func (h *Handler) GetItems(w http.ResponseWriter, r *http.Request) {
+	h.GetTypeItems(w, r, "")
+}
+
+func (h *Handler) GetVirtualItems(w http.ResponseWriter, r *http.Request) {
+	h.GetTypeItems(w, r, "/virtual_items")
 }
 
 func (h *Handler) GetItemBySku(w http.ResponseWriter, r *http.Request) {
