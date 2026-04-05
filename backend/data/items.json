@@ -1,0 +1,1114 @@
+{
+  "virtual_currency": [
+    {
+      "sku": "fish",
+      "name": {
+        "en-US": "Fish",
+        "ru-RU": "Рыбки"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["currency"],
+      "order": 1,
+      "description": {
+        "en-US": "The main currency of purr-case",
+        "ru-RU": "Основная валюта purr-case"
+      },
+      "prices": [
+        {
+          "amount": 0.02,
+          "currency": "USD",
+          "is_enabled": true,
+          "is_default": true
+        }
+      ],
+      "regional_prices": [],
+      "vc_prices": [],
+      "custom_attributes": {
+        "rarity": "rare"
+      }
+    },
+    {
+      "sku": "food",
+      "name": {
+        "en-US": "Cat Food",
+        "ru-RU": "Корм"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["currency"],
+      "order": 2,
+      "description": {
+        "en-US": "Basic cat currency",
+        "ru-RU": "Базовая кошачья валюта"
+      },
+      "prices": [
+        {
+          "amount": 0.01,
+          "currency": "USD",
+          "is_enabled": true,
+          "is_default": true
+        }
+      ],
+      "regional_prices": [],
+      "vc_prices": [],
+      "custom_attributes": {
+        "rarity": "common"
+      }
+    },
+    {
+      "sku": "yarn",
+      "name": {
+        "en-US": "Yarn Ball",
+        "ru-RU": "Клубочек"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["currency"],
+      "order": 3,
+      "description": {
+        "en-US": "Premium cat currency",
+        "ru-RU": "Премиум кошачья валюта"
+      },
+      "prices": [
+        {
+          "amount": 0.10,
+          "currency": "USD",
+          "is_enabled": true,
+          "is_default": true
+        }
+      ],
+      "regional_prices": [],
+      "vc_prices": [],
+      "custom_attributes": {
+        "rarity": "common"
+      }
+    }
+  ],
+  "virtual_items": [
+    {
+      "sku": "cat_grey",
+      "name": {
+        "en-US": "Basic Grey Cat",
+        "ru-RU": "Базовая серая кошка"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["cats"],
+      "order": 1,
+      "description": {
+        "en-US": "A simple grey cat. Meow.",
+        "ru-RU": "Простая серая кошка. Мяу."
+      },
+      "prices": [],
+      "regional_prices": [],
+      "vc_prices": [
+        {
+          "sku": "fish",
+          "amount": 50,
+          "is_default": true
+        }
+      ],
+      "is_show_in_store": false,
+      "custom_attributes": {
+        "rarity": "common",
+        "type": "cat",
+        "purchasable": false
+      }
+    },
+    {
+      "sku": "cat_orange",
+      "name": {
+        "en-US": "Basic Orange Cat",
+        "ru-RU": "Базовая рыжая кошка"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["cats"],
+      "order": 2,
+      "description": {
+        "en-US": "A cheerful orange cat. Purr.",
+        "ru-RU": "Весёлая рыжая кошка. Мурр."
+      },
+      "prices": [],
+      "regional_prices": [],
+      "vc_prices": [
+        {
+          "sku": "fish",
+          "amount": 50,
+          "is_default": true
+        }
+      ],
+      "is_show_in_store": false,
+      "custom_attributes": {
+        "rarity": "common",
+        "type": "cat",
+        "purchasable": false
+      }
+    },
+    {
+      "sku": "cat_maine_coon",
+      "name": {
+        "en-US": "Maine Coon",
+        "ru-RU": "Мейн кун"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["cats"],
+      "order": 3,
+      "description": {
+        "en-US": "A majestic fluffy giant.",
+        "ru-RU": "Величественный пушистый гигант."
+      },
+      "prices": [],
+      "regional_prices": [],
+      "vc_prices": [
+        {
+          "sku": "fish",
+          "amount": 200,
+          "is_default": true
+        }
+      ],
+      "is_show_in_store": false,
+      "custom_attributes": {
+        "rarity": "rare",
+        "type": "cat",
+        "purchasable": false
+      }
+    },
+    {
+      "sku": "cat_siamese",
+      "name": {
+        "en-US": "Siamese Cat",
+        "ru-RU": "Сиамская кошка"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["cats"],
+      "order": 4,
+      "description": {
+        "en-US": "Elegant and talkative.",
+        "ru-RU": "Элегантная и разговорчивая."
+      },
+      "prices": [],
+      "regional_prices": [],
+      "vc_prices": [
+        {
+          "sku": "fish",
+          "amount": 200,
+          "is_default": true
+        }
+      ],
+      "is_show_in_store": false,
+      "custom_attributes": {
+        "rarity": "rare",
+        "type": "cat",
+        "purchasable": false
+      }
+    },
+    {
+      "sku": "cat_tricolor",
+      "name": {
+        "en-US": "Tricolor Cat",
+        "ru-RU": "Трёхцветная кошка"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["cats"],
+      "order": 5,
+      "description": {
+        "en-US": "Said to bring good luck.",
+        "ru-RU": "Говорят, приносит удачу."
+      },
+      "prices": [],
+      "regional_prices": [],
+      "vc_prices": [
+        {
+          "sku": "fish",
+          "amount": 200,
+          "is_default": true
+        }
+      ],
+      "is_show_in_store": false,
+      "custom_attributes": {
+        "rarity": "rare",
+        "type": "cat",
+        "purchasable": false
+      }
+    },
+    {
+      "sku": "cat_munchkin",
+      "name": {
+        "en-US": "Munchkin",
+        "ru-RU": "Манчкин"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["cats"],
+      "order": 6,
+      "description": {
+        "en-US": "Short-legged and super cute.",
+        "ru-RU": "Коротколапый и очень милый."
+      },
+      "prices": [],
+      "regional_prices": [],
+      "vc_prices": [
+        {
+          "sku": "fish",
+          "amount": 200,
+          "is_default": true
+        }
+      ],
+      "is_show_in_store": false,
+      "custom_attributes": {
+        "rarity": "rare",
+        "type": "cat",
+        "purchasable": false
+      }
+    },
+    {
+      "sku": "cat_oriental",
+      "name": {
+        "en-US": "Oriental Cat",
+        "ru-RU": "Ориентал"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["cats"],
+      "order": 7,
+      "description": {
+        "en-US": "Sleek, curious and playful.",
+        "ru-RU": "Стройный, любопытный и игривый."
+      },
+      "prices": [],
+      "regional_prices": [],
+      "vc_prices": [
+        {
+          "sku": "fish",
+          "amount": 500,
+          "is_default": true
+        }
+      ],
+      "is_show_in_store": false,
+      "custom_attributes": {
+        "rarity": "epic",
+        "type": "cat",
+        "purchasable": false
+      }
+    },
+    {
+      "sku": "cat_persian",
+      "name": {
+        "en-US": "Persian Cat",
+        "ru-RU": "Персидская кошка"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["cats"],
+      "order": 8,
+      "description": {
+        "en-US": "Fluffy, calm and noble.",
+        "ru-RU": "Пушистая, спокойная и благородная."
+      },
+      "prices": [],
+      "regional_prices": [],
+      "vc_prices": [
+        {
+          "sku": "fish",
+          "amount": 500,
+          "is_default": true
+        }
+      ],
+      "is_show_in_store": false,
+      "custom_attributes": {
+        "rarity": "epic",
+        "type": "cat",
+        "purchasable": false
+      }
+    },
+    {
+      "sku": "cat_cornish_rex",
+      "name": {
+        "en-US": "Cornish Rex",
+        "ru-RU": "Корниш рекс"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["cats"],
+      "order": 9,
+      "description": {
+        "en-US": "Curly coat and big ears.",
+        "ru-RU": "Вьющаяся шёрстка и большие уши."
+      },
+      "prices": [],
+      "regional_prices": [],
+      "vc_prices": [
+        {
+          "sku": "fish",
+          "amount": 500,
+          "is_default": true
+        }
+      ],
+      "is_show_in_store": false,
+      "custom_attributes": {
+        "rarity": "epic",
+        "type": "cat",
+        "purchasable": false
+      }
+    },
+    {
+      "sku": "cat_bengal",
+      "name": {
+        "en-US": "Bengal Cat",
+        "ru-RU": "Бенгальская кошка"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["cats"],
+      "order": 10,
+      "description": {
+        "en-US": "Wild patterns, domestic heart.",
+        "ru-RU": "Дикий окрас, домашнее сердце."
+      },
+      "prices": [],
+      "regional_prices": [],
+      "vc_prices": [
+        {
+          "sku": "fish",
+          "amount": 1000,
+          "is_default": true
+        }
+      ],
+      "is_show_in_store": false,
+      "custom_attributes": {
+        "rarity": "legendary",
+        "type": "cat",
+        "purchasable": false
+      }
+    },
+    {
+      "sku": "cat_ragdoll",
+      "name": {
+        "en-US": "Ragdoll",
+        "ru-RU": "Рэгдолл"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["cats"],
+      "order": 11,
+      "description": {
+        "en-US": "Goes limp like a ragdoll when held.",
+        "ru-RU": "Обмякает как тряпичная кукла на руках."
+      },
+      "prices": [],
+      "regional_prices": [],
+      "vc_prices": [
+        {
+          "sku": "fish",
+          "amount": 1000,
+          "is_default": true
+        }
+      ],
+      "is_show_in_store": false,
+      "custom_attributes": {
+        "rarity": "legendary",
+        "type": "cat",
+        "purchasable": false
+      }
+    },
+    {
+      "sku": "cat_sphynx",
+      "name": {
+        "en-US": "Sphynx",
+        "ru-RU": "Сфинкс"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["cats"],
+      "order": 12,
+      "description": {
+        "en-US": "Hairless but full of warmth.",
+        "ru-RU": "Голый, но полон тепла."
+      },
+      "prices": [],
+      "regional_prices": [],
+      "vc_prices": [
+        {
+          "sku": "fish",
+          "amount": 1000,
+          "is_default": true
+        }
+      ],
+      "is_show_in_store": false,
+      "custom_attributes": {
+        "rarity": "legendary",
+        "type": "cat",
+        "purchasable": false
+      }
+    },
+    {
+      "sku": "skin_hat",
+      "name": {
+        "en-US": "Cat in a Hat",
+        "ru-RU": "Кот в шляпе"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["skins"],
+      "order": 1,
+      "description": {
+        "en-US": "A dapper cat with a top hat.",
+        "ru-RU": "Щеголеватый кот в цилиндре."
+      },
+      "prices": [
+        {
+          "amount": 1.99,
+          "currency": "USD",
+          "is_enabled": true,
+          "is_default": true
+        }
+      ],
+      "regional_prices": [],
+      "vc_prices": [
+        {
+          "sku": "fish",
+          "amount": 200,
+          "is_default": false
+        }
+      ],
+      "is_show_in_store": true,
+      "custom_attributes": {
+        "rarity": "rare",
+        "type": "skin"
+      }
+    },
+    {
+      "sku": "skin_bow",
+      "name": {
+        "en-US": "Cat with a Bow",
+        "ru-RU": "Кот с бантиком"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["skins"],
+      "order": 2,
+      "description": {
+        "en-US": "Cute and proper with a big bow.",
+        "ru-RU": "Милый и аккуратный с большим бантиком."
+      },
+      "prices": [
+        {
+          "amount": 1.99,
+          "currency": "USD",
+          "is_enabled": true,
+          "is_default": true
+        }
+      ],
+      "regional_prices": [],
+      "vc_prices": [
+        {
+          "sku": "fish",
+          "amount": 200,
+          "is_default": false
+        }
+      ],
+      "is_show_in_store": true,
+      "custom_attributes": {
+        "rarity": "rare",
+        "type": "skin"
+      }
+    },
+    {
+      "sku": "skin_socks",
+      "name": {
+        "en-US": "Cat in Socks",
+        "ru-RU": "Кот в носочках"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["skins"],
+      "order": 3,
+      "description": {
+        "en-US": "Cozy cat with striped socks.",
+        "ru-RU": "Уютный кот в полосатых носочках."
+      },
+      "prices": [
+        {
+          "amount": 3.99,
+          "currency": "USD",
+          "is_enabled": true,
+          "is_default": true
+        }
+      ],
+      "regional_prices": [],
+      "vc_prices": [
+        {
+          "sku": "fish",
+          "amount": 500,
+          "is_default": false
+        }
+      ],
+      "is_show_in_store": true,
+      "custom_attributes": {
+        "rarity": "epic",
+        "type": "skin"
+      }
+    },
+    {
+      "sku": "skin_suit",
+      "name": {
+        "en-US": "Business Cat",
+        "ru-RU": "Кот в деловом костюме"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["skins"],
+      "order": 4,
+      "description": {
+        "en-US": "I am in a business meeting.",
+        "ru-RU": "Я на деловой встрече."
+      },
+      "prices": [
+        {
+          "amount": 3.99,
+          "currency": "USD",
+          "is_enabled": true,
+          "is_default": true
+        }
+      ],
+      "regional_prices": [],
+      "vc_prices": [
+        {
+          "sku": "fish",
+          "amount": 500,
+          "is_default": false
+        }
+      ],
+      "is_show_in_store": true,
+      "custom_attributes": {
+        "rarity": "epic",
+        "type": "skin"
+      }
+    },
+    {
+      "sku": "skin_nerd",
+      "name": {
+        "en-US": "Nerd Cat",
+        "ru-RU": "Кот-зубрилка"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["skins"],
+      "order": 5,
+      "description": {
+        "en-US": "Glasses, books, and infinite wisdom.",
+        "ru-RU": "Очки, книги и бесконечная мудрость."
+      },
+      "prices": [
+        {
+          "amount": 7.99,
+          "currency": "USD",
+          "is_enabled": true,
+          "is_default": true
+        }
+      ],
+      "regional_prices": [],
+      "vc_prices": [
+        {
+          "sku": "fish",
+          "amount": 1000,
+          "is_default": false
+        }
+      ],
+      "is_show_in_store": true,
+      "custom_attributes": {
+        "rarity": "legendary",
+        "type": "skin"
+      }
+    },
+    {
+      "sku": "skin_miku",
+      "name": {
+        "en-US": "Miku Cat",
+        "ru-RU": "Кот-мику"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["skins"],
+      "order": 6,
+      "description": {
+        "en-US": "Meow meow meow meow meow meow meow.",
+        "ru-RU": "Мяу мяу мяу мяу мяу мяу мяу."
+      },
+      "prices": [
+        {
+          "amount": 7.99,
+          "currency": "USD",
+          "is_enabled": true,
+          "is_default": true
+        }
+      ],
+      "regional_prices": [],
+      "vc_prices": [
+        {
+          "sku": "fish",
+          "amount": 1000,
+          "is_default": false
+        }
+      ],
+      "is_show_in_store": true,
+      "custom_attributes": {
+        "rarity": "legendary",
+        "type": "skin"
+      }
+    },
+    {
+      "sku": "skin_xsolla_mascot",
+      "name": {
+        "en-US": "Xsolla Mascot Cat",
+        "ru-RU": "Кот-маскот Xsolla"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["skins", "event"],
+      "order": 7,
+      "description": {
+        "en-US": "Limited edition Xsolla mascot skin. Only available during special events.",
+        "ru-RU": "Лимитированный скин маскота Xsolla. Доступен только в особые события."
+      },
+      "prices": [
+        {
+          "amount": 14.99,
+          "currency": "USD",
+          "is_enabled": true,
+          "is_default": true
+        }
+      ],
+      "regional_prices": [],
+      "vc_prices": [],
+      "is_show_in_store": true,
+      "periods": [
+        {
+          "date_from": "2026-02-03T00:00:00+00:00",
+          "date_until": "2026-05-08T23:59:59+00:00"
+        }
+      ],
+      "custom_attributes": {
+        "rarity": "mythic",
+        "type": "skin",
+        "event": true
+      }
+    }
+  ],
+  "virtual_currency_packages": [
+    {
+      "sku": "fish_pack_small",
+      "name": {
+        "en-US": "Small Fish Pack",
+        "ru-RU": "Маленький пак рыбок"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["currency_packs"],
+      "order": 1,
+      "description": {
+        "en-US": "50 fish to get you started.",
+        "ru-RU": "50 рыбок для начала."
+      },
+      "prices": [
+        {
+          "amount": 0.99,
+          "currency": "USD",
+          "is_enabled": true,
+          "is_default": true
+        }
+      ],
+      "regional_prices": [],
+      "vc_prices": null,
+      "content": [
+        {
+          "sku": "fish",
+          "quantity": 50
+        }
+      ],
+      "limits": {
+        "per_user": null,
+        "per_item": null
+      }
+    },
+    {
+      "sku": "fish_pack_medium",
+      "name": {
+        "en-US": "Medium Fish Pack",
+        "ru-RU": "Средний пак рыбок"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["currency_packs"],
+      "order": 2,
+      "description": {
+        "en-US": "200 fish — a good deal.",
+        "ru-RU": "200 рыбок — выгодная сделка."
+      },
+      "prices": [
+        {
+          "amount": 2.99,
+          "currency": "USD",
+          "is_enabled": true,
+          "is_default": true
+        }
+      ],
+      "regional_prices": [],
+      "vc_prices": null,
+      "content": [
+        {
+          "sku": "fish",
+          "quantity": 200
+        }
+      ],
+      "limits": {
+        "per_user": null,
+        "per_item": null
+      }
+    },
+    {
+      "sku": "fish_pack_large",
+      "name": {
+        "en-US": "Large Fish Pack",
+        "ru-RU": "Большой пак рыбок"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["currency_packs"],
+      "order": 3,
+      "description": {
+        "en-US": "500 fish — the best value.",
+        "ru-RU": "500 рыбок — лучшая цена."
+      },
+      "prices": [
+        {
+          "amount": 6.99,
+          "currency": "USD",
+          "is_enabled": true,
+          "is_default": true
+        }
+      ],
+      "regional_prices": [],
+      "vc_prices": null,
+      "content": [
+        {
+          "sku": "fish",
+          "quantity": 500
+        }
+      ],
+      "limits": {
+        "per_user": null,
+        "per_item": null
+      }
+    },
+    {
+      "sku": "food_pack_small",
+      "name": {
+        "en-US": "Small Food Pack",
+        "ru-RU": "Маленький пак корма"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["currency_packs"],
+      "order": 4,
+      "description": {
+        "en-US": "100 food — enough for a few days.",
+        "ru-RU": "100 корма — хватит на несколько дней."
+      },
+      "prices": [
+        {
+          "amount": 0.99,
+          "currency": "USD",
+          "is_enabled": true,
+          "is_default": true
+        }
+      ],
+      "regional_prices": [],
+      "vc_prices": null,
+      "content": [
+        {
+          "sku": "food",
+          "quantity": 100
+        }
+      ],
+      "limits": {
+        "per_user": null,
+        "per_item": null
+      }
+    },
+    {
+      "sku": "food_pack_large",
+      "name": {
+        "en-US": "Large Food Pack",
+        "ru-RU": "Большой пак корма"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["currency_packs"],
+      "order": 5,
+      "description": {
+        "en-US": "500 food — stock up!",
+        "ru-RU": "500 корма — запасайся!"
+      },
+      "prices": [
+        {
+          "amount": 3.99,
+          "currency": "USD",
+          "is_enabled": true,
+          "is_default": true
+        }
+      ],
+      "regional_prices": [],
+      "vc_prices": null,
+      "content": [
+        {
+          "sku": "food",
+          "quantity": 500
+        }
+      ],
+      "limits": {
+        "per_user": null,
+        "per_item": null
+      }
+    },
+    {
+      "sku": "yarn_pack_small",
+      "name": {
+        "en-US": "Small Yarn Pack",
+        "ru-RU": "Маленький пак клубочков"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["currency_packs"],
+      "order": 6,
+      "description": {
+        "en-US": "10 yarn balls — let the fun begin.",
+        "ru-RU": "10 клубочков — пусть начнётся веселье."
+      },
+      "prices": [
+        {
+          "amount": 0.99,
+          "currency": "USD",
+          "is_enabled": true,
+          "is_default": true
+        }
+      ],
+      "regional_prices": [],
+      "vc_prices": null,
+      "content": [
+        {
+          "sku": "yarn",
+          "quantity": 10
+        }
+      ],
+      "limits": {
+        "per_user": null,
+        "per_item": null
+      }
+    },
+    {
+      "sku": "yarn_pack_large",
+      "name": {
+        "en-US": "Large Yarn Pack",
+        "ru-RU": "Большой пак клубочков"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["currency_packs"],
+      "order": 7,
+      "description": {
+        "en-US": "50 yarn balls — endless entertainment.",
+        "ru-RU": "50 клубочков — бесконечное развлечение."
+      },
+      "prices": [
+        {
+          "amount": 3.99,
+          "currency": "USD",
+          "is_enabled": true,
+          "is_default": true
+        }
+      ],
+      "regional_prices": [],
+      "vc_prices": null,
+      "content": [
+        {
+          "sku": "yarn",
+          "quantity": 50
+        }
+      ],
+      "limits": {
+        "per_user": null,
+        "per_item": null
+      }
+    }
+  ],
+  "bundles": [
+    {
+      "sku": "case_common",
+      "name": {
+        "en-US": "Common Case",
+        "ru-RU": "Обычный кейс"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["cases"],
+      "order": 1,
+      "description": {
+        "en-US": "Contains common and rare cats.",
+        "ru-RU": "Содержит обычных и редких котов."
+      },
+      "prices": [
+        {
+          "amount": 0.99,
+          "currency": "USD",
+          "is_enabled": true,
+          "is_default": true
+        }
+      ],
+      "regional_prices": [],
+      "vc_prices": [
+        {
+          "sku": "fish",
+          "amount": 100,
+          "is_default": false
+        }
+      ],
+      "content": [
+        { "sku": "cat_grey",      "quantity": 1 },
+        { "sku": "cat_orange",    "quantity": 1 },
+        { "sku": "cat_tricolor",  "quantity": 1 },
+        { "sku": "cat_munchkin",  "quantity": 1 },
+        { "sku": "cat_maine_coon","quantity": 1 },
+        { "sku": "cat_siamese",   "quantity": 1 }
+      ],
+      "limits": {
+        "per_user": null,
+        "per_item": null
+      },
+      "custom_attributes": {
+        "type": "case",
+        "drop_table": [
+          { "sku": "cat_grey",      "weight": 50 },
+          { "sku": "cat_orange",    "weight": 30 },
+          { "sku": "cat_tricolor",  "weight": 10 },
+          { "sku": "cat_munchkin",  "weight": 7  },
+          { "sku": "cat_maine_coon","weight": 2  },
+          { "sku": "cat_siamese",   "weight": 1  }
+        ]
+      }
+    },
+    {
+      "sku": "case_rare",
+      "name": {
+        "en-US": "Rare Case",
+        "ru-RU": "Редкий кейс"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["cases"],
+      "order": 2,
+      "description": {
+        "en-US": "Contains rare and epic cats.",
+        "ru-RU": "Содержит редких и эпических котов."
+      },
+      "prices": [
+        {
+          "amount": 2.99,
+          "currency": "USD",
+          "is_enabled": true,
+          "is_default": true
+        }
+      ],
+      "regional_prices": [],
+      "vc_prices": [
+        {
+          "sku": "fish",
+          "amount": 300,
+          "is_default": false
+        }
+      ],
+      "content": [
+        { "sku": "cat_maine_coon",  "quantity": 1 },
+        { "sku": "cat_siamese",     "quantity": 1 },
+        { "sku": "cat_tricolor",    "quantity": 1 },
+        { "sku": "cat_munchkin",    "quantity": 1 },
+        { "sku": "cat_oriental",    "quantity": 1 },
+        { "sku": "cat_persian",     "quantity": 1 }
+      ],
+      "limits": {
+        "per_user": null,
+        "per_item": null
+      },
+      "custom_attributes": {
+        "type": "case",
+        "drop_table": [
+          { "sku": "cat_maine_coon",  "weight": 40 },
+          { "sku": "cat_siamese",     "weight": 30 },
+          { "sku": "cat_tricolor",    "weight": 15 },
+          { "sku": "cat_munchkin",    "weight": 10 },
+          { "sku": "cat_oriental",    "weight": 3  },
+          { "sku": "cat_persian",     "weight": 2  }
+        ]
+      }
+    },
+    {
+      "sku": "case_legendary",
+      "name": {
+        "en-US": "Legendary Case",
+        "ru-RU": "Легендарный кейс"
+      },
+      "is_enabled": true,
+      "is_free": false,
+      "groups": ["cases"],
+      "order": 3,
+      "description": {
+        "en-US": "Contains epic and legendary cats.",
+        "ru-RU": "Содержит эпических и легендарных котов."
+      },
+      "prices": [
+        {
+          "amount": 7.99,
+          "currency": "USD",
+          "is_enabled": true,
+          "is_default": true
+        }
+      ],
+      "regional_prices": [],
+      "vc_prices": [
+        {
+          "sku": "fish",
+          "amount": 1000,
+          "is_default": false
+        }
+      ],
+      "content": [
+        { "sku": "cat_oriental",    "quantity": 1 },
+        { "sku": "cat_persian",     "quantity": 1 },
+        { "sku": "cat_cornish_rex", "quantity": 1 },
+        { "sku": "cat_bengal",      "quantity": 1 },
+        { "sku": "cat_ragdoll",     "quantity": 1 },
+        { "sku": "cat_sphynx",      "quantity": 1 }
+      ],
+      "limits": {
+        "per_user": null,
+        "per_item": null
+      },
+      "custom_attributes": {
+        "type": "case",
+        "drop_table": [
+          { "sku": "cat_oriental",    "weight": 30 },
+          { "sku": "cat_persian",     "weight": 25 },
+          { "sku": "cat_cornish_rex", "weight": 20 },
+          { "sku": "cat_bengal",      "weight": 12 },
+          { "sku": "cat_ragdoll",     "weight": 8  },
+          { "sku": "cat_sphynx",      "weight": 5  }
+        ]
+      }
+    }
+  ]
+}

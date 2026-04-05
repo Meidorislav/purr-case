@@ -8,6 +8,7 @@ services:
       - "8080:8080"
     environment:
       - PORT=8080
+      - merchant_id=${merchant_id}
 
   frontend:
     build:
