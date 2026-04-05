@@ -35,6 +35,7 @@ func NewRouter(gh *global.Handler, uh *users.Handler, ih *items.Handler, ph *pay
 	r.Route("/items", func(r chi.Router) {
 		r.Get("/", ih.GetItems)
 		r.Get("/sku/{sku}", ih.GetItemBySku)
+		r.Get("/virtual_items", ih.GetVirtualItems)
 	})
 
 	// ---------------------------------------------------------------------------
