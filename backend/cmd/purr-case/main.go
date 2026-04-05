@@ -5,6 +5,8 @@ import (
 	"net/http"
 	"os"
 	"purr-case/internal/httpapi"
+	"purr-case/internal/httpapi/global"
+	"purr-case/internal/httpapi/payments"
 )
 
 func main() {
@@ -13,8 +15,9 @@ func main() {
 		port = "8080"
 	}
 
-	handler := httpapi.InitHandler()
-	router := httpapi.NewRouter(handler)
+	gh := global.InitHandler()
+	ph := payments.InitHandler()
+	router := httpapi.NewRouter(gh, ph)
 
 	srv := &http.Server{
 		Addr:    ":" + port,
