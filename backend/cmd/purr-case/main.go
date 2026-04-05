@@ -6,6 +6,7 @@ import (
 	"os"
 	"purr-case/internal/httpapi"
 	"purr-case/internal/httpapi/global"
+	"purr-case/internal/httpapi/items"
 	"purr-case/internal/httpapi/payments"
 	"purr-case/internal/httpapi/users"
 )
@@ -15,11 +16,13 @@ func main() {
 	if port == "" {
 		port = "8080"
 	}
+	merchant_id := os.Getenv("merchant_id")
 
 	gh := global.InitHandler()
-	ph := payments.InitHandler()
 	uh := users.InitHandler()
-	router := httpapi.NewRouter(gh, ph, uh)
+	ih := items.InitHandler(merchant_id)
+	ph := payments.InitHandler()
+	router := httpapi.NewRouter(gh, uh, ih, ph)
 
 	srv := &http.Server{
 		Addr:    ":" + port,

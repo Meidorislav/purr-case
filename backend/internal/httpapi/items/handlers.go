@@ -1,0 +1,45 @@
+package items
+
+import (
+	"encoding/json"
+	"fmt"
+	"net/http"
+	dto "purr-case/internal/dto/items"
+	"purr-case/internal/httpapi/respond"
+)
+
+type Handler struct {
+	ItemsURL string
+}
+
+func InitHandler(merchant_id string) *Handler {
+	url := fmt.Sprintf(
+		"https://store.xsolla.com/api/v2/project/%s",
+		merchant_id,
+	)
+	return &Handler{
+		ItemsURL: url,
+	}
+}
+
+func (h *Handler) GetItems(w http.ResponseWriter, r *http.Request) {
+	url := h.ItemsURL + "/items"
+	resp, err := http.Get(url)
+	if err != nil {
+		respond.WriteError(w, http.StatusInternalServerError, "failed to fetch items")
+		return
+	}
+	defer resp.Body.Close()
+
+	var result dto.CatalogResponse
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		respond.WriteError(w, http.StatusInternalServerError, "failed to decode response")
+		return
+	}
+
+	respond.WriteJSON(w, http.StatusOK, result)
+}
+
+func (h *Handler) GetItemBySku(w http.ResponseWriter, r *http.Request) {
+
+}
