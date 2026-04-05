@@ -30,6 +30,7 @@ func (h *Handler) CreateCheckout(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	req.UserID = userID
 
 	if len(req.Items) == 0 {
 		respond.WriteError(w, http.StatusBadRequest, "items are required")

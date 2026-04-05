@@ -12,7 +12,7 @@ type CheckoutItem struct {
 
 // Structure for a request to create a payment
 type CreateCheckoutRequest struct {
-	UserID string         `json:"userId"` // User identifier
+	UserID string         `json:"userId"` // Temporary field 
 	Items  []CheckoutItem `json:"items"`  // Contents of the cart
 }
 
