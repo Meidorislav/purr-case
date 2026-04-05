@@ -6,6 +6,7 @@ import (
 	dto "purr-case/internal/dto/payments"
 	"purr-case/internal/httpapi/respond"
 	"strconv"
+	"time"
 )
 
 type Handler struct{}
@@ -71,15 +72,19 @@ func (h *Handler) CreateCheckout(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-
+	
+	// Calculate total amount for the order
 	var totalAmount float64
 	for _, item := range req.Items {
 		totalAmount += float64(item.Quantity) * item.Price
 	}
 
+	// Generate a unique order ID
+	orderID := "order-" + strconv.FormatInt(time.Now().UnixNano(), 10)
+
 	// Temporary mock response. In the future, the link will be provided via token.
 	resp := dto.CreateCheckoutResponse{
-		OrderID:     "mock-order-1",
+		OrderID:     orderID,
 		Status:      "pending",
 		ItemsCount:  len(req.Items),
 		TotalAmount: totalAmount,
