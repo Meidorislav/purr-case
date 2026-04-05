@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	dto "purr-case/dto/users"
+	dto "purr-case/internal/dto/users"
 	"purr-case/internal/httpapi/respond"
 )
 
