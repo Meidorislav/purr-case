@@ -10,18 +10,26 @@ type Handler struct{}
 
 // Структура для позиции в корзине
 type CheckoutItem struct {
-	SKU 	string  	`json:"sku"`      	// Идентификатор товара
-	Name 	string  	`json:"name"`      	// Название товара
-	Type 	string  	`json:"type"`      	// Тип сущности: skin, case, battlepass.
-	Quantity int     	`json:"quantity"`  	// Количество единиц товара
-	Price  	float64 	`json:"price"`		// Цена за единицу товара
-	Currency string  	`json:"currency"`  	// Валюта (например, "USD", "EUR")
+	SKU      string  `json:"sku"`      // Идентификатор товара
+	Name     string  `json:"name"`     // Название товара
+	Type     string  `json:"type"`     // Тип сущности: skin, case, battlepass.
+	Quantity int     `json:"quantity"` // Количество единиц товара
+	Price    float64 `json:"price"`    // Цена за единицу товара
+	Currency string  `json:"currency"` // Валюта (например, "USD", "EUR")
 }
 
 // Структура для запроса на создание платежа
 type CreateCheckoutRequest struct {
 	UserID string         `json:"userId"` // Идентификатор пользователя
-	Items  []CheckoutItem `json:"items"`   // Состав корзины
+	Items  []CheckoutItem `json:"items"`  // Состав корзины
+}
+
+// Структура для ответа при создании платежа
+type CreateCheckoutResponse struct {
+	OrderID     string `json:"orderId"`     // Идентификатор заказа
+	Status      string `json:"status"`      // Статус платежа (например, "pending", "completed")
+	ItemsCount  int    `json:"itemsCount"`  // Количество позиций в корзине
+	CheckoutURL string `json:"checkoutUrl"` // Ссылка для оплаты
 }
 
 func InitHandler() *Handler {
@@ -42,7 +50,7 @@ func (h *Handler) CreateCheckout(w http.ResponseWriter, r *http.Request) {
 		writeError(w, http.StatusBadRequest, "invalid request body")
 		return
 	}
-	
+
 	if req.UserID == "" {
 		writeError(w, http.StatusBadRequest, "userId is required")
 		return
@@ -81,18 +89,21 @@ func (h *Handler) CreateCheckout(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	writeJSON(w, http.StatusOK, map[string]any{
-		"orderId": "mock-order-1",
-		"status": "pending",
-		"itemsCount": len(req.Items),
-		"checkoutUrl": "mock",
-	})
+	// Пока что мок-ответ. В дальнейшем ссылка через токен.
+	resp := CreateCheckoutResponse{
+		OrderID:     "mock-order-1",
+		Status:      "pending",
+		ItemsCount:  len(req.Items),
+		CheckoutURL: "https://mock-payments.local/checkout/mock-order-1",
+	}
+
+	writeJSON(w, http.StatusOK, resp)
 }
 
 // Резервация точки входа для обработки вебхуков от платежного провайдера
 func (h *Handler) HandleWebhook(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, map[string]string{
-		"message":"webhook received",
+		"message": "webhook received",
 	})
 }
 
@@ -123,4 +134,3 @@ func mustJSON(v any) []byte {
 	b = append(b, '\n') // for compatibility with json.Encoder, which adds \n
 	return b
 }
-
