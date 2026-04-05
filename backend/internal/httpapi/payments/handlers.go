@@ -37,6 +37,9 @@ func (h *Handler) CreateCheckout(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Assuming all items must have the same currency
+	expectedCurrency := req.Items[0].Currency 
+
 	// Validation of each item in the cart
 	for i, item := range req.Items {
 		if item.SKU == "" {
@@ -63,6 +66,15 @@ func (h *Handler) CreateCheckout(w http.ResponseWriter, r *http.Request) {
 			respond.WriteError(w, http.StatusBadRequest, "items["+strconv.Itoa(i)+"].currency is required")
 			return
 		}
+		if item.Currency != expectedCurrency {
+			respond.WriteError(w, http.StatusBadRequest, "all items must have the same currency")
+			return
+		}
+	}
+
+	var totalAmount float64
+	for _, item := range req.Items {
+		totalAmount += float64(item.Quantity) * item.Price
 	}
 
 	// Temporary mock response. In the future, the link will be provided via token.
@@ -70,6 +82,7 @@ func (h *Handler) CreateCheckout(w http.ResponseWriter, r *http.Request) {
 		OrderID:     "mock-order-1",
 		Status:      "pending",
 		ItemsCount:  len(req.Items),
+		TotalAmount: totalAmount,
 		CheckoutURL: "https://mock-payments.local/checkout/mock-order-1",
 	}
 
