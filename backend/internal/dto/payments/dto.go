@@ -18,9 +18,10 @@ type CreateCheckoutRequest struct {
 
 // Structure for the response when creating a payment
 type CreateCheckoutResponse struct {
-	OrderID     string `json:"orderId"`     // Order identifier
-	Status      string `json:"status"`      // Payment status (e.g., "pending", "completed")
-	ItemsCount  int    `json:"itemsCount"`  // Number of items in the cart
-	TotalAmount  float64 `json:"totalAmount"`  // Total amount to be paid
-	CheckoutURL string `json:"checkoutUrl"` // Payment link
+	OrderID		string	`json:"orderId"`		// Order identifier
+	Status		string	`json:"status"`			// Payment status (e.g., "pending", "completed")
+	ItemsCount	int		`json:"itemsCount"`		// Number of items in the cart
+	TotalAmount	float64	`json:"totalAmount"`	// Total amount to be paid
+	Currency	string	`json:"currency"`		// Currency of the payment
+	CheckoutURL	string	`json:"checkoutUrl"`	// Payment link
 }

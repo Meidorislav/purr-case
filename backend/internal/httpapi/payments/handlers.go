@@ -82,13 +82,17 @@ func (h *Handler) CreateCheckout(w http.ResponseWriter, r *http.Request) {
 	// Generate a unique order ID
 	orderID := "order-" + strconv.FormatInt(time.Now().UnixNano(), 10)
 
+	//
+	checkoutCurrency := req.Items[0].Currency
+
 	// Temporary mock response. In the future, the link will be provided via token.
 	resp := dto.CreateCheckoutResponse{
-		OrderID:     orderID,
-		Status:      "pending",
-		ItemsCount:  len(req.Items),
-		TotalAmount: totalAmount,
-		CheckoutURL: "https://mock-payments.local/checkout/mock-order-1",
+		OrderID:		orderID,
+		Status:			"pending",
+		ItemsCount:		len(req.Items),
+		TotalAmount:	totalAmount,
+		Currency:		checkoutCurrency,
+		CheckoutURL:	"https://mock-payments.local/checkout/" + orderID,
 	}
 
 	respond.WriteJSON(w, http.StatusOK, resp)
