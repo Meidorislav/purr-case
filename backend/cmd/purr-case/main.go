@@ -7,6 +7,7 @@ import (
 	"purr-case/internal/httpapi"
 	"purr-case/internal/httpapi/global"
 	"purr-case/internal/httpapi/payments"
+	"purr-case/internal/httpapi/users"
 )
 
 func main() {
@@ -17,7 +18,8 @@ func main() {
 
 	gh := global.InitHandler()
 	ph := payments.InitHandler()
-	router := httpapi.NewRouter(gh, ph)
+	uh := users.InitHandler()
+	router := httpapi.NewRouter(gh, ph, uh)
 
 	srv := &http.Server{
 		Addr:    ":" + port,

@@ -8,9 +8,10 @@ import (
 
 	"purr-case/internal/httpapi/global"
 	"purr-case/internal/httpapi/payments"
+	"purr-case/internal/httpapi/users"
 )
 
-func NewRouter(gh *global.Handler, ph *payments.Handler) http.Handler {
+func NewRouter(gh *global.Handler, ph *payments.Handler, uh *users.Handler) http.Handler {
 	r := chi.NewRouter()
 
 	// Middleware: Logging requests and recovering from panics.
@@ -22,5 +23,12 @@ func NewRouter(gh *global.Handler, ph *payments.Handler) http.Handler {
 		r.Post("/checkout", ph.CreateCheckout) // POST /payments/checkout - create a payment and get the payment link
 		r.Post("/webhook", ph.HandleWebhook)   // POST /payments/webhook - handle webhook from the payment provider
 	})
+	r.Get("/health", gh.Health)
+
+	r.Group(func(r chi.Router) {
+		r.Use(Auth)
+		r.Get("/me", uh.Me)
+	})
+
 	return r
 }
