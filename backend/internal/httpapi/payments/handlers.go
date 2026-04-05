@@ -82,7 +82,7 @@ func (h *Handler) CreateCheckout(w http.ResponseWriter, r *http.Request) {
 	// Generate a unique order ID
 	orderID := "order-" + strconv.FormatInt(time.Now().UnixNano(), 10)
 
-	//
+	// 
 	checkoutCurrency := req.Items[0].Currency
 
 	// Temporary mock response. In the future, the link will be provided via token.
@@ -100,7 +100,21 @@ func (h *Handler) CreateCheckout(w http.ResponseWriter, r *http.Request) {
 
 // Reserved entry point for handling webhooks from the payment provider
 func (h *Handler) HandleWebhook(w http.ResponseWriter, r *http.Request) {
-	respond.WriteJSON(w, http.StatusOK, map[string]string{
+	var payload map[string]any
+
+
+	if err := json.NewDecoder(r.Body).Decode(&payload); err != nil {
+		respond.WriteError(w, http.StatusBadRequest, "invalid webhook payload")
+		return
+	}
+
+	if payload["event"] == nil && payload["notification_type"] == nil && payload["type"] == nil {
+		respond.WriteError(w, http.StatusBadRequest, "webhook event type is required")
+		return
+	}
+	
+	respond.WriteJSON(w, http.StatusOK, map[string]any{
 		"message": "webhook received",
+		"received": true,
 	})
 }
