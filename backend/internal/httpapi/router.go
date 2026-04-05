@@ -16,5 +16,10 @@ func NewRouter(h *Handler) http.Handler {
 
 	r.Get("/health", h.Health)
 
+	r.Route("/payments", func(r chi.Router){ // группируем эндпоинты, связанные с платежами
+		r.Post("/checkout", h.CreateCheckout) // POST /payments/checkout - создать платеж и получить ссылку на оплату
+		r.Post("/webhook", h.HandleWebhook)   // POST /payments/webhook - обработать вебхук от платежного провайдера
+	})
+
 	return r
 }
