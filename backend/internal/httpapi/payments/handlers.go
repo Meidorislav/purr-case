@@ -3,7 +3,7 @@ package payments
 import (
 	"encoding/json"
 	"net/http"
-	dto "purr-case/dto/payments"
+	dto "purr-case/internal/dto/payments"
 	"purr-case/internal/httpapi/respond"
 	"strconv"
 )
