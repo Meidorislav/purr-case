@@ -16,5 +16,10 @@ func NewRouter(h *Handler) http.Handler {
 
 	r.Get("/health", h.Health)
 
+	r.Group(func(r chi.Router) {
+		r.Use(Auth)
+		r.Get("/me", h.Me)
+	})
+
 	return r
 }

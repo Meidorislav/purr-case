@@ -1,8 +1,10 @@
 package httpapi
 
 import (
+	"context"
 	"encoding/json"
 	"net/http"
+	"time"
 )
 
 type Handler struct{}
@@ -15,6 +17,48 @@ func (h *Handler) Health(w http.ResponseWriter, _ *http.Request) {
 	writeJSON(w, http.StatusOK, map[string]string{
 		"status": "ok",
 	})
+}
+
+func (h *Handler) Me(w http.ResponseWriter, r *http.Request) {
+	token, ok := r.Context().Value(tokenCtxKey).(string)
+	if !ok {
+		writeError(w, http.StatusUnauthorized, "invalid token")
+		return
+	}
+
+	ctx, cancel := context.WithTimeout(r.Context(), 3*time.Second)
+	defer cancel()
+
+	req, err := http.NewRequestWithContext(
+		ctx,
+		http.MethodGet,
+		"https://login.xsolla.com/api/users/me",
+		nil,
+	)
+	if err != nil {
+		writeError(w, http.StatusInternalServerError, "failed to create request")
+		return
+	}
+	req.Header.Set("Authorization", "Bearer "+token)
+
+	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		writeError(w, http.StatusInternalServerError, "failed to get user info")
+		return
+	}
+	defer res.Body.Close()
+	if res.StatusCode != http.StatusOK {
+		writeError(w, res.StatusCode, "failed to get user info")
+		return
+	}
+
+	var userInfo UserInfo
+	if err := json.NewDecoder(res.Body).Decode(&userInfo); err != nil {
+		writeError(w, http.StatusInternalServerError, "failed to decode user info")
+		return
+	}
+
+	writeJSON(w, http.StatusOK, userInfo)
 }
 
 // ---------------------------------------------------------------------------
