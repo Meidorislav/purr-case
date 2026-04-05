@@ -23,10 +23,13 @@ func (h *Handler) CreateCheckout(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if req.UserID == "" {
-		respond.WriteError(w, http.StatusBadRequest, "userId is required")
+	// Get user ID from JWT token set by the Auth middleware
+	userID, ok := r.Context().Value("userId").(string)
+	if !ok || userID == "" {
+		respond.WriteError(w, http.StatusUnauthorized, "unauthorized")
 		return
 	}
+
 
 	if len(req.Items) == 0 {
 		respond.WriteError(w, http.StatusBadRequest, "items are required")
