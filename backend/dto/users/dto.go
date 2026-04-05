@@ -1,4 +1,4 @@
-package httpapi
+package user_dto
 
 type UserInfo struct {
 	Birthday  string `json:"birthday"`
