@@ -1,27 +1,24 @@
 package payments_dto
 
-// Structure for an item in the shopping cart
+// CheckoutItem describes a single cart line that will later be sent to Xsolla.
+// We only trust SKU and quantity from the client. Price, currency and all
+// promotions must come from Xsolla Catalog / order APIs.
 type CheckoutItem struct {
-	SKU      string  `json:"sku"`      // Product identifier
-	Name     string  `json:"name"`     // Product name
-	Type     string  `json:"type"`     // Entity type: skin, case, battlepass
-	Quantity int     `json:"quantity"` // Quantity of the product
-	Price    float64 `json:"price"`    // Price per unit
-	Currency string  `json:"currency"` // Currency (e.g., "USD", "EUR")
+	SKU      string `json:"sku"`      // Product SKU from Xsolla Catalog.
+	Quantity int    `json:"quantity"` // Requested quantity for this SKU.
 }
 
-// Structure for a request to create a payment
+// CreateCheckoutRequest describes the cart payload accepted by the checkout API.
 type CreateCheckoutRequest struct {
-	UserID string         `json:"userId"` // Temporary field 
-	Items  []CheckoutItem `json:"items"`  // Contents of the cart
+	Items []CheckoutItem `json:"items"` // Cart contents to be converted into an order.
 }
 
-// Structure for the response when creating a payment
+// CreateCheckoutResponse describes the current checkout session summary.
+// For now the payment token is mocked, but the shape already matches the
+// future Xsolla flow: order -> token -> Pay Station URL.
 type CreateCheckoutResponse struct {
-	OrderID		string	`json:"orderId"`		// Order identifier
-	Status		string	`json:"status"`			// Payment status (e.g., "pending", "completed")
-	ItemsCount	int		`json:"itemsCount"`		// Number of items in the cart
-	TotalAmount	float64	`json:"totalAmount"`	// Total amount to be paid
-	Currency	string	`json:"currency"`		// Currency of the payment
-	CheckoutURL	string	`json:"checkoutUrl"`	// Payment link
+	OrderID     string `json:"orderId"`     // Local order identifier.
+	Status      string `json:"status"`      // Order status. "new" is the closest Xsolla order state.
+	ItemsCount  int    `json:"itemsCount"`  // Number of cart lines in the checkout session.
+	CheckoutURL string `json:"checkoutUrl"` // Pay Station URL built from a payment token.
 }
