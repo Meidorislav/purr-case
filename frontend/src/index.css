@@ -20,7 +20,7 @@
 }
 
 body {
-  background: url('/assets/bg.svg') no-repeat center top / cover;
+  background: url('/assets/bg.svg') no-repeat center top / cover fixed;
   font-family: 'Nunito', sans-serif;
   min-height: 100vh;
 }

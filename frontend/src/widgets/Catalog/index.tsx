@@ -57,12 +57,15 @@ export default function Catalog() {
       .finally(() => setLoading(false))
   }, [])
 
-  const filtered = activeFilter === 'All'
+  const isEvent = (item: Item) => item.groups.some(g => g.name === 'Event')
+
+  const filtered = (activeFilter === 'All'
     ? items
     : items.filter(item => {
         const groupNames = FILTER_GROUPS[activeFilter] ?? [activeFilter]
         return item.groups.some(g => groupNames.includes(g.name))
       })
+  ).sort((a, b) => Number(isEvent(b)) - Number(isEvent(a)))
   return (
     <section className={styles.catalog}>
       <div className={styles.header}>

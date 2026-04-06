@@ -24,11 +24,12 @@
 .primary:hover {
   background: #f07674;
   box-shadow: 0 4px 12px rgba(255, 141, 139, 0.5);
-  transform: translateY(-1px);
+  /* transform: translateY(-1px); */
 }
 
 .secondary:hover {
   border-color: #96504E;
   color: #96504E;
-  transform: translateY(-1px);
+  background-color: #00000010;
+  /* transform: translateY(-1px); */
 }
