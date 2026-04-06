@@ -43,3 +43,15 @@ func (s *Service) GetUserInventory(ctx context.Context, userID string) ([]dto.In
 
 	return items, nil
 }
+
+func (s *Service) UpdateUserInventoryItem(ctx context.Context, userID string, sku string, quantity int) (bool, error) {
+	result, err := s.Database.Pool.Exec(ctx,
+		`UPDATE inventory SET quantity = $1 WHERE user_id = $2 AND sku = $3`,
+		quantity, userID, sku,
+	)
+	if err != nil {
+		return false, fmt.Errorf("update inventory item: %w", err)
+	}
+
+	return result.RowsAffected() > 0, nil
+}
