@@ -30,10 +30,7 @@ func main() {
 	xsollaProjectID, _ := strconv.Atoi(os.Getenv("XSOLLA_PROJECT_ID"))
 	xsollaAPIKey := os.Getenv("XSOLLA_API_KEY")
 	xsollaReturnURL := os.Getenv("XSOLLA_RETURN_URL")
-	xsollaSandbox := strings.EqualFold(os.Getenv("XSOLLA_SANDBOX"), "true")
-	xsollaProjectID, _ := strconv.Atoi(os.Getenv("XSOLLA_PROJECT_ID"))
-	xsollaAPIKey := os.Getenv("XSOLLA_API_KEY")
-	xsollaReturnURL := os.Getenv("XSOLLA_RETURN_URL")
+	
 
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
