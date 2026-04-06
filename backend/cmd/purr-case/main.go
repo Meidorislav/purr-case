@@ -9,9 +9,11 @@ import (
 	"purr-case/internal/db"
 	"purr-case/internal/httpapi"
 	"purr-case/internal/httpapi/global"
+	"purr-case/internal/httpapi/inventory"
 	"purr-case/internal/httpapi/items"
 	"purr-case/internal/httpapi/payments"
 	"purr-case/internal/httpapi/users"
+	inventory_service "purr-case/internal/service/inventory"
 	"syscall"
 	"time"
 )
@@ -39,11 +41,14 @@ func main() {
 	}
 	log.Println("migrations connected")
 
+	is := inventory_service.InitService(database)
+
 	gh := global.InitHandler()
 	uh := users.InitHandler()
 	ih := items.InitHandler(merchant_id)
+	invh := inventory.InitHandler(is)
 	ph := payments.InitHandler()
-	router := httpapi.NewRouter(gh, uh, ih, ph)
+	router := httpapi.NewRouter(gh, uh, ih, ph, invh)
 
 	srv := &http.Server{
 		Addr:    ":" + port,
