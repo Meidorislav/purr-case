@@ -13,13 +13,31 @@ interface Group {
   name: string
 }
 
+interface VirtualPrice {
+  name: string
+  amount: number
+  image_url: string | null
+}
+
+interface ContentItem {
+  item_id: number
+  name: string
+  image_url: string | null
+  quantity: number
+}
+
 interface Item {
   item_id: number
+  type: string
   name: string
   description: string
   image_url: string | null
   price: { amount: string; currency: string } | null
+  virtual_prices: VirtualPrice[]
   groups: Group[]
+  can_be_bought: boolean
+  is_free: boolean
+  content?: ContentItem[]
 }
 
 export default function Catalog() {
@@ -45,7 +63,8 @@ export default function Catalog() {
         const groupNames = FILTER_GROUPS[activeFilter] ?? [activeFilter]
         return item.groups.some(g => groupNames.includes(g.name))
       })
-
+    
+  console.log(filtered)
   return (
     <section className={styles.catalog}>
       <div className={styles.header}>
@@ -72,8 +91,13 @@ export default function Catalog() {
             name={item.name}
             description={item.description}
             price={item.price ? parseFloat(item.price.amount) : 0}
+            rawPrice={item.price}
+            virtualPrices={item.virtual_prices ?? []}
+            groups={item.groups ?? []}
+            canBeBought={item.can_be_bought}
+            isFree={item.is_free}
+            content={item.content}
             addToCartClick={() => {}}
-            viewItemsClick={() => {}}
           />
         ))}
       </div>
