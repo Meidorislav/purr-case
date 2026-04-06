@@ -29,8 +29,8 @@ func main() {
 	xsollaSandbox := strings.EqualFold(os.Getenv("XSOLLA_SANDBOX"), "true")
 	xsollaProjectID, _ := strconv.Atoi(os.Getenv("XSOLLA_PROJECT_ID"))
 	xsollaAPIKey := os.Getenv("XSOLLA_API_KEY")
+	xsollaWebhookSecretKey := os.Getenv("XSOLLA_WEBHOOK_SECRET_KEY")
 	xsollaReturnURL := os.Getenv("XSOLLA_RETURN_URL")
-	
 
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
@@ -55,11 +55,12 @@ func main() {
 	ih := items.InitHandler(merchant_id)
 	invh := inventory.InitHandler(is)
 	ph := payments.InitHandler(payments.Config{
-		MerchantID: merchant_id,
-		ProjectID:  xsollaProjectID,
-		APIKey:     xsollaAPIKey,
-		ReturnURL:  xsollaReturnURL,
-		Sandbox:    xsollaSandbox,
+		MerchantID:       merchant_id,
+		ProjectID:        xsollaProjectID,
+		APIKey:           xsollaAPIKey,
+		WebhookSecretKey: xsollaWebhookSecretKey,
+		ReturnURL:        xsollaReturnURL,
+		Sandbox:          xsollaSandbox,
 	})
 	router := httpapi.NewRouter(gh, uh, ih, ph, invh)
 
