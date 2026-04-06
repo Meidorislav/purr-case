@@ -5,22 +5,20 @@
 }
 
 :root {
-  --bg: #0f0f13;
-  --surface: #1a1a24;
-  --surface2: #22222f;
-  --accent: #a855f7;
-  --accent-hover: #9333ea;
-  --text: #f0f0f8;
-  --text-muted: #8888aa;
-  --border: #2a2a3a;
-  --success: #22c55e;
-  --error: #ef4444;
+  --text: #6C6C6C;
+  --card-bg: #FFFFFF;
+  --title: #6B5F4F;
+  --card-title: #96504E;
+  --price: #3C3C3C;
+  --button-bg: #FF8D8B;
+  --filter-text: #4B4B4B;
+  --filter-bg: #F9F4EB;
+  --bg: #F8F2E6;
 }
 
 body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: url('/assets/bg.svg') no-repeat center top / cover;
+  font-family: 'Nunito', sans-serif;
   min-height: 100vh;
 }
 
