@@ -14,6 +14,8 @@ import (
 	"purr-case/internal/httpapi/payments"
 	"purr-case/internal/httpapi/users"
 	inventory_service "purr-case/internal/service/inventory"
+	"strconv"
+	"strings"
 	"syscall"
 	"time"
 )
@@ -24,6 +26,11 @@ func main() {
 		port = "8080"
 	}
 	merchant_id := os.Getenv("merchant_id")
+	xsollaSandbox := strings.EqualFold(os.Getenv("XSOLLA_SANDBOX"), "true")
+	xsollaProjectID, _ := strconv.Atoi(os.Getenv("XSOLLA_PROJECT_ID"))
+	xsollaAPIKey := os.Getenv("XSOLLA_API_KEY")
+	xsollaReturnURL := os.Getenv("XSOLLA_RETURN_URL")
+	
 
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
@@ -47,7 +54,13 @@ func main() {
 	uh := users.InitHandler()
 	ih := items.InitHandler(merchant_id)
 	invh := inventory.InitHandler(is)
-	ph := payments.InitHandler()
+	ph := payments.InitHandler(payments.Config{
+		MerchantID: merchant_id,
+		ProjectID:  xsollaProjectID,
+		APIKey:     xsollaAPIKey,
+		ReturnURL:  xsollaReturnURL,
+		Sandbox:    xsollaSandbox,
+	})
 	router := httpapi.NewRouter(gh, uh, ih, ph, invh)
 
 	srv := &http.Server{

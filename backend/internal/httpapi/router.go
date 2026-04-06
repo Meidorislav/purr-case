@@ -51,7 +51,7 @@ func NewRouter(gh *global.Handler, uh *users.Handler, ih *items.Handler, ph *pay
 	// Payments
 	// ---------------------------------------------------------------------------
 	r.Route("/payments", func(r chi.Router) { // group endpoints related to payments
-		r.Post("/checkout", ph.CreateCheckout) // POST /payments/checkout - create a payment and get the payment link
+		r.With(Auth).Post("/checkout", ph.CreateCheckout) // POST /payments/checkout - create a payment and get the payment link
 		r.Post("/webhook", ph.HandleWebhook)   // POST /payments/webhook - handle webhook from the payment provider
 	})
 
