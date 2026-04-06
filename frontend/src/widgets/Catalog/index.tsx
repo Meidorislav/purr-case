@@ -63,8 +63,6 @@ export default function Catalog() {
         const groupNames = FILTER_GROUPS[activeFilter] ?? [activeFilter]
         return item.groups.some(g => groupNames.includes(g.name))
       })
-    
-  console.log(filtered)
   return (
     <section className={styles.catalog}>
       <div className={styles.header}>
@@ -81,7 +79,7 @@ export default function Catalog() {
           ))}
         </div>
       </div>
-      {loading && <p>Loading...</p>}
+      {loading && <p className={styles.loading}>Loading...</p>}
       {error && <p>{error}</p>}
       <div className={styles.list}>
         {filtered.map(item => (

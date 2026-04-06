@@ -73,3 +73,11 @@
   grid-template-columns: repeat(auto-fill, 220px);
   gap: 16px;
 }
+
+.loading {
+  display: flex;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--title);
+}
