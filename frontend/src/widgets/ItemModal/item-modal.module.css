@@ -91,7 +91,7 @@
 .tag {
   padding: 2px 10px;
   border-radius: 20px;
-  background: #b9eeae;
+  background: #fadbd3;
   font-size: 16px;
   font-weight: 600;
   color: #1a1a1a;
@@ -174,17 +174,18 @@
 }
 
 .contentName {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--title);
   text-align: center;
 }
 
 .contentQty {
-  font-size: 10px;
+  font-size: 16px;
   color: var(--text);
 }
 
 .addBtn {
   width: 200px;
 }
+
