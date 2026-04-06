@@ -8,7 +8,17 @@ services:
       - "8080:8080"
     environment:
       - PORT=8080
-      - merchant_id=${merchant_id}
+      - merchant_id=${merchant_id:-304209}
+      - DB_HOST=${DB_HOST:-postgres}
+      - DB_PORT=${DB_PORT:-5432}
+      - DB_USER=${DB_USER:-catAdmin}
+      - DB_PASSWORD=${DB_PASSWORD:-password}
+      - DB_NAME=${DB_NAME:-purrCaseInventory}
+      - DATABASE_URL=postgres://${DB_USER:-catAdmin}:${DB_PASSWORD:-password}@${DB_HOST:-postgres}:${DB_PORT:-5432}/${DB_NAME:-purrCaseInventory}?sslmode=disable
+    depends_on:
+      postgres:
+        condition: service_healthy
+
 
   frontend:
     build:
@@ -22,3 +32,19 @@ services:
       - /app/node_modules
     depends_on:
       - backend
+
+
+  postgres:
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${DB_USER:-catAdmin}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
+      POSTGRES_DB: ${DB_NAME:-purrCaseInventory}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U catAdmin -d purrCaseInventory"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s

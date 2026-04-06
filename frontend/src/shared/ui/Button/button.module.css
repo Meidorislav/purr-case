@@ -1,0 +1,34 @@
+.primary,
+.secondary {
+  height: 36px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  border-radius: 30px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primary {
+  background: #FF8D8B;
+  border: none;
+  color: #FFFFFF;
+}
+
+.secondary {
+  background: transparent;
+  border: 1px solid #6C6C6C;
+  color: #6C6C6C;
+}
+
+.primary:hover {
+  background: #f07674;
+  box-shadow: 0 4px 12px rgba(255, 141, 139, 0.5);
+  transform: translateY(-1px);
+}
+
+.secondary:hover {
+  border-color: #96504E;
+  color: #96504E;
+  transform: translateY(-1px);
+}

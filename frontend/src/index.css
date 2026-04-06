@@ -1,0 +1,32 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --text: #6C6C6C;
+  --card-bg: #FFFFFF;
+  --title: #6B5F4F;
+  --card-title: #96504E;
+  --price: #3C3C3C;
+  --button-bg: #FF8D8B;
+  --filter-text: #4B4B4B;
+  --filter-bg: #F9F4EB;
+  --bg: #F8F2E6;
+  --description: #6C6C6C;
+  --brown: #6B5F4F;
+  --beige: #EEDECF;
+}
+
+body {
+  background: url('/assets/bg.svg') no-repeat center top / cover;
+  font-family: 'Nunito', sans-serif;
+  min-height: 100vh;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
