@@ -52,7 +52,7 @@ func main() {
 
 	gh := global.InitHandler()
 	uh := users.InitHandler()
-	ih := items.InitHandler(merchant_id)
+	ih := items.InitHandler(strconv.Itoa(xsollaProjectID))
 	invh := inventory.InitHandler(is)
 	ph := payments.InitHandler(payments.Config{
 		MerchantID:       merchant_id,
