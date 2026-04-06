@@ -14,8 +14,8 @@ type CreateCheckoutRequest struct {
 }
 
 // CreateCheckoutResponse describes the current checkout session summary.
-// For now the payment token is mocked, but the shape already matches the
-// future Xsolla flow: order -> token -> Pay Station URL.
+// The backend creates an Xsolla order/payment token server-side and returns
+// a Pay Station URL built from the received token.
 type CreateCheckoutResponse struct {
 	OrderID     string `json:"orderId"`     // Local order identifier.
 	Status      string `json:"status"`      // Order status. "new" is the closest Xsolla order state.
