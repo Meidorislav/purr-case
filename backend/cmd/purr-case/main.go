@@ -1,14 +1,19 @@
 package main
 
 import (
+	"context"
 	"log"
 	"net/http"
 	"os"
+	"os/signal"
+	"purr-case/internal/db"
 	"purr-case/internal/httpapi"
 	"purr-case/internal/httpapi/global"
 	"purr-case/internal/httpapi/items"
 	"purr-case/internal/httpapi/payments"
 	"purr-case/internal/httpapi/users"
+	"syscall"
+	"time"
 )
 
 func main() {
@@ -17,6 +22,22 @@ func main() {
 		port = "8080"
 	}
 	merchant_id := os.Getenv("merchant_id")
+
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+	defer stop()
+
+	database, err := db.InitDatabase(ctx)
+	if err != nil {
+		log.Fatalf("Failed to connect to DB: %v", err)
+	}
+	defer database.Pool.Close()
+
+	log.Println("Successfully connected to database!")
+
+	if err := db.RunMigrations(); err != nil {
+		log.Fatalf("Migration failed: %v", err)
+	}
+	log.Println("migrations connected")
 
 	gh := global.InitHandler()
 	uh := users.InitHandler()
@@ -28,6 +49,18 @@ func main() {
 		Addr:    ":" + port,
 		Handler: router,
 	}
+
+	go func() {
+		<-ctx.Done()
+		log.Println("Shutting down server...")
+
+		shutdownCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancel()
+
+		if err := srv.Shutdown(shutdownCtx); err != nil {
+			log.Printf("Shutdown error: %v", err)
+		}
+	}()
 
 	log.Printf("Starting server on port %s", port)
 	if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
