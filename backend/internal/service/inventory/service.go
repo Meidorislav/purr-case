@@ -6,10 +6,17 @@ import (
 
 	"purr-case/internal/db"
 	dto "purr-case/internal/dto/inventory"
+
+	"github.com/jackc/pgx/v5"
 )
 
 type Service struct {
 	Database *db.Database
+}
+
+type GrantItem struct {
+	SKU      string
+	Quantity int
 }
 
 func InitService(db *db.Database) *Service {
@@ -54,4 +61,45 @@ func (s *Service) UpdateUserInventoryItem(ctx context.Context, userID string, sk
 	}
 
 	return result.RowsAffected() > 0, nil
+}
+
+func (s *Service) GrantItems(ctx context.Context, userID string, items []GrantItem) error {
+	tx, err := s.Database.Pool.Begin(ctx)
+	if err != nil {
+		return fmt.Errorf("begin grant items transaction: %w", err)
+	}
+	defer tx.Rollback(ctx)
+
+	if err := s.GrantItemsInTx(ctx, tx, userID, items); err != nil {
+		return err
+	}
+
+	if err := tx.Commit(ctx); err != nil {
+		return fmt.Errorf("commit grant items transaction: %w", err)
+	}
+
+	return nil
+}
+
+func (s *Service) GrantItemsInTx(ctx context.Context, tx pgx.Tx, userID string, items []GrantItem) error {
+	for _, item := range items {
+		if item.SKU == "" || item.Quantity <= 0 {
+			return fmt.Errorf("invalid grant item")
+		}
+
+		_, err := tx.Exec(ctx,
+			`INSERT INTO inventory (user_id, sku, quantity)
+			 VALUES ($1, $2, $3)
+			 ON CONFLICT (user_id, sku)
+			 DO UPDATE SET quantity = inventory.quantity + EXCLUDED.quantity`,
+			userID,
+			item.SKU,
+			item.Quantity,
+		)
+		if err != nil {
+			return fmt.Errorf("grant inventory item: %w", err)
+		}
+	}
+
+	return nil
 }

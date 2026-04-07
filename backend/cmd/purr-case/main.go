@@ -61,7 +61,7 @@ func main() {
 		WebhookSecretKey: xsollaWebhookSecretKey,
 		ReturnURL:        xsollaReturnURL,
 		Sandbox:          xsollaSandbox,
-	})
+	}, is)
 	router := httpapi.NewRouter(gh, uh, ih, ph, invh)
 
 	srv := &http.Server{
