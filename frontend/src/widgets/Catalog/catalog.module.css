@@ -17,7 +17,7 @@
 .heroText {
   font-size: 18px;
   font-weight: 600;
-  color: var(--title);
+  color: var(--color-title);
   text-align: center;
 }
 
@@ -31,17 +31,16 @@
 .title {
   font-size: 32px;
   font-weight: 800;
-  color: var(--title);
+  color: var(--color-title);
   white-space: nowrap;
 }
 
 .filters {
   display: flex;
   gap: 4px;
-  background-color: var(--filter-bg);
+  background-color: var(--color-filter-bg);
   border-radius: 30px;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.10);
-;
+  box-shadow: 0px 0px 4px var(--color-shadow-light);
 }
 
 .filter {
@@ -52,24 +51,33 @@
   font-family: 'Nunito', sans-serif;
   font-size: 20px;
   font-weight: 600;
-  color: var(--brown);
+  color: var(--color-title);
   cursor: pointer;
   transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .filter:hover {
-  background: #FF8D8B22;
-  color: #96504E;
+  background: var(--color-primary-hover-bg);
+  color: var(--color-card-title);
 }
 
 .filterActive {
-  background: #FF8D8B33;
-  border-color: #FF8D8B;
-  color: #96504E;
+  background: var(--color-primary-active-bg);
+  border-color: var(--color-primary);
+  color: var(--color-card-title);
 }
 
 .list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 220px);
-  gap: 16px;
+  grid-template-columns: repeat(auto-fill, 230px);
+  column-gap: 16px;
+  row-gap: 40px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--color-title);
 }

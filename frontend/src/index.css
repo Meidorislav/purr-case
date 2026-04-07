@@ -5,22 +5,41 @@
 }
 
 :root {
-  --text: #6C6C6C;
-  --card-bg: #FFFFFF;
-  --title: #6B5F4F;
-  --card-title: #96504E;
-  --price: #3C3C3C;
-  --button-bg: #FF8D8B;
-  --filter-text: #4B4B4B;
-  --filter-bg: #F9F4EB;
-  --bg: #F8F2E6;
-  --description: #6C6C6C;
-  --brown: #6B5F4F;
-  --beige: #EEDECF;
+  /* Backgrounds */
+  --color-bg: #F8F2E6;
+  --color-card-bg: #fffcfa;
+  --color-filter-bg: #F9F4EB;
+  --color-tag-bg: #fadbd3;
+  --color-beige: #EEDECF;
+
+  /* Text */
+  --color-title: #6B5F4F;
+  --color-card-title: #96504E;
+  --color-text: #6C6C6C;
+  --color-price: #3C3C3C;
+  --color-filter-text: #4B4B4B;
+  --color-text-dark: #1a1a1a;
+
+  /* Primary / brand */
+  --color-primary: #FF8D8B;
+  --color-primary-hover: #f07674;
+  --color-primary-hover-bg: #FF8D8B22;
+  --color-primary-active-bg: #FF8D8B33;
+  --color-primary-shadow: rgba(255, 141, 139, 0.5);
+
+  /* Semantic */
+  --color-free: #22c55e;
+  --color-event-glow: rgb(255, 2, 2);
+
+  /* Overlays / shadows */
+  --color-overlay: rgba(0, 0, 0, 0.3);
+  --color-shadow: rgba(0, 0, 0, 0.25);
+  --color-shadow-light: rgba(0, 0, 0, 0.10);
+  --color-secondary-hover-bg: #00000010;
 }
 
 body {
-  background: url('/assets/bg.svg') no-repeat center top / cover;
+  background: url('/assets/bg.svg') no-repeat center top / cover fixed;
   font-family: 'Nunito', sans-serif;
   min-height: 100vh;
 }

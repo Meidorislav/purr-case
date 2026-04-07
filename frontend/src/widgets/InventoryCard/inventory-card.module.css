@@ -49,27 +49,7 @@
   overflow: hidden;
 }
 
-.price {
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 27px;
-  color: var(--color-price);
-}
-
 .btn {
   width: 180px;
-  margin: 0 auto;
-  /* border-color: transparent; */
-}
-
-.cardEvent {
-  /* border: 2px solid #f5c842; */
-  filter: drop-shadow(0px 1px 8px var(--color-event-glow));
-}
-
-.event {
-  position: absolute;
-  top: -6px;
-  left: 170px;
-  z-index: 1;
+  margin: 8px auto 0;
 }

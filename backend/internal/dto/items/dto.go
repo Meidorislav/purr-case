@@ -54,7 +54,8 @@ type ContentItem struct {
 	ImageURL         *string           `json:"image_url"`
 	Price            *Price            `json:"price"`
 	VirtualPrices    []VirtualPrice    `json:"virtual_prices,omitempty"`
-	Attributes       []interface{}     `json:"attributes,omitempty"`
+	Attributes       []interface{}     `json:"attributes"`
+	CustomAttributes json.RawMessage   `json:"custom_attributes,omitempty"`
 	IsFree           bool              `json:"is_free"`
 	Groups           []Group           `json:"groups,omitempty"`
 	VirtualItemType  string            `json:"virtual_item_type,omitempty"`
@@ -74,14 +75,15 @@ type Item struct {
 	Price             *Price            `json:"price"`
 	VirtualPrices     []VirtualPrice    `json:"virtual_prices"`
 	CanBeBought       bool              `json:"can_be_bought"`
-	Promotions        []interface{}     `json:"promotions,omitempty"`
+	Promotions        []interface{}     `json:"promotions"`
 	Limits            json.RawMessage   `json:"limits,omitempty"`
 	Periods           []Period          `json:"periods"`
-	Attributes        []interface{}     `json:"attributes,omitempty"`
+	Attributes        []interface{}     `json:"attributes"`
+	CustomAttributes  json.RawMessage   `json:"custom_attributes,omitempty"`
 	IsFree            bool              `json:"is_free"`
 	Groups            []Group           `json:"groups"`
 	VirtualItemType   string            `json:"virtual_item_type,omitempty"`
-	VPRewards         []interface{}     `json:"vp_rewards,omitempty"`
+	VPRewards         []interface{}     `json:"vp_rewards"`
 	InventoryOptions  *InventoryOptions `json:"inventory_options,omitempty"`
 	TotalContentPrice json.RawMessage   `json:"total_content_price,omitempty"`
 	Content           []ContentItem     `json:"content,omitempty"`
