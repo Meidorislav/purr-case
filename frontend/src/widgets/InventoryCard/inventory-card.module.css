@@ -13,7 +13,7 @@
   width: 180px;
   height: 180px;
   overflow: hidden;
-  background: var(--color-filter-bg);
+  background: var(--color-card-bg);
 }
 
 .image {
