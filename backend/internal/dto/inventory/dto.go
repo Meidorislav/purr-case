@@ -6,3 +6,8 @@ type InventoryItem struct {
 	SKU      string `json:"sku"`
 	Quantity int    `json:"quantity"`
 }
+
+type ConsumeItemRequest struct {
+	SKU      string `json:"sku"`
+	Quantity int    `json:"quantity"`
+}
