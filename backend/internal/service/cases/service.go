@@ -31,7 +31,12 @@ func InitService(database *db.Database, invSvc *inventory_service.Service, proje
 	}
 }
 
-func (s *Service) fetchDropTable(ctx context.Context, caseSKU, token string) ([]dto.DropEntry, error) {
+type caseData struct {
+	dropTable []dto.DropEntry
+	content   map[string]dto.XsollaItem
+}
+
+func (s *Service) fetchCaseData(ctx context.Context, caseSKU, token string) (*caseData, error) {
 	url := fmt.Sprintf("%s/items/bundle/sku/%s?additional_fields[]=custom_attributes", s.xsollaBaseURL, caseSKU)
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
@@ -57,7 +62,8 @@ func (s *Service) fetchDropTable(ctx context.Context, caseSKU, token string) ([]
 	}
 
 	var bundle struct {
-		CustomAttributes json.RawMessage `json:"custom_attributes"`
+		CustomAttributes json.RawMessage  `json:"custom_attributes"`
+		Content          []dto.XsollaItem `json:"content"`
 	}
 	if err := json.NewDecoder(resp.Body).Decode(&bundle); err != nil {
 		return nil, fmt.Errorf("decode bundle response: %w", err)
@@ -72,7 +78,15 @@ func (s *Service) fetchDropTable(ctx context.Context, caseSKU, token string) ([]
 		return nil, ErrInvalidDropTable
 	}
 
-	return attrs.DropTable, nil
+	contentBySKU := make(map[string]dto.XsollaItem, len(bundle.Content))
+	for _, item := range bundle.Content {
+		contentBySKU[item.SKU] = item
+	}
+
+	return &caseData{
+		dropTable: attrs.DropTable,
+		content:   contentBySKU,
+	}, nil
 }
 
 func rollItem(table []dto.DropEntry) string {
@@ -90,17 +104,17 @@ func rollItem(table []dto.DropEntry) string {
 	return table[len(table)-1].SKU
 }
 
-func (s *Service) OpenCase(ctx context.Context, userID, caseSKU, token string) (string, error) {
-	dropTable, err := s.fetchDropTable(ctx, caseSKU, token)
+func (s *Service) OpenCase(ctx context.Context, userID, caseSKU, token string) (dto.XsollaItem, error) {
+	data, err := s.fetchCaseData(ctx, caseSKU, token)
 	if err != nil {
-		return "", err
+		return dto.XsollaItem{}, err
 	}
 
-	wonSKU := rollItem(dropTable)
+	wonSKU := rollItem(data.dropTable)
 
 	tx, err := s.db.Pool.Begin(ctx)
 	if err != nil {
-		return "", fmt.Errorf("begin transaction: %w", err)
+		return dto.XsollaItem{}, fmt.Errorf("begin transaction: %w", err)
 	}
 	defer tx.Rollback(ctx)
 
@@ -109,10 +123,10 @@ func (s *Service) OpenCase(ctx context.Context, userID, caseSKU, token string) (
 		userID, caseSKU,
 	)
 	if err != nil {
-		return "", fmt.Errorf("decrement case: %w", err)
+		return dto.XsollaItem{}, fmt.Errorf("decrement case: %w", err)
 	}
 	if result.RowsAffected() == 0 {
-		return "", ErrNotInInventory
+		return dto.XsollaItem{}, ErrNotInInventory
 	}
 
 	_, err = tx.Exec(ctx,
@@ -120,16 +134,19 @@ func (s *Service) OpenCase(ctx context.Context, userID, caseSKU, token string) (
 		userID, caseSKU,
 	)
 	if err != nil {
-		return "", fmt.Errorf("cleanup zero quantity: %w", err)
+		return dto.XsollaItem{}, fmt.Errorf("cleanup zero quantity: %w", err)
 	}
 
 	if err := s.invSvc.GrantItemsInTx(ctx, tx, userID, []inventory_service.GrantItem{{SKU: wonSKU, Quantity: 1}}); err != nil {
-		return "", fmt.Errorf("grant won item: %w", err)
+		return dto.XsollaItem{}, fmt.Errorf("grant won item: %w", err)
 	}
 
 	if err := tx.Commit(ctx); err != nil {
-		return "", fmt.Errorf("commit transaction: %w", err)
+		return dto.XsollaItem{}, fmt.Errorf("commit transaction: %w", err)
 	}
 
-	return wonSKU, nil
+	wonItem := data.content[wonSKU]
+	wonItem.SKU = wonSKU
+
+	return wonItem, nil
 }
