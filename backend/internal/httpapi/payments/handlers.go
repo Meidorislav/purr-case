@@ -2,18 +2,23 @@ package payments
 
 import (
 	"bytes"
+	"context"
 	"crypto/sha1"
 	"crypto/subtle"
 	"encoding/base64"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
 	dto "purr-case/internal/dto/payments"
 	"purr-case/internal/httpapi/respond"
+	inventory_service "purr-case/internal/service/inventory"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/jackc/pgx/v5"
 )
 
 // Config holds Xsolla credentials and behavioural flags for the payments handler.
@@ -112,11 +117,12 @@ type xsollaWebhookPayload struct {
 }
 
 type Handler struct {
-	cfg Config
+	cfg       Config
+	inventory *inventory_service.Service
 }
 
-func InitHandler(cfg Config) *Handler {
-	return &Handler{cfg: cfg}
+func InitHandler(cfg Config, inventory *inventory_service.Service) *Handler {
+	return &Handler{cfg: cfg, inventory: inventory}
 }
 
 // CreateCheckout creates an Xsolla payment token for the given cart and returns
@@ -170,6 +176,11 @@ func (h *Handler) CreateCheckout(w http.ResponseWriter, r *http.Request) {
 	xsollaResp, err := h.createXsollaToken(xsollaReq)
 	if err != nil {
 		respond.WriteError(w, http.StatusBadGateway, err.Error())
+		return
+	}
+
+	if err := h.storeCheckoutOrder(r.Context(), userID, orderID, req.Items); err != nil {
+		respond.WriteError(w, http.StatusInternalServerError, "failed to store checkout order")
 		return
 	}
 
@@ -230,11 +241,27 @@ func (h *Handler) HandleWebhook(w http.ResponseWriter, r *http.Request) {
 	}
 
 	eventStatus := h.resolveWebhookStatus(payload)
-	orderID := firstNonEmpty(payload.Order.ExternalID, stringifyWebhookValue(payload.Order.ID))
-	transactionID := firstNonEmpty(payload.Transaction.ExternalID, stringifyWebhookValue(payload.Transaction.ID))
+	externalID := firstNonEmpty(payload.Order.ExternalID, payload.Transaction.ExternalID)
+	orderID := firstNonEmpty(externalID, stringifyWebhookValue(payload.Order.ID))
+	transactionID := firstNonEmpty(stringifyWebhookValue(payload.Transaction.ID), payload.Transaction.ExternalID)
+
+	fulfilled := false
+	if payload.NotificationType == "order_paid" {
+		if externalID == "" {
+			respond.WriteError(w, http.StatusBadRequest, "webhook external id is required")
+			return
+		}
+
+		fulfilled, err = h.fulfillPaidOrder(r.Context(), externalID, transactionID)
+		if err != nil {
+			respond.WriteError(w, http.StatusInternalServerError, "failed to fulfill paid order")
+			return
+		}
+	}
 
 	respond.WriteJSON(w, http.StatusOK, map[string]any{
 		"received":         true,
+		"fulfilled":        fulfilled,
 		"notificationType": payload.NotificationType,
 		"status":           eventStatus,
 		"userId":           userID,
@@ -350,6 +377,150 @@ func (h *Handler) createXsollaToken(payload xsollaTokenRequest) (xsollaTokenResp
 	}
 
 	return xsollaResp, nil
+}
+
+func (h *Handler) storeCheckoutOrder(ctx context.Context, userID string, orderID string, items []dto.CheckoutItem) error {
+	if h.inventory == nil || h.inventory.Database == nil {
+		return fmt.Errorf("inventory service is not configured")
+	}
+
+	// Store the checkout before the user pays, so the webhook can later map
+	// Xsolla's external_id back to the exact SKUs and quantities we sold.
+	tx, err := h.inventory.Database.Pool.Begin(ctx)
+	if err != nil {
+		return fmt.Errorf("begin store checkout transaction: %w", err)
+	}
+	defer tx.Rollback(ctx)
+
+	_, err = tx.Exec(ctx,
+		`INSERT INTO payment_orders (external_id, user_id, status)
+		 VALUES ($1, $2, 'new')
+		 ON CONFLICT (external_id) DO NOTHING`,
+		orderID,
+		userID,
+	)
+	if err != nil {
+		return fmt.Errorf("insert payment order: %w", err)
+	}
+
+	for _, item := range items {
+		_, err = tx.Exec(ctx,
+			`INSERT INTO payment_order_items (external_id, sku, quantity)
+			 VALUES ($1, $2, $3)
+			 ON CONFLICT (external_id, sku)
+			 DO UPDATE SET quantity = EXCLUDED.quantity`,
+			orderID,
+			item.SKU,
+			item.Quantity,
+		)
+		if err != nil {
+			return fmt.Errorf("insert payment order item: %w", err)
+		}
+	}
+
+	if err := tx.Commit(ctx); err != nil {
+		return fmt.Errorf("commit store checkout transaction: %w", err)
+	}
+
+	return nil
+}
+
+func (h *Handler) fulfillPaidOrder(ctx context.Context, externalID string, transactionID string) (bool, error) {
+	if h.inventory == nil || h.inventory.Database == nil {
+		return false, fmt.Errorf("inventory service is not configured")
+	}
+
+	// Prefer the Xsolla transaction ID for idempotency. Fall back to externalID
+	// for manual tests or webhook shapes that do not include transaction.id.
+	eventKey := firstNonEmpty(transactionID, externalID)
+
+	tx, err := h.inventory.Database.Pool.Begin(ctx)
+	if err != nil {
+		return false, fmt.Errorf("begin fulfill order transaction: %w", err)
+	}
+	defer tx.Rollback(ctx)
+
+	var userID string
+	if err := tx.QueryRow(ctx,
+		`SELECT user_id FROM payment_orders WHERE external_id = $1 FOR UPDATE`,
+		externalID,
+	).Scan(&userID); err != nil {
+		if errors.Is(err, pgx.ErrNoRows) {
+			return false, fmt.Errorf("payment order %s not found", externalID)
+		}
+		return false, fmt.Errorf("select payment order: %w", err)
+	}
+
+	// Xsolla can retry webhooks. This insert is the guard that prevents us
+	// from granting the same paid order twice.
+	result, err := tx.Exec(ctx,
+		`INSERT INTO processed_payment_events (event_key, external_id)
+		 VALUES ($1, $2)
+		 ON CONFLICT (event_key) DO NOTHING`,
+		eventKey,
+		externalID,
+	)
+	if err != nil {
+		return false, fmt.Errorf("insert processed payment event: %w", err)
+	}
+	if result.RowsAffected() == 0 {
+		if err := tx.Commit(ctx); err != nil {
+			return false, fmt.Errorf("commit duplicate payment event transaction: %w", err)
+		}
+		return false, nil
+	}
+
+	// The webhook only tells us which order was paid. The list of items comes
+	// from the checkout snapshot saved when we created the Xsolla token.
+	rows, err := tx.Query(ctx,
+		`SELECT sku, quantity FROM payment_order_items WHERE external_id = $1`,
+		externalID,
+	)
+	if err != nil {
+		return false, fmt.Errorf("query payment order items: %w", err)
+	}
+	defer rows.Close()
+
+	var items []inventory_service.GrantItem
+	for rows.Next() {
+		var item inventory_service.GrantItem
+		if err := rows.Scan(&item.SKU, &item.Quantity); err != nil {
+			return false, fmt.Errorf("scan payment order item: %w", err)
+		}
+		items = append(items, item)
+	}
+	if err := rows.Err(); err != nil {
+		return false, fmt.Errorf("payment order item rows error: %w", err)
+	}
+	if len(items) == 0 {
+		return false, fmt.Errorf("payment order %s has no items", externalID)
+	}
+
+	// Actual inventory mutation. It runs inside the same DB transaction as the
+	// idempotency insert, so a failure cannot leave the order half-processed.
+	if err := h.inventory.GrantItemsInTx(ctx, tx, userID, items); err != nil {
+		return false, fmt.Errorf("grant paid order items: %w", err)
+	}
+
+	// Mark the local order as fulfilled after the inventory upsert succeeds.
+	_, err = tx.Exec(ctx,
+		`UPDATE payment_orders
+		 SET status = 'paid',
+		     transaction_id = NULLIF($2, ''),
+		     processed_at = COALESCE(processed_at, now())
+		 WHERE external_id = $1`,
+		externalID,
+		transactionID,
+	)
+	if err != nil {
+		return false, fmt.Errorf("update payment order status: %w", err)
+	}
+
+	if err := tx.Commit(ctx); err != nil {
+		return false, fmt.Errorf("commit fulfill order transaction: %w", err)
+	}
+
+	return true, nil
 }
 
 // resolveWebhookStatus maps an Xsolla notification type to a human-readable status string.

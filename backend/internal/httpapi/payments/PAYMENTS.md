@@ -2,9 +2,8 @@
 
 ## Что уже есть
 
-- Есть `POST /payments/checkout`.
-- Он защищён JWT auth.
-- Фронт шлёт туда массив `items` в формате:
+- `POST /payments/checkout` защищён JWT auth.
+- Фронт шлёт туда массив `items`:
 
 ```json
 {
@@ -14,25 +13,12 @@
 }
 ```
 
-- Backend валидирует:
-  - `items` не пустой
-  - `sku` не пустой
-  - `quantity > 0`
-  - одинаковый `sku` два раза в одном запросе нельзя
+- Backend валидирует `items`, генерит `orderId`, создаёт Xsolla payment token server-side и возвращает `checkoutUrl`.
+- В Xsolla уходит `settings.external_id = orderId`.
+- Этот же `orderId` сохраняется в локальной таблице `payment_orders`.
+- Список купленных `sku + quantity` сохраняется в `payment_order_items`.
 
-- Дальше backend:
-  - берёт `userId` из JWT
-  - генерит локальный `orderId`
-  - создаёт Xsolla payment token server-side
-  - передаёт в Xsolla `purchase.items[]`
-  - передаёт `settings.external_id = orderId`
-  - возвращает клиенту `checkoutUrl`
-
-То есть checkout уже рабочий.
-
-## Что возвращает checkout
-
-Пример ответа:
+Пример ответа checkout:
 
 ```json
 {
@@ -45,60 +31,55 @@
 
 ## Что уже есть по webhook
 
-- Есть `POST /payments/webhook`
-- Xsolla webhook уже принимается
-- подпись уже валидируется
-- payload уже парсится
+- `POST /payments/webhook` принимает webhook от Xsolla.
+- Подпись Xsolla валидируется.
+- Payload парсится.
+- Поддерживаются события:
+  - `user_validation`
+  - `payment`
+  - `order_paid`
+  - `order_canceled`
+  - `refund`
 
-Сейчас из webhook уже можно достать:
-- `notificationType`
-- `status`
-- `userId`
-- `orderId`
-- `transactionId`
+## Что теперь происходит на `order_paid`
 
-Поддерживаются события:
-- `user_validation`
-- `payment`
-- `order_paid`
-- `order_canceled`
-- `refund`
+Когда приходит `notification_type = "order_paid"`:
 
-## Что важно для inventory
+- payments берёт `external_id` из webhook
+- находит локальный заказ в `payment_orders`
+- достаёт его items из `payment_order_items`
+- проверяет `processed_payment_events`, чтобы не обработать один webhook дважды
+- вызывает inventory service
+- inventory делает upsert в таблицу `inventory`
 
-На стороне payments уже можно понять, что платёж успешный.
+То есть предметы после оплаты теперь начисляются автоматически.
 
-То есть после `order_paid` у нас уже есть данные, чтобы передать их в inventory-логику:
-- кто купил (`userId`)
-- какой заказ (`orderId`)
-- какая транзакция (`transactionId`)
+## Как работает защита от повторной выдачи
 
-Но сама выдача предмета пользователю пока не сделана.
+Для этого есть таблица `processed_payment_events`.
 
-Inventory слой отвечает за:
-- фактическую выдачу предмета пользователю
-- защиту от повторной выдачи при повторном webhook
-- при необходимости обработку `refund` / `order_canceled`
+Если Xsolla повторно пришлёт тот же webhook:
 
-## Что нужно сделать дальше в inventory
+- событие уже будет в `processed_payment_events`
+- backend вернёт успешный ответ
+- но предметы второй раз не начислит
 
-Минимально:
-- добавить метод, который может начислить предмет пользователю по `userId + sku + quantity`
-- вызвать его после `order_paid`
+## Что делает inventory слой
 
-В идеале:
-- сделать идемпотентность
-- не выдавать предмет дважды при повторном webhook
-- хранить факт обработанной оплаты или транзакции
+В inventory service добавлен метод начисления предметов:
 
-## ОГРАНИЧЕНИЯ СЕЙЧАС
+- если `sku` у пользователя уже есть, увеличиваем `quantity`
+- если `sku` ещё нет, создаём новую запись
+
+Для этого в БД добавлен unique index на:
+
+```sql
+(user_id, sku)
+```
+
+## Что всё ещё не закрыто
 
 - страна пользователя пока захардкожена
 - отдельной серверной корзины нет
-- payment / order state пока не сохраняется в отдельную таблицу
-
-## По Inventory слою
-
-Самый удобный вариант:
-- inventory даёт метод сервиса вида “начислить предмет пользователю”
-- payments вызывает его из webhook handler на `order_paid`
+- `refund` / `order_canceled` пока не откатывают предметы
+- нет отдельного API для просмотра payment/order status
