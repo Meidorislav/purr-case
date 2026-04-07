@@ -8,12 +8,12 @@ services:
       - "8080:8080"
     environment:
       - PORT=8080
-      - merchant_id=${merchant_id:-304209}
+      - merchant_id=${merchant_id:-877835}
       - XSOLLA_PROJECT_ID=${XSOLLA_PROJECT_ID:-304209}
       - XSOLLA_API_KEY=${XSOLLA_API_KEY:-}
       - XSOLLA_WEBHOOK_SECRET_KEY=${XSOLLA_WEBHOOK_SECRET_KEY:-}
       - XSOLLA_SANDBOX=${XSOLLA_SANDBOX:-false}
-      - XSOLLA_RETURN_URL=${XSOLLA_RETURN_URL:-http://localhost:3000/payments/return}
+      - XSOLLA_RETURN_URL=${XSOLLA_RETURN_URL:-http://localhost:5173}
       - DB_HOST=${DB_HOST:-postgres}
       - DB_PORT=${DB_PORT:-5432}
       - DB_USER=${DB_USER:-catAdmin}
