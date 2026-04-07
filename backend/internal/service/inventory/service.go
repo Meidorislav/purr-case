@@ -107,6 +107,21 @@ func (s *Service) GrantItemsInTx(ctx context.Context, tx pgx.Tx, userID string, 
 	return nil
 }
 
+func (s *Service) GetItemQuantity(ctx context.Context, userID string, sku string) (int, error) {
+	var quantity int
+	err := s.Database.Pool.QueryRow(ctx,
+		`SELECT quantity FROM inventory WHERE user_id = $1 AND sku = $2`,
+		userID, sku,
+	).Scan(&quantity)
+	if err != nil {
+		if errors.Is(err, pgx.ErrNoRows) {
+			return 0, nil
+		}
+		return 0, fmt.Errorf("query item quantity: %w", err)
+	}
+	return quantity, nil
+}
+
 // ConsumeItem atomically subtracts quantity from a user's inventory item.
 // It only updates the row when the user has enough quantity, so inventory
 // cannot go below zero.
