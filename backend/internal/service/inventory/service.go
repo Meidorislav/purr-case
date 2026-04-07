@@ -2,6 +2,7 @@ package inventory_service
 
 import (
 	"context"
+	"errors"
 	"fmt"
 
 	"purr-case/internal/db"
@@ -13,6 +14,8 @@ import (
 type Service struct {
 	Database *db.Database
 }
+
+var ErrInsufficientInventory = errors.New("insufficient inventory")
 
 type GrantItem struct {
 	SKU      string
@@ -102,4 +105,32 @@ func (s *Service) GrantItemsInTx(ctx context.Context, tx pgx.Tx, userID string, 
 	}
 
 	return nil
+}
+
+// ConsumeItem atomically subtracts quantity from a user's inventory item.
+// It only updates the row when the user has enough quantity, so inventory
+ // cannot go below zero.
+func (s *Service) ConsumeItem(ctx context.Context, userID string, sku string, quantity int) (dto.InventoryItem, error) {
+	if sku == "" || quantity <= 0 {
+		return dto.InventoryItem{}, fmt.Errorf("invalid consume item request")
+	}
+
+	var item dto.InventoryItem
+	err := s.Database.Pool.QueryRow(ctx,
+		`UPDATE inventory
+		 SET quantity = quantity - $3
+		 WHERE user_id = $1 AND sku = $2 AND quantity >= $3
+		 RETURNING id, user_id, sku, quantity`,
+		userID,
+		sku,
+		quantity,
+	).Scan(&item.ID, &item.UserID, &item.SKU, &item.Quantity)
+	if err != nil {
+		if errors.Is(err, pgx.ErrNoRows) {
+			return dto.InventoryItem{}, ErrInsufficientInventory
+		}
+		return dto.InventoryItem{}, fmt.Errorf("consume inventory item: %w", err)
+	}
+
+	return item, nil
 }
