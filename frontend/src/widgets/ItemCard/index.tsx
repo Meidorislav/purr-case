@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import Button from '../../shared/ui/Button'
+import QuantityControl from '../../shared/ui/QuantityControl'
 import ItemModal from '../ItemModal'
 import styles from './item-card.module.css'
 import eventSvg from '../../../assets/event.svg'
+import { useCart } from '../../shared/hooks/useCart'
 
 interface VirtualPrice {
   name: string
@@ -23,6 +25,7 @@ interface ContentItem {
 }
 
 interface Props {
+  sku: string
   image: string
   name: string
   description: string
@@ -40,9 +43,11 @@ interface Props {
 export default function ItemCard({
   image, name, description, price,
   rawPrice, virtualPrices, groups, canBeBought, isFree,
-  content, addToCartClick, isEvent
+  content, addToCartClick, isEvent, sku
 }: Props) {
   const [modalOpen, setModalOpen] = useState(false)
+  const { items, updateQuantity } = useCart()
+  const inCart = items.some((i: { sku: string }) => i.sku === sku)
   isEvent = groups?.map(c => c.name).includes('Event')
   return (
     <>
@@ -57,13 +62,29 @@ export default function ItemCard({
           <div>
             <p className={styles.price}>${price}</p>
           </div>
-          <Button variant="primary" className={styles.btn} onClick={addToCartClick}>Add to cart</Button>
+          {inCart
+            ? <>   
+            <div className={styles.inCartBtnSection}>
+              <span className={styles.inCartBtn}>In cart</span>        
+              <QuantityControl
+                  quantity={items.find(i => i.sku === sku)!.quantity}
+                  onIncrease={addToCartClick}
+                  onDecrease={() => updateQuantity(sku, items.find(i => i.sku === sku)!.quantity - 1)}
+                />
+            </div> 
+
+            </>
+
+            : <Button variant="primary" className={styles.btn} onClick={addToCartClick}>Add to cart</Button>
+          }
+
           <Button variant="secondary" className={styles.btn} onClick={() => setModalOpen(true)}>View items</Button>
         </div>
       </div>
 
       {modalOpen && (
         <ItemModal
+          sku={sku}
           name={name}
           description={description}
           image_url={image || null}

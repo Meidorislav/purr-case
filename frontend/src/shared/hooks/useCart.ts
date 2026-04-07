@@ -1,62 +1,26 @@
-import { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import type { RootState, AppDispatch } from '../../app/store'
+import { addItem, removeItem, updateQuantity, clear } from '../store/cartSlice'
+import type { CartItem } from '../store/cartSlice'
 
-export interface CartItem {
-  sku: string
-  name: string
-  image: string
-  price: number
-  quantity: number
-
-}
-
-const STORAGE_KEY = 'purr-cart'
-
-function load(): CartItem[] {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY)
-    return raw ? JSON.parse(raw) : []
-  } catch {
-    return []
-  }
-}
-
-function save(items: CartItem[]) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(items))
-}
+export type { CartItem }
 
 export function useCart() {
-  const [items, setItems] = useState<CartItem[]>(load)
+  const dispatch = useDispatch<AppDispatch>()
+  const items = useSelector((state: RootState) => state.cart.items)
 
-  useEffect(() => {
-    save(items)
-  }, [items])
+  const totalCount = items.reduce((sum: number, i: CartItem) => sum + i.quantity, 0)
+  const totalPrice = items.reduce((sum: number, i: CartItem) => sum + i.price * i.quantity, 0)
 
-  const addItem = (item: Omit<CartItem, 'quantity'>) => {
-    setItems(prev => {
-      const existing = prev.find(i => i.sku === item.sku)
-      if (existing) {
-        return prev.map(i => i.sku === item.sku ? { ...i, quantity: i.quantity + 1 } : i)
-      }
-      return [...prev, { ...item, quantity: 1 }]
-    })
+  return {
+    items,
+    addItem: (item: Parameters<typeof addItem>[0]) => dispatch(addItem(item)),
+    removeItem: (sku: string) => dispatch(removeItem(sku)),
+    updateQuantity: (sku: string, quantity: number) => dispatch(updateQuantity({ sku, quantity })),
+    clear: () => dispatch(clear()),
+    totalCount,
+    totalPrice,
   }
-
-  const removeItem = (sku: string) => {
-    setItems(prev => prev.filter(i => i.sku !== sku))
-  }
-
-  const updateQuantity = (sku: string, quantity: number) => {
-    if (quantity <= 0) {
-      removeItem(sku)
-      return
-    }
-    setItems(prev => prev.map(i => i.sku === sku ? { ...i, quantity } : i))
-  }
-
-  const clear = () => setItems([])
-
-  const totalCount = items.reduce((sum, i) => sum + i.quantity, 0)
-  const totalPrice = items.reduce((sum, i) => sum + i.price * i.quantity, 0)
-
-  return { items, addItem, removeItem, updateQuantity, clear, totalCount, totalPrice }
 }
+
+export default useCart

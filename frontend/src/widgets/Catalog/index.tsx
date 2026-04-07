@@ -90,6 +90,7 @@ export default function Catalog() {
       <div className={styles.list}>
         {filtered.map(item => (
           <ItemCard
+            sku={item.sku}
             key={item.item_id}
             image={item.image_url ?? ''}
             name={item.name}
