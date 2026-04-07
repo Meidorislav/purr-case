@@ -1,11 +1,10 @@
 package items
 
 import (
-	"encoding/json"
-	"fmt"
 	"net/http"
-	dto "purr-case/internal/dto/items"
+
 	"purr-case/internal/httpapi/respond"
+	catalog_service "purr-case/internal/service/catalog"
 
 	"github.com/go-chi/chi"
 )
@@ -13,45 +12,20 @@ import (
 const tokenCtxKey = "token"
 
 type Handler struct {
-	ItemsURL string
+	Catalog *catalog_service.Service
 }
 
-func InitHandler(merchant_id string) *Handler {
-	url := fmt.Sprintf(
-		"https://store.xsolla.com/api/v2/project/%s",
-		merchant_id,
-	)
+func InitHandler(catalog *catalog_service.Service) *Handler {
 	return &Handler{
-		ItemsURL: url,
+		Catalog: catalog,
 	}
 }
 
 func (h *Handler) GetTypeItems(w http.ResponseWriter, r *http.Request, itemType string) {
-	url := h.ItemsURL + "/items" + itemType
-	if q := r.URL.RawQuery; q != "" {
-		url += "?" + q
-	}
-
-	req, err := http.NewRequestWithContext(r.Context(), http.MethodGet, url, nil)
-	if err != nil {
-		respond.WriteError(w, http.StatusInternalServerError, "failed to create request")
-		return
-	}
-
-	if token, ok := r.Context().Value(tokenCtxKey).(string); ok && token != "" {
-		req.Header.Set("Authorization", "Bearer "+token)
-	}
-
-	resp, err := http.DefaultClient.Do(req)
+	token, _ := r.Context().Value(tokenCtxKey).(string)
+	result, err := h.Catalog.FetchItems(r.Context(), token, itemType, r.URL.RawQuery)
 	if err != nil {
 		respond.WriteError(w, http.StatusInternalServerError, "failed to fetch items")
-		return
-	}
-	defer resp.Body.Close()
-
-	var result dto.CatalogResponse
-	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
-		respond.WriteError(w, http.StatusInternalServerError, "failed to decode response")
 		return
 	}
 
@@ -68,31 +42,10 @@ func (h *Handler) GetVirtualItems(w http.ResponseWriter, r *http.Request) {
 
 func (h *Handler) GetItemBySku(w http.ResponseWriter, r *http.Request) {
 	sku := chi.URLParam(r, "sku")
-	url := h.ItemsURL + "/items/sku/" + sku
-	if q := r.URL.RawQuery; q != "" {
-		url += "?" + q
-	}
-
-	req, err := http.NewRequestWithContext(r.Context(), http.MethodGet, url, nil)
-	if err != nil {
-		respond.WriteError(w, http.StatusInternalServerError, "failed to create request")
-		return
-	}
-
-	if token, ok := r.Context().Value(tokenCtxKey).(string); ok && token != "" {
-		req.Header.Set("Authorization", "Bearer "+token)
-	}
-
-	resp, err := http.DefaultClient.Do(req)
+	token, _ := r.Context().Value(tokenCtxKey).(string)
+	result, err := h.Catalog.FetchItemBySKU(r.Context(), token, sku, r.URL.RawQuery)
 	if err != nil {
 		respond.WriteError(w, http.StatusInternalServerError, "failed to fetch item")
-		return
-	}
-	defer resp.Body.Close()
-
-	var result dto.Item
-	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
-		respond.WriteError(w, http.StatusInternalServerError, "failed to decode response")
 		return
 	}
 

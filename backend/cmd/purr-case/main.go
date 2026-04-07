@@ -13,6 +13,7 @@ import (
 	"purr-case/internal/httpapi/items"
 	"purr-case/internal/httpapi/payments"
 	"purr-case/internal/httpapi/users"
+	catalog_service "purr-case/internal/service/catalog"
 	inventory_service "purr-case/internal/service/inventory"
 	"strconv"
 	"strings"
@@ -48,12 +49,13 @@ func main() {
 	}
 	log.Println("migrations connected")
 
+	cs := catalog_service.InitService(strconv.Itoa(xsollaProjectID))
 	is := inventory_service.InitService(database)
 
 	gh := global.InitHandler()
 	uh := users.InitHandler()
-	ih := items.InitHandler(strconv.Itoa(xsollaProjectID))
-	invh := inventory.InitHandler(is)
+	ih := items.InitHandler(cs)
+	invh := inventory.InitHandler(is, cs)
 	ph := payments.InitHandler(payments.Config{
 		MerchantID:       merchant_id,
 		ProjectID:        xsollaProjectID,
