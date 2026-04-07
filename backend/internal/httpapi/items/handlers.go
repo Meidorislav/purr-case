@@ -28,6 +28,9 @@ func InitHandler(merchant_id string) *Handler {
 
 func (h *Handler) GetTypeItems(w http.ResponseWriter, r *http.Request, itemType string) {
 	url := h.ItemsURL + "/items" + itemType
+	if q := r.URL.RawQuery; q != "" {
+		url += "?" + q
+	}
 
 	req, err := http.NewRequestWithContext(r.Context(), http.MethodGet, url, nil)
 	if err != nil {
@@ -66,6 +69,9 @@ func (h *Handler) GetVirtualItems(w http.ResponseWriter, r *http.Request) {
 func (h *Handler) GetItemBySku(w http.ResponseWriter, r *http.Request) {
 	sku := chi.URLParam(r, "sku")
 	url := h.ItemsURL + "/items/sku/" + sku
+	if q := r.URL.RawQuery; q != "" {
+		url += "?" + q
+	}
 
 	req, err := http.NewRequestWithContext(r.Context(), http.MethodGet, url, nil)
 	if err != nil {
