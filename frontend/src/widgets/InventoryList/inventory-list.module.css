@@ -8,7 +8,7 @@
 .title {
   font-size: 32px;
   font-weight: 800;
-  color: var(--title);
+  color: var(--color-title);
   white-space: nowrap;
 }
 
@@ -24,7 +24,7 @@
   justify-content: center;
   font-size: 30px;
   font-weight: 800;
-  color: var(--title);
+  color: var(--color-title);
 }
 
 .gameCurrency {
@@ -39,12 +39,12 @@
   flex-direction: row;
   align-items: center;
   gap: 4px;
-  background: var(--beige);
+  background: var(--color-beige);
   border-radius: 20px;
   padding: 4px 12px;
   font-size: 16px;
   font-weight: 600;
-  color: var(--title);
+  color: var(--color-title);
 }
 
 .icon {
@@ -67,13 +67,13 @@
 .heroTitle {
   font-size: 48px;
   font-weight: 800;
-  color: var(--title);
+  color: var(--color-title);
   margin: 0 0 8px;
 }
 
 .heroSubtitle {
   font-size: 18px;
   font-weight: 600;
-  color: var(--brown);
+  color: var(--color-title);
   margin: 0;
 }

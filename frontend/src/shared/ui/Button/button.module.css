@@ -10,26 +10,26 @@
 }
 
 .primary {
-  background: #FF8D8B;
+  background: var(--color-primary);
   border: none;
-  color: #FFFFFF;
+  color: var(--color-card-bg);
 }
 
 .secondary {
   background: transparent;
-  border: 1px solid #6C6C6C;
-  color: #6C6C6C;
+  border: 1px solid var(--color-text);
+  color: var(--color-text);
 }
 
 .primary:hover {
-  background: #f07674;
-  box-shadow: 0 4px 12px rgba(255, 141, 139, 0.5);
+  background: var(--color-primary-hover);
+  box-shadow: 0 4px 12px var(--color-primary-shadow);
   /* transform: translateY(-1px); */
 }
 
 .secondary:hover {
-  border-color: #96504E;
-  color: #96504E;
-  background-color: #00000010;
+  border-color: var(--color-card-title);
+  color: var(--color-card-title);
+  background-color: var(--color-secondary-hover-bg);
   /* transform: translateY(-1px); */
 }

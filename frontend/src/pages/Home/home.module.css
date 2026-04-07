@@ -13,7 +13,7 @@
 .heroText {
   font-size: 18px;
   font-weight: 600;
-  color: var(--card-title);
+  color: var(--color-card-title);
   text-align: center;
 }
 

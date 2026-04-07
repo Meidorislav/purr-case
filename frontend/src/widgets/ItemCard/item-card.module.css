@@ -1,9 +1,9 @@
 .card {
   position: relative;
   width: 220px;
-  background: #FFFFFF;
+  background: var(--color-card-bg);
   border-radius: 24px;
-  filter: drop-shadow(0px 6px 6px rgba(0, 0, 0, 0.25));
+  filter: drop-shadow(0px 6px 6px var(--color-shadow));
 }
 
 .imageWrapper {
@@ -13,7 +13,7 @@
   width: 180px;
   height: 180px;
   overflow: hidden;
-  background: var(--filter-bg);
+  background: var(--color-filter-bg);
 }
 
 .image {
@@ -33,7 +33,7 @@
   font-size: 16px;
   font-weight: 600;
   line-height: 22px;
-  color: var(--card-title);
+  color: var(--color-card-title);
 }
 
 .description {
@@ -41,8 +41,7 @@
   font-size: 12px;
   font-weight: 400;
   line-height: 16px;
-
-  color: var(--description);
+  color: var(--color-text);
   display: -webkit-box;
   -webkit-line-clamp: 2;
   line-clamp: 2;
@@ -54,7 +53,7 @@
   font-size: 20px;
   font-weight: 600;
   line-height: 27px;
-  color: var(--price);
+  color: var(--color-price);
 }
 
 .btn {
@@ -65,7 +64,7 @@
 
 .cardEvent {
   /* border: 2px solid #f5c842; */
-  filter: drop-shadow(0px 1px 8px rgb(255, 2, 2));
+  filter: drop-shadow(0px 1px 8px var(--color-event-glow));
 }
 
 .event {

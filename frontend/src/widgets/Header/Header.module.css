@@ -33,7 +33,7 @@
   font-weight: 600;
   font-size: 20px;
   line-height: 27px;
-  color: #6B5F4F;
+  color: var(--color-title);
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -41,7 +41,7 @@
 }
 
 .link.active {
-  color: var(--button-bg);
+  color: var(--color-primary);
 }
 
 button.link {
