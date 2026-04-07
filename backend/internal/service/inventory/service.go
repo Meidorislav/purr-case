@@ -30,7 +30,7 @@ func InitService(db *db.Database) *Service {
 
 func (s *Service) GetUserInventory(ctx context.Context, userID string) ([]dto.InventoryItem, error) {
 	rows, err := s.Database.Pool.Query(ctx,
-		`SELECT id, user_id, sku, quantity FROM inventory WHERE user_id = $1`,
+		`SELECT id, user_id, sku, quantity FROM inventory WHERE user_id = $1 AND quantity > 0 ORDER BY sku`,
 		userID,
 	)
 	if err != nil {
@@ -109,7 +109,7 @@ func (s *Service) GrantItemsInTx(ctx context.Context, tx pgx.Tx, userID string, 
 
 // ConsumeItem atomically subtracts quantity from a user's inventory item.
 // It only updates the row when the user has enough quantity, so inventory
- // cannot go below zero.
+// cannot go below zero.
 func (s *Service) ConsumeItem(ctx context.Context, userID string, sku string, quantity int) (dto.InventoryItem, error) {
 	if sku == "" || quantity <= 0 {
 		return dto.InventoryItem{}, fmt.Errorf("invalid consume item request")
