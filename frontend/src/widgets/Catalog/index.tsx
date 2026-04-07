@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import ItemCard from '../ItemCard'
 import styles from './catalog.module.css'
+import { useCart } from '../../shared/hooks/useCart'
 
 const FILTERS = ['All', 'Cases', 'Skins', 'Currency']
 
@@ -28,6 +29,7 @@ interface ContentItem {
 
 interface Item {
   item_id: number
+  sku: string
   type: string
   name: string
   description: string
@@ -45,6 +47,7 @@ export default function Catalog() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [activeFilter, setActiveFilter] = useState('All')
+  const { addItem } = useCart()
 
   useEffect(() => {
     fetch('/api/items')
@@ -98,7 +101,12 @@ export default function Catalog() {
             canBeBought={item.can_be_bought}
             isFree={item.is_free}
             content={item.content}
-            addToCartClick={() => {}}
+            addToCartClick={() => addItem({
+              sku: item.sku,
+              name: item.name,
+              image: item.image_url ?? '',
+              price: item.price ? parseFloat(item.price.amount) : 0,
+            })}
           />
         ))}
       </div>
