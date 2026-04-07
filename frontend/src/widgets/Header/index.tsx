@@ -4,6 +4,7 @@ import styles from './Header.module.css'
 import logo from '../../../assets/logo.svg'
 import CartModal from '../CartModal'
 import { useCart } from '../../shared/hooks/useCart'
+import Login from '../Login'
 
 const navLinks = [
   { label: 'Catalog', to: '/' },
@@ -14,7 +15,7 @@ export default function Header() {
   const { pathname } = useLocation()
   const isMain = pathname === '/'
   const [cartOpen, setCartOpen] = useState(false)
-  // const [loginOpen, setLoginOpen] = useState(false)
+  const [loginOpen, setLoginOpen] = useState(false)
   const { totalCount } = useCart()
 
   return (
@@ -42,13 +43,13 @@ export default function Header() {
             <button className={styles.link} onClick={() => setCartOpen(true)}>
               Cart{totalCount > 0 ? ` (${totalCount})` : ''}
             </button>
-            <button className={styles.link}>Login</button>
+            <button className={styles.link} onClick={() => setLoginOpen(true)}>Login</button>
           </nav>
         </div>
       </header>
 
       {cartOpen && <CartModal onClose={() => setCartOpen(false)} />}
-      {/* {loginOpen && <LoginModal onClose={() => setLoginOpen(false)} />} */}
+      {loginOpen && <Login onClose={() => setLoginOpen(false)} />}
     </>
   )
 }

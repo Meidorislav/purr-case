@@ -3,6 +3,7 @@ import Header from './widgets/Header'
 import Home from './pages/Home'
 import Inventory from './pages/Inventory'
 import styles from './App.module.css'
+import Callback from './pages/Callback'
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
             <Route path="/inventory" element={<Inventory />} />
             <Route path="/battlepass" element={<div>Battle Pass</div>} />
             <Route path="/cart" element={<div>Cart</div>} />
+            <Route path="/callback" element={<Callback />} />
           </Routes>
         </main>
       </div>
