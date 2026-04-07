@@ -8,11 +8,14 @@ import (
 	"os/signal"
 	"purr-case/internal/db"
 	"purr-case/internal/httpapi"
+	cases_handler "purr-case/internal/httpapi/cases"
 	"purr-case/internal/httpapi/global"
 	"purr-case/internal/httpapi/inventory"
 	"purr-case/internal/httpapi/items"
 	"purr-case/internal/httpapi/payments"
 	"purr-case/internal/httpapi/users"
+	catalog_service "purr-case/internal/service/catalog"
+	cases_service "purr-case/internal/service/cases"
 	inventory_service "purr-case/internal/service/inventory"
 	"strconv"
 	"strings"
@@ -48,12 +51,14 @@ func main() {
 	}
 	log.Println("migrations connected")
 
+	catalogSvc := catalog_service.InitService(strconv.Itoa(xsollaProjectID))
 	is := inventory_service.InitService(database)
+	cs := cases_service.InitService(database, is, strconv.Itoa(xsollaProjectID))
 
 	gh := global.InitHandler()
 	uh := users.InitHandler()
-	ih := items.InitHandler(strconv.Itoa(xsollaProjectID))
-	invh := inventory.InitHandler(is)
+	ih := items.InitHandler(catalogSvc)
+	invh := inventory.InitHandler(is, catalogSvc)
 	ph := payments.InitHandler(payments.Config{
 		MerchantID:       merchant_id,
 		ProjectID:        xsollaProjectID,
@@ -61,8 +66,9 @@ func main() {
 		WebhookSecretKey: xsollaWebhookSecretKey,
 		ReturnURL:        xsollaReturnURL,
 		Sandbox:          xsollaSandbox,
-	})
-	router := httpapi.NewRouter(gh, uh, ih, ph, invh)
+	}, is)
+	ch := cases_handler.InitHandler(cs)
+	router := httpapi.NewRouter(gh, uh, ih, ph, invh, ch)
 
 	srv := &http.Server{
 		Addr:    ":" + port,

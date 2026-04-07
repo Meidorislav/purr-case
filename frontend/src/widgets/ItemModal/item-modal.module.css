@@ -188,3 +188,22 @@
 .addBtn {
   width: 200px;
 }
+
+.inCartBtnSection {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  background-color: var(--color-tag-bg);
+  border-radius: 30px;
+}
+
+.inCartBtn {
+  width: 100px; 
+  color: var(--color-price);
+  height: 36px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

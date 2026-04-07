@@ -1,4 +1,6 @@
 import Button from '../../shared/ui/Button'
+import QuantityControl from '../../shared/ui/QuantityControl'
+import { useCart } from '../../shared/hooks/useCart'
 import styles from './item-modal.module.css'
 
 interface VirtualPrice {
@@ -20,6 +22,7 @@ interface ContentItem {
 }
 
 interface Props {
+  sku: string
   name: string
   description: string
   image_url: string | null
@@ -34,11 +37,14 @@ interface Props {
 }
 
 export default function ItemModal({
-  name, description, image_url, price,
+  sku, name, description, image_url, price,
   virtual_prices, groups, can_be_bought, is_free,
   content, onAddToCart, onClose,
 }: Props) {
   const hasContent = content && content.length > 0
+  const { items, updateQuantity } = useCart()
+  const cartItem = items.find(i => i.sku === sku)
+  const inCart = !!cartItem
 
   return (
     <div className={styles.overlay} onClick={onClose}>
@@ -104,7 +110,17 @@ export default function ItemModal({
 
         {can_be_bought && (
           <div className={styles.footer}>
-            <Button variant="primary" className={styles.addBtn} onClick={onAddToCart}>Add to cart</Button>
+            {inCart
+              ? <div className={styles.inCartBtnSection}>
+                  <span className={styles.inCartBtn}>In cart</span>
+                  <QuantityControl
+                    quantity={cartItem!.quantity}
+                    onIncrease={onAddToCart}
+                    onDecrease={() => updateQuantity(sku, cartItem!.quantity - 1)}
+                  />
+                </div>
+              : <Button variant="primary" className={styles.addBtn} onClick={onAddToCart}>Add to cart</Button>
+            }
           </div>
         )}
       </div>

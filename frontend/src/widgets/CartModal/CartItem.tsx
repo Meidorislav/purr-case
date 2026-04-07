@@ -1,4 +1,5 @@
 import { CartItem as CartItemType } from '../../shared/hooks/useCart'
+import QuantityControl from '../../shared/ui/QuantityControl'
 import styles from './cart-modal.module.css'
 
 interface Props {
@@ -15,11 +16,7 @@ export default function CartItem({ item, onIncrease, onDecrease }: Props) {
         <span className={styles.name}>{item.name}</span>
         <span className={styles.price}>${(item.price * item.quantity).toFixed(2)}</span>
       </div>
-      <div className={styles.qty}>
-        <button className={styles.qtyBtn} onClick={onDecrease}>−</button>
-        <span className={styles.qtyNum}>{item.quantity}</span>
-        <button className={styles.qtyBtn} onClick={onIncrease}>+</button>
-      </div>
+      <QuantityControl quantity={item.quantity} onIncrease={onIncrease} onDecrease={onDecrease} />
     </div>
   )
 }
