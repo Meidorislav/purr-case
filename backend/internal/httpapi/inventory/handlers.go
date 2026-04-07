@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/go-chi/chi"
 	inventory_dto "purr-case/internal/dto/inventory"
 	items_dto "purr-case/internal/dto/items"
 	"purr-case/internal/httpapi/respond"
@@ -94,6 +95,38 @@ func (h *Handler) ConsumeInventoryItem(w http.ResponseWriter, r *http.Request) {
 	}
 
 	respond.WriteJSON(w, http.StatusOK, item)
+}
+
+var validCurrencySKUs = map[string]bool{
+	"fish": true,
+	"food": true,
+	"yarn": true,
+}
+
+// GetCurrencyQuantity returns the quantity of a single currency item (fish/food/yarn)
+func (h *Handler) GetCurrencyQuantity(w http.ResponseWriter, r *http.Request) {
+	userID, ok := r.Context().Value(userIdCtxKey).(string)
+	if !ok || userID == "" {
+		respond.WriteError(w, http.StatusUnauthorized, "missing user id")
+		return
+	}
+
+	sku := chi.URLParam(r, "sku")
+	if !validCurrencySKUs[sku] {
+		respond.WriteError(w, http.StatusNotFound, "unknown currency")
+		return
+	}
+
+	quantity, err := h.Service.GetItemQuantity(r.Context(), userID, sku)
+	if err != nil {
+		respond.WriteError(w, http.StatusInternalServerError, "failed to get quantity")
+		return
+	}
+
+	respond.WriteJSON(w, http.StatusOK, inventory_dto.InventoryItem{
+		SKU:      sku,
+		Quantity: quantity,
+	})
 }
 
 func mapCatalogItemsBySKU(items []items_dto.Item) map[string]items_dto.Item {
