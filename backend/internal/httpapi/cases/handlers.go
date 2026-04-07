@@ -36,7 +36,7 @@ func (h *Handler) OpenCase(w http.ResponseWriter, r *http.Request) {
 
 	token, _ := r.Context().Value(tokenCtxKey).(string)
 
-	wonSKU, err := h.svc.OpenCase(r.Context(), userID, caseSKU, token)
+	wonItem, err := h.svc.OpenCase(r.Context(), userID, caseSKU, token)
 	if err != nil {
 		switch {
 		case errors.Is(err, cases_service.ErrNotInInventory):
@@ -53,6 +53,6 @@ func (h *Handler) OpenCase(w http.ResponseWriter, r *http.Request) {
 
 	respond.WriteJSON(w, http.StatusOK, cases_dto.OpenCaseResponse{
 		CaseSKU: caseSKU,
-		WonSKU:  wonSKU,
+		WonItem: wonItem,
 	})
 }
