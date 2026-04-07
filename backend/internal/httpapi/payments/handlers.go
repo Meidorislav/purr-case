@@ -45,9 +45,30 @@ type xsollaTokenUser struct {
 }
 
 type xsollaTokenSettings struct {
-	ExternalID string `json:"external_id,omitempty"`
-	Language   string `json:"language,omitempty"`
-	ReturnURL  string `json:"return_url,omitempty"`
+	ExternalID string        `json:"external_id,omitempty"`
+	Language   string        `json:"language,omitempty"`
+	ReturnURL  string        `json:"return_url,omitempty"`
+	UI         xsollaTokenUI `json:"ui,omitempty"`
+}
+
+type xsollaTokenUI struct {
+	Theme               string          `json:"theme,omitempty"`
+	IsCartOpenByDefault bool            `json:"is_cart_open_by_default,omitempty"`
+	Desktop             xsollaUIDesktop `json:"desktop,omitempty"`
+}
+
+type xsollaUIDesktop struct {
+	Header xsollaUIHeader `json:"header,omitempty"`
+}
+
+type xsollaUIHeader struct {
+	IsVisible       bool   `json:"is_visible,omitempty"`
+	VisibleLogo     bool   `json:"visible_logo,omitempty"`
+	VisibleName     bool   `json:"visible_name,omitempty"`
+	VisiblePurchase bool   `json:"visible_purchase,omitempty"`
+	Type            string `json:"type,omitempty"`
+	CloseButton     bool   `json:"close_button,omitempty"`
+	CloseButtonIcon string `json:"close_button_icon,omitempty"`
 }
 
 type xsollaPurchaseItem struct {
@@ -237,6 +258,21 @@ func (h *Handler) buildXsollaTokenRequest(userID string, orderID string, req dto
 		ExternalID: orderID,
 		Language:   "en",
 		ReturnURL:  h.cfg.ReturnURL,
+		UI: xsollaTokenUI{
+			Theme:               "63295aab2e47fab76f7708e3",
+			IsCartOpenByDefault: true,
+			Desktop: xsollaUIDesktop{
+				Header: xsollaUIHeader{
+					IsVisible:       true,
+					VisibleLogo:     true,
+					VisibleName:     true,
+					VisiblePurchase: true,
+					Type:            "normal",
+					CloseButton:     true,
+					CloseButtonIcon: "cross",
+				},
+			},
+		},
 	}
 
 	items := make([]xsollaPurchaseItem, 0, len(req.Items))
