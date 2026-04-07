@@ -10,6 +10,8 @@ import (
 	"github.com/go-chi/chi"
 )
 
+const tokenCtxKey = "token"
+
 type Handler struct {
 	ItemsURL string
 }
@@ -26,7 +28,18 @@ func InitHandler(merchant_id string) *Handler {
 
 func (h *Handler) GetTypeItems(w http.ResponseWriter, r *http.Request, itemType string) {
 	url := h.ItemsURL + "/items" + itemType
-	resp, err := http.Get(url)
+
+	req, err := http.NewRequestWithContext(r.Context(), http.MethodGet, url, nil)
+	if err != nil {
+		respond.WriteError(w, http.StatusInternalServerError, "failed to create request")
+		return
+	}
+
+	if token, ok := r.Context().Value(tokenCtxKey).(string); ok && token != "" {
+		req.Header.Set("Authorization", "Bearer "+token)
+	}
+
+	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		respond.WriteError(w, http.StatusInternalServerError, "failed to fetch items")
 		return
@@ -53,7 +66,18 @@ func (h *Handler) GetVirtualItems(w http.ResponseWriter, r *http.Request) {
 func (h *Handler) GetItemBySku(w http.ResponseWriter, r *http.Request) {
 	sku := chi.URLParam(r, "sku")
 	url := h.ItemsURL + "/items/sku/" + sku
-	resp, err := http.Get(url)
+
+	req, err := http.NewRequestWithContext(r.Context(), http.MethodGet, url, nil)
+	if err != nil {
+		respond.WriteError(w, http.StatusInternalServerError, "failed to create request")
+		return
+	}
+
+	if token, ok := r.Context().Value(tokenCtxKey).(string); ok && token != "" {
+		req.Header.Set("Authorization", "Bearer "+token)
+	}
+
+	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		respond.WriteError(w, http.StatusInternalServerError, "failed to fetch item")
 		return

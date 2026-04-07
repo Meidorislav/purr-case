@@ -67,6 +67,57 @@ func Auth(next http.Handler) http.Handler {
 	})
 }
 
+// OptionalAuth is like Auth but does not reject requests without a token.
+// If a valid Bearer token is present it populates userIdCtxKey and tokenCtxKey.
+func OptionalAuth(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		authHeader := r.Header.Get("Authorization")
+		if authHeader == "" {
+			next.ServeHTTP(w, r)
+			return
+		}
+
+		token := strings.TrimPrefix(authHeader, "Bearer ")
+		if token == "" {
+			next.ServeHTTP(w, r)
+			return
+		}
+
+		ctx, cancel := context.WithTimeout(r.Context(), 3*time.Second)
+		defer cancel()
+
+		body := respond.MustJSON(map[string]string{"token": token})
+
+		req, err := http.NewRequestWithContext(
+			ctx,
+			http.MethodPost,
+			"https://login.xsolla.com/api/token/validate",
+			bytes.NewBuffer(body),
+		)
+		if err != nil {
+			next.ServeHTTP(w, r)
+			return
+		}
+		req.Header.Set("Content-Type", "application/json")
+
+		res, err := http.DefaultClient.Do(req)
+		if err != nil || res.StatusCode != 204 {
+			next.ServeHTTP(w, r)
+			return
+		}
+
+		userId, err := getIdFromJWT(token)
+		if err != nil {
+			next.ServeHTTP(w, r)
+			return
+		}
+
+		ctx = context.WithValue(r.Context(), userIdCtxKey, userId)
+		ctx = context.WithValue(ctx, tokenCtxKey, token)
+		next.ServeHTTP(w, r.WithContext(ctx))
+	})
+}
+
 func getIdFromJWT(token string) (string, error) {
 	payloadPart := strings.Split(token, ".")[1]
 	payload, err := base64.RawURLEncoding.DecodeString(payloadPart)
