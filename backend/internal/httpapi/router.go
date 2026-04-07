@@ -46,6 +46,7 @@ func NewRouter(gh *global.Handler, uh *users.Handler, ih *items.Handler, ph *pay
 	r.Group(func(r chi.Router) {
 		r.Use(Auth)
 		r.Get("/inventory", invh.GetUserInventory)
+		r.Post("/inventory/consume", invh.ConsumeInventoryItem) // POST /inventory/consume - consume a quantity of an item from the authenticated user's inventory.
 	})
 
 	// ---------------------------------------------------------------------------
