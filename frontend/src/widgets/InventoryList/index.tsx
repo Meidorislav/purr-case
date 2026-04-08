@@ -82,13 +82,9 @@ export default function InventoryList() {
         setWonItem(data.won_item)
       }
     }
-
     loadInventory()
   }
-
-  const getCurrencyQuantity = (sku: string) =>
-    currencies.find(c => c.sku === sku)?.quantity ?? 0
-
+  
   return (
     <section>
       {wonItem && (
@@ -108,7 +104,14 @@ export default function InventoryList() {
       <div className={styles.header}>
         <h2 className={styles.title}>Inventory</h2>
         <div className={styles.gameCurrency}>
-          <span className={styles.label}>
+          {currencies.map(currency => (
+            <span key={currency.sku} className={styles.label}>
+              {currency.image_url && <img className={styles.icon} src={currency.image_url} alt={currency.sku} />
+              }
+              <p className={styles.value}>x {currency.quantity}</p>
+            </span>
+          ))}
+          {/* <span className={styles.label}>
             <img className={styles.icon} src="../../../assets/icons/yarn.png" alt="yarn" />
             <p className={styles.value}>x {getCurrencyQuantity('yarn')}</p>
           </span>
@@ -119,10 +122,10 @@ export default function InventoryList() {
           <span className={styles.label}>
             <img className={styles.icon} src="../../../assets/icons/food.png" alt="food" />
             <p className={styles.value}>x {getCurrencyQuantity('food')}</p>
-          </span>
+          </span> */}
         </div>
       </div>
-      {loading && <p className={styles.loading}>Loading...</p>}
+      {loading && items.length === 0 && <p className={styles.loading}>Loading...</p>}
       {error && <p>{error}</p>}
       <div className={styles.list}>
         {items.map(item => (
