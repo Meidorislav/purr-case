@@ -70,27 +70,4 @@
   position: absolute;
   top: 8px;
   left: 8px;
-  color: #fff;
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  border-radius: 12px;
-  padding: 2px 8px;
-  background: #9e9e9e;
-}
-
-.common {
-  background: #9e9e9e;
-}
-
-.rare {
-  background: #2196f3;
-}
-
-.epic {
-  background: #9c27b0;
-}
-
-.legendary {
-  background: #ff9800;
 }

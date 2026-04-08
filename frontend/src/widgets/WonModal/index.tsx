@@ -1,3 +1,4 @@
+import RarityTag from '../../shared/ui/RarityTag'
 import styles from './WonModal.module.css'
 
 
@@ -38,7 +39,7 @@ export default function WonModal({
             {groups.map(g => (
                 <span key={g.external_id} className={styles.tag}>{g.name}</span>
               ))}
-              <span className={`${styles.rarity} ${styles[rarity]}`}>{rarity}</span>
+              <RarityTag rarity={rarity} />
             </div>
       </div>
     </div>

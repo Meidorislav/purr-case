@@ -62,6 +62,12 @@
   /* border-color: transparent; */
 }
 
+.rarity {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+}
+
 .cardEvent {
   /* border: 2px solid #f5c842; */
   filter: drop-shadow(0px 1px 8px var(--color-event-glow));

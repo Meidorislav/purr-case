@@ -40,6 +40,7 @@ interface Item {
   can_be_bought: boolean
   is_free: boolean
   content?: ContentItem[]
+  custom_attributes?: { rarity?: string }
 }
 
 export default function Catalog() {
@@ -50,7 +51,7 @@ export default function Catalog() {
   const { addItem } = useCart()
 
   useEffect(() => {
-    fetch('/api/items')
+    fetch('/api/items?additional_fields[]=custom_attributes')
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch items')
         return res.json()
@@ -102,6 +103,7 @@ export default function Catalog() {
             canBeBought={item.can_be_bought}
             isFree={item.is_free}
             content={item.content}
+            rarity={item.custom_attributes?.rarity}
             addToCartClick={() => addItem({
               sku: item.sku,
               name: item.name,

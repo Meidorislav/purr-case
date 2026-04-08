@@ -1,5 +1,6 @@
 import Button from '../../shared/ui/Button'
 import QuantityControl from '../../shared/ui/QuantityControl'
+import RarityTag from '../../shared/ui/RarityTag'
 import { useCart } from '../../shared/hooks/useCart'
 import styles from './item-modal.module.css'
 
@@ -32,6 +33,7 @@ interface Props {
   can_be_bought: boolean
   is_free: boolean
   content?: ContentItem[]
+  rarity?: string
   onAddToCart: () => void
   onClose: () => void
 }
@@ -39,7 +41,7 @@ interface Props {
 export default function ItemModal({
   sku, name, description, image_url, price,
   virtual_prices, groups, can_be_bought, is_free,
-  content, onAddToCart, onClose,
+  content, rarity, onAddToCart, onClose,
 }: Props) {
   const hasContent = content && content.length > 0
   const { items, updateQuantity } = useCart()
@@ -62,8 +64,9 @@ export default function ItemModal({
             <h2 className={styles.title}>{name}</h2>
             <p className={styles.description}>{description}</p>
 
-            {groups.length > 0 && (
+            {(rarity || groups.length > 0) && (
               <div className={styles.groups}>
+                {rarity && <RarityTag  className={styles.rarity} rarity={rarity} />}
                 {groups.map(g => (
                   <span key={g.external_id} className={styles.tag}>{g.name}</span>
                 ))}

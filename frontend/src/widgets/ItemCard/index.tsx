@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Button from '../../shared/ui/Button'
 import QuantityControl from '../../shared/ui/QuantityControl'
+import RarityTag from '../../shared/ui/RarityTag'
 import ItemModal from '../ItemModal'
 import styles from './item-card.module.css'
 import eventSvg from '../../../assets/event.svg'
@@ -38,12 +39,13 @@ interface Props {
   content?: ContentItem[]
   addToCartClick: () => void
   isEvent?: boolean
+  rarity?: string
 }
 
 export default function ItemCard({
   image, name, description, price,
   rawPrice, virtualPrices, groups, canBeBought, isFree,
-  content, addToCartClick, isEvent, sku
+  content, addToCartClick, isEvent, sku, rarity
 }: Props) {
   const [modalOpen, setModalOpen] = useState(false)
   const { items, updateQuantity } = useCart()
@@ -55,6 +57,7 @@ export default function ItemCard({
         {isEvent && <img src={eventSvg} className={styles.event} alt="event" />}
         <div className={styles.imageWrapper}>
           <img src={image} alt={name} className={styles.image} />
+          {rarity && <RarityTag rarity={rarity} className={styles.rarity} />}
         </div>
         <div className={styles.body}>
           <h3 className={styles.name}>{name}</h3>
@@ -94,6 +97,7 @@ export default function ItemCard({
           can_be_bought={canBeBought}
           is_free={isFree}
           content={content}
+          rarity={rarity}
           onAddToCart={addToCartClick}
           onClose={() => setModalOpen(false)}
         />

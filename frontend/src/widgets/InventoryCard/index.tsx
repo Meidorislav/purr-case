@@ -1,4 +1,5 @@
 import Button from '../../shared/ui/Button'
+import RarityTag from '../../shared/ui/RarityTag'
 import styles from './inventory-card.module.css'
 
 interface Props {
@@ -22,7 +23,7 @@ export default function InventoryCard({ image, name, description, quantity, rari
       <div className={styles.imageWrapper}>
         <img src={image} alt={name} className={styles.image} />
         {quantity > 1 && <span className={styles.quantity}>x{quantity}</span>}
-        {rarity && <span className={`${styles.rarity} ${styles[rarity]}`}>{rarity}</span>}
+        {rarity && <RarityTag rarity={rarity} className={styles.rarity} />}
       </div>
       <div className={styles.body}>
         <h3 className={styles.name}>{name}</h3>
