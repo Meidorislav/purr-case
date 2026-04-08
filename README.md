@@ -6,13 +6,14 @@ Cat-themed loot case marketplace. Browse cases, open them for randomized rewards
 
 ## Preview
 
-![[catalog.png]]
+![Catalog](assets/catalog.png)
 
-![[cart.png]]
+![Cart](assets/cart.png)
 
-![[inventory.png]]
+![Inventory](assets/inventory.png)
 
-![[opencase.png]]
+![Open Case](assets/opencase.png)
+
 ## Team
 
 | Name             | Role                             |
