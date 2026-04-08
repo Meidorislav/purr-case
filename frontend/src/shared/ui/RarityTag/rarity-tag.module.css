@@ -13,3 +13,13 @@
 .rare { background: #2196f3; }
 .epic { background: #9c27b0; }
 .legendary { background: #ff9800; }
+.mythic {
+  background: linear-gradient(90deg, #f75128, #ffc400, #f75128);
+  background-size: 200% auto;
+  animation: shimmer 1.5s linear infinite;
+}
+
+@keyframes shimmer {
+  from { background-position: 0% center; }
+  to { background-position: 200% center; }
+}
