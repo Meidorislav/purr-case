@@ -81,7 +81,7 @@ export default function ItemCard({
             : <Button variant="primary" className={styles.btn} onClick={addToCartClick}>Add to cart</Button>
           }
 
-          <Button variant="secondary" className={styles.btn} onClick={() => setModalOpen(true)}>View items</Button>
+          <Button variant="secondary" className={styles.btn} onClick={() => setModalOpen(true)}>View details</Button>
         </div>
       </div>
 
