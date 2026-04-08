@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Button from '../../shared/ui/Button'
 import { useCart } from '../../shared/hooks/useCart'
 import type { CartItem as CartItemType } from '../../shared/hooks/useCart'
@@ -13,6 +14,7 @@ interface Props {
 export default function CartModal({ onClose, onLoginRequest }: Props) {
   const { items, updateQuantity, clear, totalPrice } = useCart()
   const { accessToken, fetchWithAuth } = useAuth()
+  const [checkoutError, setCheckoutError] = useState<string | null>(null)
 
   const handleCheckout = async () => {
     if (!accessToken) {
@@ -20,6 +22,7 @@ export default function CartModal({ onClose, onLoginRequest }: Props) {
       return
     }
 
+    setCheckoutError(null)
     try {
       const res = await fetchWithAuth('/api/payments/checkout', {
         method: 'POST',
@@ -33,14 +36,14 @@ export default function CartModal({ onClose, onLoginRequest }: Props) {
 
       if (!res.ok) {
         const data = await res.json()
-        alert(data.error ?? 'Checkout failed')
+        setCheckoutError(data.error ?? 'Checkout failed')
         return
       }
 
       const { checkoutUrl } = await res.json()
       window.location.href = checkoutUrl
     } catch {
-      alert('Network error, please try again')
+      setCheckoutError('Network error, please try again')
     }
   }
 
@@ -70,6 +73,7 @@ export default function CartModal({ onClose, onLoginRequest }: Props) {
                 <span>Total</span>
                 <span>${totalPrice.toFixed(2)}</span>
               </div>
+              {checkoutError && <p className={styles.error}>{checkoutError}</p>}
               <Button variant="primary" onClick={handleCheckout}>
                 {accessToken ? 'Checkout' : 'Login to Checkout'}
               </Button>

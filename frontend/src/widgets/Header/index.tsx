@@ -17,6 +17,7 @@ export default function Header() {
   const isMain = pathname === '/'
   const [cartOpen, setCartOpen] = useState(false)
   const [loginOpen, setLoginOpen] = useState(false)
+  const [loginKey, setLoginKey] = useState(0)
   const { totalCount } = useCart()
   const { accessToken, logout } = useAuth()
 
@@ -47,14 +48,14 @@ export default function Header() {
             </button>
             {accessToken
               ? <button className={styles.link} onClick={logout}>Logout</button>
-              : <button className={styles.link} onClick={() => setLoginOpen(true)}>Login</button>
+              : <button className={styles.link} onClick={() => { setLoginKey(k => k + 1); setLoginOpen(true) }}>Login</button>
             }
           </nav>
         </div>
       </header>
 
-      {cartOpen && <CartModal onClose={() => setCartOpen(false)} onLoginRequest={() => { setCartOpen(false); setLoginOpen(true) }} />}
-      {loginOpen && <Login onClose={() => setLoginOpen(false)} />}
+      {cartOpen && <CartModal onClose={() => setCartOpen(false)} onLoginRequest={() => { setCartOpen(true); setLoginOpen(true) }} />}
+      {loginOpen && <Login key={loginKey} onClose={() => setLoginOpen(false)} />}
     </>
   )
 }

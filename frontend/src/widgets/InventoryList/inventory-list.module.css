@@ -77,3 +77,12 @@
   color: var(--color-title);
   margin: 0;
 }
+
+.error {
+  display: flex;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--color-title);
+}
+

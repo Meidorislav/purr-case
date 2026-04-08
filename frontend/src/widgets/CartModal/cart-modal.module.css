@@ -134,3 +134,5 @@
   color: var(--color-text);
   text-align: center;
 }
+
+.error { font-size: 12px; color: #e05; text-align: center; }

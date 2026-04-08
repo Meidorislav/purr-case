@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useAuth } from '../../shared/hooks/useAuth'
 import InventoryCard from '../InventoryCard'
+import WonModal from '../WonModal'
 import styles from './inventory-list.module.css'
 
 interface InventoryItem {
@@ -18,6 +19,14 @@ interface InventoryItem {
   }
 }
 
+interface WonItem {
+  name: string
+  description: string
+  image_url: string | null
+  custom_attributes?: { rarity?: string }
+  groups: { external_id: string; name: string }[]
+}
+
 interface InventoryResponse {
   items: InventoryItem[]
   currencies: InventoryItem[]
@@ -29,6 +38,7 @@ export default function InventoryList() {
   const [currencies, setCurrencies] = useState<InventoryItem[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [wonItem, setWonItem] = useState<WonItem | null>(null)
 
   const loadInventory = useCallback(() => {
     setLoading(true)
@@ -43,7 +53,6 @@ export default function InventoryList() {
       })
       .catch(err => setError(err.message))
       .finally(() => setLoading(false))
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -67,6 +76,13 @@ export default function InventoryList() {
       return
     }
 
+    if (isOpen) {
+      const data = await res.json()
+      if (data.won_item) {
+        setWonItem(data.won_item)
+      }
+    }
+
     loadInventory()
   }
 
@@ -75,6 +91,16 @@ export default function InventoryList() {
 
   return (
     <section>
+      {wonItem && (
+        <WonModal
+          name={wonItem.name}
+          description={wonItem.description}
+          image_url={wonItem.image_url}
+          rarity={wonItem.custom_attributes?.rarity ?? 'common'}
+          groups={wonItem.groups ?? []}
+          onClose={() => setWonItem(null)}
+        />
+      )}
       <div className={styles.hero}>
         <h1 className={styles.heroTitle}>Meow collection</h1>
         <p className={styles.heroSubtitle}>All the rare stuff your cat dragged in</p>

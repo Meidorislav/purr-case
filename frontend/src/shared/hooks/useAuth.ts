@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 export function useAuth() {
     const [accessToken, setAccessToken] = useState<string | null>(localStorage.getItem('access_token'))
