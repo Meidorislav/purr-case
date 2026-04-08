@@ -10,6 +10,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	dto "purr-case/internal/dto/payments"
 	"purr-case/internal/httpapi/respond"
@@ -98,23 +99,24 @@ type xsollaTokenRequest struct {
 type xsollaWebhookPayload struct {
 	NotificationType string `json:"notification_type"`
 	User             struct {
-		ID      any    `json:"id"` // can be string or number depending on Xsolla project settings
-		Email   string `json:"email"`
-		Country string `json:"country"`
-	} `json:"user"`
-	Payment struct {
-		Status string `json:"status"`
-	} `json:"payment"`
-	Transaction struct {
-		ID         any    `json:"id"`
-		ExternalID string `json:"external_id"` // our internal order ID if passed during token creation
-	} `json:"transaction"`
-	Order struct {
-		ID         any    `json:"id"`
+		ID         any    `json:"id"` // can be string or number depending on Xsolla project settings
 		ExternalID string `json:"external_id"`
-		Status     string `json:"status"`
+		Email      string `json:"email"`
+		Country    string `json:"country"`
+	} `json:"user"`
+	Order struct {
+		ID     any    `json:"id"`
+		Status string `json:"status"`
 	} `json:"order"`
+	Billing struct {
+		Transaction struct {
+			ID         any    `json:"id"`
+			ExternalID string `json:"external_id"` // our internal order ID echoed back by Xsolla
+		} `json:"transaction"`
+	} `json:"billing"`
 }
+
+var ErrOrderNotFound = errors.New("order not found")
 
 type Handler struct {
 	cfg       Config
@@ -219,9 +221,12 @@ func (h *Handler) HandleWebhook(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if !verifyXsollaWebhookSignature(rawBody, h.cfg.WebhookSecretKey, r.Header.Get("Authorization")) {
+		sum := sha1.Sum(append(rawBody, []byte(h.cfg.WebhookSecretKey)...))
+		log.Printf("[webhook] INVALID_SIGNATURE: body=%s computed=%x received=%s", rawBody, sum, r.Header.Get("Authorization"))
 		writeXsollaWebhookError(w, http.StatusBadRequest, "INVALID_SIGNATURE", "Invalid signature")
 		return
 	}
+
 
 	var payload xsollaWebhookPayload
 	if err := json.Unmarshal(rawBody, &payload); err != nil {
@@ -235,15 +240,26 @@ func (h *Handler) HandleWebhook(w http.ResponseWriter, r *http.Request) {
 	}
 
 	userID := stringifyWebhookValue(payload.User.ID)
-	if payload.NotificationType == "user_validation" && userID == "" {
-		writeXsollaWebhookError(w, http.StatusBadRequest, "INVALID_USER", "Invalid user")
-		return
+	if payload.NotificationType == "user_validation" {
+		if userID == "" {
+			writeXsollaWebhookError(w, http.StatusBadRequest, "INVALID_USER", "Invalid user")
+			return
+		}
+
+		var exists bool
+		if err := h.inventory.Database.Pool.QueryRow(r.Context(),
+			`SELECT EXISTS(SELECT 1 FROM users WHERE id = $1)`,
+			userID,
+		).Scan(&exists); err != nil || !exists {
+			writeXsollaWebhookError(w, http.StatusBadRequest, "INVALID_USER", "Invalid user")
+			return
+		}
 	}
 
 	eventStatus := h.resolveWebhookStatus(payload)
-	externalID := firstNonEmpty(payload.Order.ExternalID, payload.Transaction.ExternalID)
+	externalID := payload.Billing.Transaction.ExternalID
 	orderID := firstNonEmpty(externalID, stringifyWebhookValue(payload.Order.ID))
-	transactionID := firstNonEmpty(stringifyWebhookValue(payload.Transaction.ID), payload.Transaction.ExternalID)
+	transactionID := firstNonEmpty(stringifyWebhookValue(payload.Billing.Transaction.ID), externalID)
 
 	fulfilled := false
 	if payload.NotificationType == "order_paid" {
@@ -254,7 +270,12 @@ func (h *Handler) HandleWebhook(w http.ResponseWriter, r *http.Request) {
 
 		fulfilled, err = h.fulfillPaidOrder(r.Context(), externalID, transactionID)
 		if err != nil {
-			respond.WriteError(w, http.StatusInternalServerError, "failed to fulfill paid order")
+			log.Printf("[webhook] fulfillPaidOrder error: externalID=%s transactionID=%s err=%v", externalID, transactionID, err)
+			if errors.Is(err, ErrOrderNotFound) {
+				respond.WriteError(w, http.StatusBadRequest, "order not found")
+			} else {
+				respond.WriteError(w, http.StatusInternalServerError, "failed to fulfill paid order")
+			}
 			return
 		}
 	}
@@ -393,6 +414,14 @@ func (h *Handler) storeCheckoutOrder(ctx context.Context, userID string, orderID
 	defer tx.Rollback(ctx)
 
 	_, err = tx.Exec(ctx,
+		`INSERT INTO users (id) VALUES ($1) ON CONFLICT (id) DO NOTHING`,
+		userID,
+	)
+	if err != nil {
+		return fmt.Errorf("upsert user: %w", err)
+	}
+
+	_, err = tx.Exec(ctx,
 		`INSERT INTO payment_orders (external_id, user_id, status)
 		 VALUES ($1, $2, 'new')
 		 ON CONFLICT (external_id) DO NOTHING`,
@@ -446,7 +475,7 @@ func (h *Handler) fulfillPaidOrder(ctx context.Context, externalID string, trans
 		externalID,
 	).Scan(&userID); err != nil {
 		if errors.Is(err, pgx.ErrNoRows) {
-			return false, fmt.Errorf("payment order %s not found", externalID)
+			return false, ErrOrderNotFound
 		}
 		return false, fmt.Errorf("select payment order: %w", err)
 	}
@@ -530,15 +559,15 @@ func (h *Handler) resolveWebhookStatus(payload xsollaWebhookPayload) string {
 	case "user_validation":
 		return "validated"
 	case "payment":
-		return firstNonEmpty(payload.Payment.Status, "paid")
+		return "paid"
 	case "refund":
-		return firstNonEmpty(payload.Payment.Status, "refunded")
+		return "refunded"
 	case "order_paid":
-		return firstNonEmpty(payload.Order.Status, payload.Payment.Status, "paid")
+		return firstNonEmpty(payload.Order.Status, "paid")
 	case "order_canceled":
-		return firstNonEmpty(payload.Order.Status, payload.Payment.Status, "canceled")
+		return firstNonEmpty(payload.Order.Status, "canceled")
 	default:
-		return firstNonEmpty(payload.Order.Status, payload.Payment.Status, "received")
+		return firstNonEmpty(payload.Order.Status, "received")
 	}
 }
 
