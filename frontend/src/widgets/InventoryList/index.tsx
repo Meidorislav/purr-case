@@ -3,6 +3,9 @@ import { useAuth } from '../../shared/hooks/useAuth'
 import InventoryCard from '../InventoryCard'
 import WonModal from '../WonModal'
 import styles from './inventory-list.module.css'
+import yarnIcon from '../../../assets/icons/yarn.png'
+import fishIcon from '../../../assets/icons/fish.png'
+import foodIcon from '../../../assets/icons/food.png'
 
 interface InventoryItem {
   id: number
@@ -31,6 +34,12 @@ interface InventoryResponse {
   items: InventoryItem[]
   currencies: InventoryItem[]
 }
+
+const CURRENCY_STUBS: { sku: string; icon: string }[] = [
+  { sku: 'yarn', icon: yarnIcon },
+  { sku: 'fish', icon: fishIcon },
+  { sku: 'food', icon: foodIcon },
+]
 
 export default function InventoryList() {
   const { fetchWithAuth } = useAuth()
@@ -104,25 +113,15 @@ export default function InventoryList() {
       <div className={styles.header}>
         <h2 className={styles.title}>Inventory</h2>
         <div className={styles.gameCurrency}>
-          {currencies.map(currency => (
-            <span key={currency.sku} className={styles.label}>
-              {currency.image_url && <img className={styles.icon} src={currency.image_url} alt={currency.sku} />
-              }
-              <p className={styles.value}>x {currency.quantity}</p>
-            </span>
-          ))}
-          {/* <span className={styles.label}>
-            <img className={styles.icon} src="../../../assets/icons/yarn.png" alt="yarn" />
-            <p className={styles.value}>x {getCurrencyQuantity('yarn')}</p>
-          </span>
-          <span className={styles.label}>
-            <img className={styles.icon} src="../../../assets/icons/fish.png" alt="fish" />
-            <p className={styles.value}>x {getCurrencyQuantity('fish')}</p>
-          </span>
-          <span className={styles.label}>
-            <img className={styles.icon} src="../../../assets/icons/food.png" alt="food" />
-            <p className={styles.value}>x {getCurrencyQuantity('food')}</p>
-          </span> */}
+          {CURRENCY_STUBS.map(({ sku, icon }) => {
+            const found = currencies.find(c => c.sku === sku)
+            return (
+              <span key={sku} className={styles.label}>
+                <img className={styles.icon} src={found?.image_url ?? icon} alt={sku} />
+                <p className={styles.value}>x {found?.quantity ?? 0}</p>
+              </span>
+            )
+          })}
         </div>
       </div>
       {loading && items.length === 0 && <p className={styles.loading}>Loading...</p>}
