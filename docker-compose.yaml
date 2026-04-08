@@ -48,7 +48,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
       POSTGRES_DB: ${DB_NAME:-purrCaseInventory}
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U catAdmin -d purrCaseInventory"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-catAdmin} -d ${DB_NAME:-purrCaseInventory}"]
       interval: 5s
       timeout: 5s
       retries: 5
