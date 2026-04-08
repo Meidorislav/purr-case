@@ -53,3 +53,15 @@
   width: 180px;
   margin: 8px auto 0;
 }
+
+.quantity {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 12px;
+  padding: 2px 8px;
+}

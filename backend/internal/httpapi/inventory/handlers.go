@@ -281,5 +281,8 @@ func inventoryActions(item inventory_dto.EnrichedInventoryItem) []string {
 	if strings.HasPrefix(item.SKU, "case_") {
 		return []string{"open"}
 	}
+	if item.Type == "bundle" {
+		return []string{"unpack"}
+	}
 	return nil
 }
