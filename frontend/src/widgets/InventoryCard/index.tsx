@@ -5,19 +5,31 @@ interface Props {
   image: string
   name: string
   description: string
-  onOpen: () => void
+  quantity: number
+  actions: string[]
+  onAction: (action: string) => void
 }
 
-export default function InventoryCard({ image, name, description, onOpen }: Props) {
+const ACTION_LABELS: Record<string, string> = {
+  open: 'Open',
+  unpack: 'Unpack',
+}
+
+export default function InventoryCard({ image, name, description, quantity, actions, onAction }: Props) {
   return (
     <div className={styles.card}>
       <div className={styles.imageWrapper}>
         <img src={image} alt={name} className={styles.image} />
+        {quantity > 1 && <span className={styles.quantity}>x{quantity}</span>}
       </div>
       <div className={styles.body}>
         <h3 className={styles.name}>{name}</h3>
         <p className={styles.description}>{description}</p>
-        <Button variant="primary" className={styles.btn} onClick={onOpen}>Open</Button>
+        {actions.map(action => (
+          <Button key={action} variant="primary" className={styles.btn} onClick={() => onAction(action)}>
+            {ACTION_LABELS[action] ?? action}
+          </Button>
+        ))}
       </div>
     </div>
   )

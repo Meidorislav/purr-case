@@ -1,36 +1,74 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import { useAuth } from '../../shared/hooks/useAuth'
 import InventoryCard from '../InventoryCard'
 import styles from './inventory-list.module.css'
 
 interface InventoryItem {
-  item_id: number
+  id: number
+  sku: string
   name: string
   description: string
   image_url: string | null
+  quantity: number
+  type: string
+  actions: string[] | null
 }
 
-// TODO: replace with actual token from auth when login is implemented
-const TOKEN = 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImM1MTI3M2M4LTRkZWQtNDMyYy1hODgyLWI5MjE0MGRhNDUwZCIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsbWF6bGVuYTg2M0BnbWFpbC5jb20iLCJleHAiOjE3NzU2NDYzNDIsImdyb3VwcyI6W3siaWQiOjY2MjE3LCJuYW1lIjoiZGVmYXVsdCIsImlzX2FjdGl2ZSI6dHJ1ZSwiaXNfZGVmYXVsdCI6dHJ1ZX1dLCJpYXQiOjE3NzU1NTk5NDIsImlzX21hc3RlciI6dHJ1ZSwiaXNfbmV3Ijp0cnVlLCJpc3MiOiJodHRwczovL2xvZ2luLnhzb2xsYS5jb20iLCJqdGkiOiJkOTNkNDAyZS1jZjJkLTQxOWYtYThlMS01MTUxNjM0MWZhZTAiLCJwcm9qZWN0X2lkIjozMDQyMDksInB1Ymxpc2hlcl9pZCI6ODc3ODM1LCJzdWIiOiIwZWI0YTkwOC1hNDJkLTRlMTQtYWU1MC0wOGZhNGYxYzkyZWEiLCJ0eXBlIjoieHNvbGxhX2xvZ2luIiwidXNlcm5hbWUiOiJqYWxlbmNlcyIsInhzb2xsYV9sb2dpbl9hY2Nlc3Nfa2V5IjoiMXAtcG1ka1UwQU5rMWhKNzJGcGxfeS13R3Q4VzFsbGx1RHhqWW9WWlE4cyIsInhzb2xsYV9sb2dpbl9wcm9qZWN0X2lkIjoiMDU2MzlkOTUtNDM2ZS00MmY0LWIzODEtZTFmMWRhMGIzZDE1In0.ehdibugWkyN73c2lCp09dEkVBhsdhjrmS3dD6MQ6J-Pi0TfOVfz0bN-jWA2mhnR90QY44GO9sC0B_6Z-u4GgtXH3xPdmkk7Uo2Rqmv-PPnBCfc3PLw2jZkluzUaf7ZG05wEg_K4IvXDAePxX9HXBdw-guWXq2iigYVZiXI_ju5uYUA-ZrbNH_9jHLjY5Yu_sTNtU1lESv4VkAhMvo-Wo9jUVSehWfpC1GPlRbfZ6yM-C6FhBKGyRFfU44ZDFBaGsny9B-ViEcg7vLA2ggT-8ae0yBZjlSGQgQ0cS7n5ERyIQbBbtoVkoo13EYvxJXQbIS9qEkAw1wRrJ_YBwBUj6Hg'
- 
+interface InventoryResponse {
+  items: InventoryItem[]
+  currencies: InventoryItem[]
+}
+
 export default function InventoryList() {
+  const { fetchWithAuth } = useAuth()
   const [items, setItems] = useState<InventoryItem[]>([])
+  const [currencies, setCurrencies] = useState<InventoryItem[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  useEffect(() => {
-    fetch('/api/inventory', {
-      headers: { 'Authorization': `Bearer ${TOKEN}` },
-    })
+  const loadInventory = useCallback(() => {
+    setLoading(true)
+    fetchWithAuth('/api/inventory')
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch inventory')
-        return res.json()
+        return res.json() as Promise<InventoryResponse>
       })
-      .then(data => setItems(Array.isArray(data) ? data : data.items ?? []))
+      .then(data => {
+        setItems(data.items ?? [])
+        setCurrencies(data.currencies ?? [])
+      })
       .catch(err => setError(err.message))
       .finally(() => setLoading(false))
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  console.log(items)
+  useEffect(() => {
+    loadInventory()
+  }, [loadInventory])
+
+  const handleAction = async (item: InventoryItem, action: string) => {
+    const isOpen = action === 'open'
+    const endpoint = isOpen ? `/api/cases/${item.sku}/open` : '/api/inventory/unpack'
+    const body = isOpen ? undefined : JSON.stringify({ sku: item.sku, quantity: 1 })
+
+    const res = await fetchWithAuth(endpoint, {
+      method: 'POST',
+      headers: body ? { 'Content-Type': 'application/json' } : undefined,
+      body,
+    })
+
+    if (!res.ok) {
+      const err = await res.json()
+      alert(err.error ?? 'Something went wrong')
+      return
+    }
+
+    loadInventory()
+  }
+
+  const getCurrencyQuantity = (sku: string) =>
+    currencies.find(c => c.sku === sku)?.quantity ?? 0
+
   return (
     <section>
       <div className={styles.hero}>
@@ -38,19 +76,19 @@ export default function InventoryList() {
         <p className={styles.heroSubtitle}>All the rare stuff your cat dragged in</p>
       </div>
       <div className={styles.header}>
-        <h2 className={styles.title}>Inventory </h2>
+        <h2 className={styles.title}>Inventory</h2>
         <div className={styles.gameCurrency}>
           <span className={styles.label}>
             <img className={styles.icon} src="../../../assets/icons/yarn.png" alt="yarn" />
-            <p className={styles.value}>x 300</p>
+            <p className={styles.value}>x {getCurrencyQuantity('yarn')}</p>
           </span>
           <span className={styles.label}>
             <img className={styles.icon} src="../../../assets/icons/fish.png" alt="fish" />
-            <p className={styles.value}>x 100</p>
+            <p className={styles.value}>x {getCurrencyQuantity('fish')}</p>
           </span>
           <span className={styles.label}>
             <img className={styles.icon} src="../../../assets/icons/food.png" alt="food" />
-            <p className={styles.value}>x 200</p>
+            <p className={styles.value}>x {getCurrencyQuantity('food')}</p>
           </span>
         </div>
       </div>
@@ -59,11 +97,13 @@ export default function InventoryList() {
       <div className={styles.list}>
         {items.map(item => (
           <InventoryCard
-            key={item.item_id}
+            key={item.id}
             image={item.image_url ?? ''}
             name={item.name}
             description={item.description}
-            onOpen={() => {}}
+            quantity={item.quantity}
+            actions={item.actions ?? []}
+            onAction={(action) => handleAction(item, action)}
           />
         ))}
       </div>
