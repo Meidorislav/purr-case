@@ -1,0 +1,64 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: purr-case-backend
+    restart: always
+    environment:
+      - PORT=8080
+      - merchant_id=${merchant_id}
+      - XSOLLA_PROJECT_ID=${XSOLLA_PROJECT_ID}
+      - XSOLLA_API_KEY=${XSOLLA_API_KEY}
+      - XSOLLA_WEBHOOK_SECRET_KEY=${XSOLLA_WEBHOOK_SECRET_KEY}
+      - XSOLLA_SANDBOX=${XSOLLA_SANDBOX}
+      - XSOLLA_RETURN_URL=${XSOLLA_RETURN_URL}
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=${DB_USER:-catAdmin}
+      - DB_PASSWORD=${DB_PASSWORD:-password}
+      - DB_NAME=${DB_NAME:-purrCaseInventory}
+      - DATABASE_URL=postgres://${DB_USER:-catAdmin}:${DB_PASSWORD:-password}@postgres:5432/${DB_NAME:-purrCaseInventory}?sslmode=disable
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: production
+      args:
+        - VITE_XSOLLA_CLIENT_ID=${VITE_XSOLLA_CLIENT_ID}
+        - VITE_XSOLLA_LOGIN_ID=${VITE_XSOLLA_LOGIN_ID}
+        - VITE_XSOLLA_PROJECT_ID=${XSOLLA_PROJECT_ID}
+        - VITE_XSOLLA_RETURN_URL=${VITE_XSOLLA_RETURN_URL}
+    image: purr-case-frontend
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/letsencrypt/live/purrcase.shop-0001/fullchain.pem:/etc/nginx/certs/fullchain.pem:ro
+      - /etc/letsencrypt/live/purrcase.shop-0001/privkey.pem:/etc/nginx/certs/privkey.pem:ro
+    depends_on:
+      - backend
+
+  postgres:
+    image: postgres:16-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER:-catAdmin}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
+      POSTGRES_DB: ${DB_NAME:-purrCaseInventory}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-catAdmin} -d ${DB_NAME:-purrCaseInventory}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+volumes:
+  postgres_data:
