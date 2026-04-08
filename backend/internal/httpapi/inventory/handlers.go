@@ -129,6 +129,82 @@ func (h *Handler) GetCurrencyQuantity(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+// UnpackBundle consumes one or more bundle items from the user's inventory
+// and grants their contents (e.g. fish_pack_medium → fish currency).
+// The consume and grant happen in a single DB transaction.
+func (h *Handler) UnpackBundle(w http.ResponseWriter, r *http.Request) {
+	userID, ok := r.Context().Value(userIdCtxKey).(string)
+	if !ok || userID == "" {
+		respond.WriteError(w, http.StatusUnauthorized, "missing user id")
+		return
+	}
+
+	var req inventory_dto.ConsumeItemRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		respond.WriteError(w, http.StatusBadRequest, "invalid request body")
+		return
+	}
+	if req.SKU == "" {
+		respond.WriteError(w, http.StatusBadRequest, "sku is required")
+		return
+	}
+	if req.Quantity <= 0 {
+		respond.WriteError(w, http.StatusBadRequest, "quantity must be a positive integer")
+		return
+	}
+
+	token, _ := r.Context().Value(tokenCtxKey).(string)
+	catalogItem, err := h.Catalog.FetchItemBySKU(r.Context(), token, req.SKU, "")
+	if err != nil {
+		respond.WriteError(w, http.StatusBadRequest, "item not found in catalog")
+		return
+	}
+	if catalogItem.Type != "bundle" {
+		respond.WriteError(w, http.StatusBadRequest, "item is not a bundle")
+		return
+	}
+	if len(catalogItem.Content) == 0 {
+		respond.WriteError(w, http.StatusBadRequest, "bundle has no content")
+		return
+	}
+
+	grants := make([]inventory_service.GrantItem, 0, len(catalogItem.Content))
+	for _, content := range catalogItem.Content {
+		grants = append(grants, inventory_service.GrantItem{
+			SKU:      content.SKU,
+			Quantity: content.Quantity * req.Quantity,
+		})
+	}
+
+	tx, err := h.Service.Database.Pool.Begin(r.Context())
+	if err != nil {
+		respond.WriteError(w, http.StatusInternalServerError, "failed to begin transaction")
+		return
+	}
+	defer tx.Rollback(r.Context())
+
+	if _, err := h.Service.ConsumeItemInTx(r.Context(), tx, userID, req.SKU, req.Quantity); err != nil {
+		if errors.Is(err, inventory_service.ErrInsufficientInventory) {
+			respond.WriteError(w, http.StatusBadRequest, "not enough items in inventory")
+		} else {
+			respond.WriteError(w, http.StatusInternalServerError, "failed to consume bundle")
+		}
+		return
+	}
+
+	if err := h.Service.GrantItemsInTx(r.Context(), tx, userID, grants); err != nil {
+		respond.WriteError(w, http.StatusInternalServerError, "failed to grant bundle contents")
+		return
+	}
+
+	if err := tx.Commit(r.Context()); err != nil {
+		respond.WriteError(w, http.StatusInternalServerError, "failed to commit transaction")
+		return
+	}
+
+	respond.WriteJSON(w, http.StatusOK, map[string]any{"granted": grants})
+}
+
 func mapCatalogItemsBySKU(items []items_dto.Item) map[string]items_dto.Item {
 	itemsBySKU := make(map[string]items_dto.Item, len(items))
 	for _, item := range items {

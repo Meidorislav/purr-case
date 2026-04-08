@@ -122,6 +122,28 @@ func (s *Service) GetItemQuantity(ctx context.Context, userID string, sku string
 	return quantity, nil
 }
 
+func (s *Service) ConsumeItemInTx(ctx context.Context, tx pgx.Tx, userID string, sku string, quantity int) (dto.InventoryItem, error) {
+	if sku == "" || quantity <= 0 {
+		return dto.InventoryItem{}, fmt.Errorf("invalid consume item request")
+	}
+
+	var item dto.InventoryItem
+	err := tx.QueryRow(ctx,
+		`UPDATE inventory
+		 SET quantity = quantity - $3
+		 WHERE user_id = $1 AND sku = $2 AND quantity >= $3
+		 RETURNING id, user_id, sku, quantity`,
+		userID, sku, quantity,
+	).Scan(&item.ID, &item.UserID, &item.SKU, &item.Quantity)
+	if err != nil {
+		if errors.Is(err, pgx.ErrNoRows) {
+			return dto.InventoryItem{}, ErrInsufficientInventory
+		}
+		return dto.InventoryItem{}, fmt.Errorf("consume inventory item in tx: %w", err)
+	}
+	return item, nil
+}
+
 // ConsumeItem atomically subtracts quantity from a user's inventory item.
 // It only updates the row when the user has enough quantity, so inventory
 // cannot go below zero.
