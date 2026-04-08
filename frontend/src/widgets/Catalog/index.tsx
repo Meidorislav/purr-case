@@ -56,7 +56,7 @@ export default function Catalog() {
         if (!res.ok) throw new Error('Failed to fetch items')
         return res.json()
       })
-      .then(data => setItems(data.items))
+      .then(data => { setItems(data.items); setError(null) })
       .catch(err => setError(err.message))
       .finally(() => setLoading(false))
   }, [])
@@ -87,7 +87,7 @@ export default function Catalog() {
         </div>
       </div>
       {loading && <p className={styles.loading}>Loading...</p>}
-      {error && <p>{error}</p>}
+      {error && <p className={styles.error}>Something went wrong. Try refreshing the page 🐾</p>}
       <div className={styles.list}>
         {filtered.map(item => (
           <ItemCard

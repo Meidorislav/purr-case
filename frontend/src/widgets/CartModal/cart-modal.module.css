@@ -85,33 +85,6 @@
   color: var(--color-text);
 }
 
-.qty {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.qtyBtn {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: 1px solid var(--color-beige);
-  background: transparent;
-  font-size: 16px;
-  cursor: pointer;
-  color: var(--color-title);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.qtyNum {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--color-title);
-  min-width: 16px;
-  text-align: center;
-}
 
 .footer {
   border-top: 1px solid var(--color-beige);
