@@ -58,7 +58,7 @@ func (s *Service) FetchItems(ctx context.Context, token string, itemType string,
 }
 
 func (s *Service) GetCatalogItems(ctx context.Context, token string) ([]dto.Item, error) {
-	itemTypes := []string{"", "/virtual_items"}
+	itemTypes := []string{"", "/virtual_items", "/virtual_currency"}
 	itemsBySKU := make(map[string]dto.Item)
 	customAttributesQuery := additionalFieldsQuery(customAttributesField)
 
@@ -73,6 +73,22 @@ func (s *Service) GetCatalogItems(ctx context.Context, token string) ([]dto.Item
 				continue
 			}
 			itemsBySKU[item.SKU] = item
+
+			// Also add items from bundle content if they are not already present
+			for _, contentItem := range item.Content {
+				if _, ok := itemsBySKU[contentItem.SKU]; !ok {
+					itemsBySKU[contentItem.SKU] = dto.Item{
+						ItemID:           contentItem.ItemID,
+						SKU:              contentItem.SKU,
+						Type:             contentItem.Type,
+						Name:             contentItem.Name,
+						Description:      contentItem.Description,
+						ImageURL:         contentItem.ImageURL,
+						Groups:           contentItem.Groups,
+						CustomAttributes: contentItem.CustomAttributes,
+					}
+				}
+			}
 		}
 	}
 

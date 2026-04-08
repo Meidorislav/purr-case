@@ -6,6 +6,7 @@ interface Props {
   name: string
   description: string
   quantity: number
+  rarity?: string
   actions: string[]
   onAction: (action: string) => void
 }
@@ -15,12 +16,13 @@ const ACTION_LABELS: Record<string, string> = {
   unpack: 'Unpack',
 }
 
-export default function InventoryCard({ image, name, description, quantity, actions, onAction }: Props) {
+export default function InventoryCard({ image, name, description, quantity, rarity, actions, onAction }: Props) {
   return (
     <div className={styles.card}>
       <div className={styles.imageWrapper}>
         <img src={image} alt={name} className={styles.image} />
         {quantity > 1 && <span className={styles.quantity}>x{quantity}</span>}
+        {rarity && <span className={`${styles.rarity} ${styles[rarity]}`}>{rarity}</span>}
       </div>
       <div className={styles.body}>
         <h3 className={styles.name}>{name}</h3>

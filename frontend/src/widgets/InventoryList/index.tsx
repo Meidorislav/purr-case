@@ -12,6 +12,10 @@ interface InventoryItem {
   quantity: number
   type: string
   actions: string[] | null
+  custom_attributes?: {
+    rarity?: string
+    type?: string
+  }
 }
 
 interface InventoryResponse {
@@ -102,6 +106,7 @@ export default function InventoryList() {
             name={item.name}
             description={item.description}
             quantity={item.quantity}
+            rarity={item.custom_attributes?.rarity}
             actions={item.actions ?? []}
             onAction={(action) => handleAction(item, action)}
           />
