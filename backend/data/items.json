@@ -1,0 +1,1841 @@
+{
+    "virtual_currency": [
+        {
+            "item_id": 1347170,
+            "sku": "fish",
+            "name": {
+                "en": "Fish",
+                "ru": "\u0420\u044b\u0431\u043a\u0438"
+            },
+            "type": "virtual_currency",
+            "description": {
+                "en": "The main currency of purr-case",
+                "ru": "\u041e\u0441\u043d\u043e\u0432\u043d\u0430\u044f \u0432\u0430\u043b\u044e\u0442\u0430 purr-case"
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/2181792ba06cdc9965cb957aa45d12c4.png",
+            "long_description": null,
+            "attributes": [],
+            "is_free": false,
+            "order": 1,
+            "groups": [
+                "currency"
+            ],
+            "regional_prices": [],
+            "prices": [
+                {
+                    "amount": 0.02,
+                    "currency": "USD",
+                    "is_default": true,
+                    "is_enabled": true
+                }
+            ],
+            "media_list": [],
+            "vc_prices": [],
+            "is_enabled": true,
+            "is_show_in_store": false,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [],
+            "custom_attributes": {
+                "rarity": "rare"
+            },
+            "inventory_options": {
+                "consumable": true,
+                "expiration_period": null
+            },
+            "is_hard": false,
+            "is_paid_randomized_reward": false
+        },
+        {
+            "item_id": 1347171,
+            "sku": "food",
+            "name": {
+                "en": "Cat Food",
+                "ru": "\u041a\u043e\u0440\u043c"
+            },
+            "type": "virtual_currency",
+            "description": {
+                "en": "Basic cat currency",
+                "ru": "\u0411\u0430\u0437\u043e\u0432\u0430\u044f \u043a\u043e\u0448\u0430\u0447\u044c\u044f \u0432\u0430\u043b\u044e\u0442\u0430"
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/d3b95c97e50ec796f2754d055f11e2bc.png",
+            "long_description": null,
+            "attributes": [],
+            "is_free": false,
+            "order": 2,
+            "groups": [
+                "currency"
+            ],
+            "regional_prices": [],
+            "prices": [
+                {
+                    "amount": 0.01,
+                    "currency": "USD",
+                    "is_default": true,
+                    "is_enabled": true
+                }
+            ],
+            "media_list": [],
+            "vc_prices": [],
+            "is_enabled": true,
+            "is_show_in_store": false,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [],
+            "custom_attributes": {
+                "rarity": "common"
+            },
+            "inventory_options": {
+                "consumable": true,
+                "expiration_period": null
+            },
+            "is_hard": false,
+            "is_paid_randomized_reward": false
+        },
+        {
+            "item_id": 1347172,
+            "sku": "yarn",
+            "name": {
+                "en": "Yarn Ball",
+                "ru": "\u041a\u043b\u0443\u0431\u043e\u0447\u0435\u043a"
+            },
+            "type": "virtual_currency",
+            "description": {
+                "en": "Premium cat currency",
+                "ru": "\u041f\u0440\u0435\u043c\u0438\u0443\u043c \u043a\u043e\u0448\u0430\u0447\u044c\u044f \u0432\u0430\u043b\u044e\u0442\u0430"
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/3b8768f46f0e50634f6542b0c60719bd.png",
+            "long_description": null,
+            "attributes": [],
+            "is_free": false,
+            "order": 3,
+            "groups": [
+                "currency"
+            ],
+            "regional_prices": [],
+            "prices": [
+                {
+                    "amount": 0.1,
+                    "currency": "USD",
+                    "is_default": true,
+                    "is_enabled": true
+                }
+            ],
+            "media_list": [],
+            "vc_prices": [],
+            "is_enabled": true,
+            "is_show_in_store": false,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [],
+            "custom_attributes": {
+                "rarity": "common"
+            },
+            "inventory_options": {
+                "consumable": true,
+                "expiration_period": null
+            },
+            "is_hard": false,
+            "is_paid_randomized_reward": false
+        }
+    ],
+    "virtual_items": [
+        {
+            "item_id": 1347185,
+            "sku": "skin_hat",
+            "name": {
+                "en": "Cat in a Hat",
+                "ru": "\u041a\u043e\u0442 \u0432 \u0448\u043b\u044f\u043f\u0435"
+            },
+            "type": "virtual_good",
+            "description": {
+                "en": "A dapper cat with a top hat.",
+                "ru": "\u0429\u0435\u0433\u043e\u043b\u0435\u0432\u0430\u0442\u044b\u0439 \u043a\u043e\u0442 \u0432 \u0446\u0438\u043b\u0438\u043d\u0434\u0440\u0435."
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/be3acc218963ce0ee54053a678bcc07b.png",
+            "long_description": null,
+            "attributes": [],
+            "is_free": false,
+            "order": 1,
+            "groups": [
+                "skins"
+            ],
+            "regional_prices": [],
+            "prices": [
+                {
+                    "amount": 1.99,
+                    "currency": "USD",
+                    "is_default": true,
+                    "is_enabled": true
+                }
+            ],
+            "media_list": [],
+            "vc_prices": [
+                {
+                    "sku": "fish",
+                    "is_default": true,
+                    "amount": 200
+                }
+            ],
+            "is_enabled": true,
+            "is_show_in_store": true,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [],
+            "custom_attributes": {
+                "type": "skin",
+                "rarity": "rare"
+            },
+            "inventory_options": {
+                "consumable": true,
+                "expiration_period": null
+            },
+            "is_paid_randomized_reward": false
+        },
+        {
+            "item_id": 1347173,
+            "sku": "cat_grey",
+            "name": {
+                "en": "Basic Grey Cat",
+                "ru": "\u0411\u0430\u0437\u043e\u0432\u0430\u044f \u0441\u0435\u0440\u0430\u044f \u043a\u043e\u0448\u043a\u0430"
+            },
+            "type": "virtual_good",
+            "description": {
+                "en": "A simple grey cat. Meow.",
+                "ru": "\u041f\u0440\u043e\u0441\u0442\u0430\u044f \u0441\u0435\u0440\u0430\u044f \u043a\u043e\u0448\u043a\u0430. \u041c\u044f\u0443."
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/d17efacd3be41d277682a2a32ab83a48.png",
+            "long_description": null,
+            "attributes": [],
+            "is_free": false,
+            "order": 1,
+            "groups": [
+                "cats"
+            ],
+            "regional_prices": [],
+            "prices": [],
+            "media_list": [],
+            "vc_prices": [
+                {
+                    "sku": "fish",
+                    "is_default": true,
+                    "amount": 50
+                }
+            ],
+            "is_enabled": true,
+            "is_show_in_store": false,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [],
+            "custom_attributes": {
+                "type": "cat",
+                "rarity": "common",
+                "purchasable": false
+            },
+            "inventory_options": {
+                "consumable": true,
+                "expiration_period": null
+            },
+            "is_paid_randomized_reward": false
+        },
+        {
+            "item_id": 1347186,
+            "sku": "skin_bow",
+            "name": {
+                "en": "Cat with a Bow",
+                "ru": "\u041a\u043e\u0442 \u0441 \u0431\u0430\u043d\u0442\u0438\u043a\u043e\u043c"
+            },
+            "type": "virtual_good",
+            "description": {
+                "en": "Cute and proper with a big bow.",
+                "ru": "\u041c\u0438\u043b\u044b\u0439 \u0438 \u0430\u043a\u043a\u0443\u0440\u0430\u0442\u043d\u044b\u0439 \u0441 \u0431\u043e\u043b\u044c\u0448\u0438\u043c \u0431\u0430\u043d\u0442\u0438\u043a\u043e\u043c."
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/bad8ec4c451379cf55e4c986712f233c.png",
+            "long_description": null,
+            "attributes": [],
+            "is_free": false,
+            "order": 2,
+            "groups": [
+                "skins"
+            ],
+            "regional_prices": [],
+            "prices": [
+                {
+                    "amount": 1.99,
+                    "currency": "USD",
+                    "is_default": true,
+                    "is_enabled": true
+                }
+            ],
+            "media_list": [],
+            "vc_prices": [
+                {
+                    "sku": "fish",
+                    "is_default": true,
+                    "amount": 200
+                }
+            ],
+            "is_enabled": true,
+            "is_show_in_store": true,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [],
+            "custom_attributes": {
+                "type": "skin",
+                "rarity": "rare"
+            },
+            "inventory_options": {
+                "consumable": true,
+                "expiration_period": null
+            },
+            "is_paid_randomized_reward": false
+        },
+        {
+            "item_id": 1347174,
+            "sku": "cat_orange",
+            "name": {
+                "en": "Basic Orange Cat",
+                "ru": "\u0411\u0430\u0437\u043e\u0432\u0430\u044f \u0440\u044b\u0436\u0430\u044f \u043a\u043e\u0448\u043a\u0430"
+            },
+            "type": "virtual_good",
+            "description": {
+                "en": "A cheerful orange cat. Purr.",
+                "ru": "\u0412\u0435\u0441\u0451\u043b\u0430\u044f \u0440\u044b\u0436\u0430\u044f \u043a\u043e\u0448\u043a\u0430. \u041c\u0443\u0440\u0440."
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/d929089083f8502ca0be04f211841a34.png",
+            "long_description": null,
+            "attributes": [],
+            "is_free": false,
+            "order": 2,
+            "groups": [
+                "cats"
+            ],
+            "regional_prices": [],
+            "prices": [],
+            "media_list": [],
+            "vc_prices": [
+                {
+                    "sku": "fish",
+                    "is_default": true,
+                    "amount": 50
+                }
+            ],
+            "is_enabled": true,
+            "is_show_in_store": false,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [],
+            "custom_attributes": {
+                "type": "cat",
+                "rarity": "common",
+                "purchasable": false
+            },
+            "inventory_options": {
+                "consumable": true,
+                "expiration_period": null
+            },
+            "is_paid_randomized_reward": false
+        },
+        {
+            "item_id": 1347187,
+            "sku": "skin_socks",
+            "name": {
+                "en": "Cat in Socks",
+                "ru": "\u041a\u043e\u0442 \u0432 \u043d\u043e\u0441\u043e\u0447\u043a\u0430\u0445"
+            },
+            "type": "virtual_good",
+            "description": {
+                "en": "Cozy cat with striped socks.",
+                "ru": "\u0423\u044e\u0442\u043d\u044b\u0439 \u043a\u043e\u0442 \u0432 \u043f\u043e\u043b\u043e\u0441\u0430\u0442\u044b\u0445 \u043d\u043e\u0441\u043e\u0447\u043a\u0430\u0445."
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/10ffaed70262ece095bef028c91bd725.png",
+            "long_description": null,
+            "attributes": [],
+            "is_free": false,
+            "order": 3,
+            "groups": [
+                "skins"
+            ],
+            "regional_prices": [],
+            "prices": [
+                {
+                    "amount": 3.99,
+                    "currency": "USD",
+                    "is_default": true,
+                    "is_enabled": true
+                }
+            ],
+            "media_list": [],
+            "vc_prices": [
+                {
+                    "sku": "fish",
+                    "is_default": true,
+                    "amount": 500
+                }
+            ],
+            "is_enabled": true,
+            "is_show_in_store": true,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [],
+            "custom_attributes": {
+                "type": "skin",
+                "rarity": "epic"
+            },
+            "inventory_options": {
+                "consumable": true,
+                "expiration_period": null
+            },
+            "is_paid_randomized_reward": false
+        },
+        {
+            "item_id": 1347175,
+            "sku": "cat_maine_coon",
+            "name": {
+                "en": "Maine Coon",
+                "ru": "\u041c\u0435\u0439\u043d \u043a\u0443\u043d"
+            },
+            "type": "virtual_good",
+            "description": {
+                "en": "A majestic fluffy giant.",
+                "ru": "\u0412\u0435\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u0435\u043d\u043d\u044b\u0439 \u043f\u0443\u0448\u0438\u0441\u0442\u044b\u0439 \u0433\u0438\u0433\u0430\u043d\u0442."
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/f0ff844175787c63bff8b705ac9bb630.png",
+            "long_description": null,
+            "attributes": [],
+            "is_free": false,
+            "order": 3,
+            "groups": [
+                "cats"
+            ],
+            "regional_prices": [],
+            "prices": [],
+            "media_list": [],
+            "vc_prices": [
+                {
+                    "sku": "fish",
+                    "is_default": true,
+                    "amount": 200
+                }
+            ],
+            "is_enabled": true,
+            "is_show_in_store": false,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [],
+            "custom_attributes": {
+                "type": "cat",
+                "rarity": "rare",
+                "purchasable": false
+            },
+            "inventory_options": {
+                "consumable": true,
+                "expiration_period": null
+            },
+            "is_paid_randomized_reward": false
+        },
+        {
+            "item_id": 1347188,
+            "sku": "skin_suit",
+            "name": {
+                "en": "Business Cat",
+                "ru": "\u041a\u043e\u0442 \u0432 \u0434\u0435\u043b\u043e\u0432\u043e\u043c \u043a\u043e\u0441\u0442\u044e\u043c\u0435"
+            },
+            "type": "virtual_good",
+            "description": {
+                "en": "I am in a business meeting.",
+                "ru": "\u042f \u043d\u0430 \u0434\u0435\u043b\u043e\u0432\u043e\u0439 \u0432\u0441\u0442\u0440\u0435\u0447\u0435."
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/1a3b95e3cc1cb94241db7d40d57b889c.png",
+            "long_description": null,
+            "attributes": [],
+            "is_free": false,
+            "order": 4,
+            "groups": [
+                "skins"
+            ],
+            "regional_prices": [],
+            "prices": [
+                {
+                    "amount": 3.99,
+                    "currency": "USD",
+                    "is_default": true,
+                    "is_enabled": true
+                }
+            ],
+            "media_list": [],
+            "vc_prices": [
+                {
+                    "sku": "fish",
+                    "is_default": true,
+                    "amount": 500
+                }
+            ],
+            "is_enabled": true,
+            "is_show_in_store": true,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [],
+            "custom_attributes": {
+                "type": "skin",
+                "rarity": "epic"
+            },
+            "inventory_options": {
+                "consumable": true,
+                "expiration_period": null
+            },
+            "is_paid_randomized_reward": false
+        },
+        {
+            "item_id": 1347176,
+            "sku": "cat_siamese",
+            "name": {
+                "en": "Siamese Cat",
+                "ru": "\u0421\u0438\u0430\u043c\u0441\u043a\u0430\u044f \u043a\u043e\u0448\u043a\u0430"
+            },
+            "type": "virtual_good",
+            "description": {
+                "en": "Elegant and talkative.",
+                "ru": "\u042d\u043b\u0435\u0433\u0430\u043d\u0442\u043d\u0430\u044f \u0438 \u0440\u0430\u0437\u0433\u043e\u0432\u043e\u0440\u0447\u0438\u0432\u0430\u044f."
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/d2d635340a26e3450253fbc9ad166bcb.png",
+            "long_description": null,
+            "attributes": [],
+            "is_free": false,
+            "order": 4,
+            "groups": [
+                "cats"
+            ],
+            "regional_prices": [],
+            "prices": [],
+            "media_list": [],
+            "vc_prices": [
+                {
+                    "sku": "fish",
+                    "is_default": true,
+                    "amount": 200
+                }
+            ],
+            "is_enabled": true,
+            "is_show_in_store": false,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [],
+            "custom_attributes": {
+                "type": "cat",
+                "rarity": "rare",
+                "purchasable": false
+            },
+            "inventory_options": {
+                "consumable": true,
+                "expiration_period": null
+            },
+            "is_paid_randomized_reward": false
+        },
+        {
+            "item_id": 1347189,
+            "sku": "skin_nerd",
+            "name": {
+                "en": "Nerd Cat",
+                "ru": "\u041a\u043e\u0442-\u0437\u0443\u0431\u0440\u0438\u043b\u043a\u0430"
+            },
+            "type": "virtual_good",
+            "description": {
+                "en": "Glasses, books, and infinite wisdom.",
+                "ru": "\u041e\u0447\u043a\u0438, \u043a\u043d\u0438\u0433\u0438 \u0438 \u0431\u0435\u0441\u043a\u043e\u043d\u0435\u0447\u043d\u0430\u044f \u043c\u0443\u0434\u0440\u043e\u0441\u0442\u044c."
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/8d470e9a0e63361eea8a7f053ead7e50.png",
+            "long_description": null,
+            "attributes": [],
+            "is_free": false,
+            "order": 5,
+            "groups": [
+                "skins"
+            ],
+            "regional_prices": [],
+            "prices": [
+                {
+                    "amount": 7.99,
+                    "currency": "USD",
+                    "is_default": true,
+                    "is_enabled": true
+                }
+            ],
+            "media_list": [],
+            "vc_prices": [
+                {
+                    "sku": "fish",
+                    "is_default": true,
+                    "amount": 1000
+                }
+            ],
+            "is_enabled": true,
+            "is_show_in_store": true,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [],
+            "custom_attributes": {
+                "type": "skin",
+                "rarity": "legendary"
+            },
+            "inventory_options": {
+                "consumable": true,
+                "expiration_period": null
+            },
+            "is_paid_randomized_reward": false
+        },
+        {
+            "item_id": 1347177,
+            "sku": "cat_tricolor",
+            "name": {
+                "en": "Tricolor Cat",
+                "ru": "\u0422\u0440\u0451\u0445\u0446\u0432\u0435\u0442\u043d\u0430\u044f \u043a\u043e\u0448\u043a\u0430"
+            },
+            "type": "virtual_good",
+            "description": {
+                "en": "Said to bring good luck.",
+                "ru": "\u0413\u043e\u0432\u043e\u0440\u044f\u0442, \u043f\u0440\u0438\u043d\u043e\u0441\u0438\u0442 \u0443\u0434\u0430\u0447\u0443."
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/b4dbb8dfd917b134ae3d99d33f37206e.png",
+            "long_description": null,
+            "attributes": [],
+            "is_free": false,
+            "order": 5,
+            "groups": [
+                "cats"
+            ],
+            "regional_prices": [],
+            "prices": [],
+            "media_list": [],
+            "vc_prices": [
+                {
+                    "sku": "fish",
+                    "is_default": true,
+                    "amount": 200
+                }
+            ],
+            "is_enabled": true,
+            "is_show_in_store": false,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [],
+            "custom_attributes": {
+                "type": "cat",
+                "rarity": "rare",
+                "purchasable": false
+            },
+            "inventory_options": {
+                "consumable": true,
+                "expiration_period": null
+            },
+            "is_paid_randomized_reward": false
+        },
+        {
+            "item_id": 1347190,
+            "sku": "skin_miku",
+            "name": {
+                "en": "Miku Cat",
+                "ru": "\u041a\u043e\u0442-\u043c\u0438\u043a\u0443"
+            },
+            "type": "virtual_good",
+            "description": {
+                "en": "Meow meow meow meow meow meow meow.",
+                "ru": "\u041c\u044f\u0443 \u043c\u044f\u0443 \u043c\u044f\u0443 \u043c\u044f\u0443 \u043c\u044f\u0443 \u043c\u044f\u0443 \u043c\u044f\u0443."
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/206aa35d7a92e9db67ab9a6ded1a39ca.png",
+            "long_description": null,
+            "attributes": [],
+            "is_free": false,
+            "order": 6,
+            "groups": [
+                "skins"
+            ],
+            "regional_prices": [],
+            "prices": [
+                {
+                    "amount": 7.99,
+                    "currency": "USD",
+                    "is_default": true,
+                    "is_enabled": true
+                }
+            ],
+            "media_list": [],
+            "vc_prices": [
+                {
+                    "sku": "fish",
+                    "is_default": true,
+                    "amount": 1000
+                }
+            ],
+            "is_enabled": true,
+            "is_show_in_store": true,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [],
+            "custom_attributes": {
+                "type": "skin",
+                "rarity": "legendary"
+            },
+            "inventory_options": {
+                "consumable": true,
+                "expiration_period": null
+            },
+            "is_paid_randomized_reward": false
+        },
+        {
+            "item_id": 1347178,
+            "sku": "cat_munchkin",
+            "name": {
+                "en": "Munchkin",
+                "ru": "\u041c\u0430\u043d\u0447\u043a\u0438\u043d"
+            },
+            "type": "virtual_good",
+            "description": {
+                "en": "Short-legged and super cute.",
+                "ru": "\u041a\u043e\u0440\u043e\u0442\u043a\u043e\u043b\u0430\u043f\u044b\u0439 \u0438 \u043e\u0447\u0435\u043d\u044c \u043c\u0438\u043b\u044b\u0439."
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/44bfc24a19aff0bd100179cc6c143f3d.png",
+            "long_description": null,
+            "attributes": [],
+            "is_free": false,
+            "order": 6,
+            "groups": [
+                "cats"
+            ],
+            "regional_prices": [],
+            "prices": [],
+            "media_list": [],
+            "vc_prices": [
+                {
+                    "sku": "fish",
+                    "is_default": true,
+                    "amount": 200
+                }
+            ],
+            "is_enabled": true,
+            "is_show_in_store": false,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [],
+            "custom_attributes": {
+                "type": "cat",
+                "rarity": "rare",
+                "purchasable": false
+            },
+            "inventory_options": {
+                "consumable": true,
+                "expiration_period": null
+            },
+            "is_paid_randomized_reward": false
+        },
+        {
+            "item_id": 1347191,
+            "sku": "skin_xsolla_mascot",
+            "name": {
+                "en": "Xsolla Mascot Cat",
+                "ru": "\u041a\u043e\u0442-\u043c\u0430\u0441\u043a\u043e\u0442 Xsolla"
+            },
+            "type": "virtual_good",
+            "description": {
+                "en": "Limited edition Xsolla mascot skin. Only available during special events.",
+                "ru": "\u041b\u0438\u043c\u0438\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u044b\u0439 \u0441\u043a\u0438\u043d \u043c\u0430\u0441\u043a\u043e\u0442\u0430 Xsolla. \u0414\u043e\u0441\u0442\u0443\u043f\u0435\u043d \u0442\u043e\u043b\u044c\u043a\u043e \u0432 \u043e\u0441\u043e\u0431\u044b\u0435 \u0441\u043e\u0431\u044b\u0442\u0438\u044f."
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/25683e494513fe0e256261c9459049af.png",
+            "long_description": null,
+            "attributes": [],
+            "is_free": false,
+            "order": 7,
+            "groups": [
+                "skins",
+                "event"
+            ],
+            "regional_prices": [],
+            "prices": [
+                {
+                    "amount": 14.99,
+                    "currency": "USD",
+                    "is_default": true,
+                    "is_enabled": true
+                }
+            ],
+            "media_list": [],
+            "vc_prices": [],
+            "is_enabled": true,
+            "is_show_in_store": true,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [
+                {
+                    "date_from": "2026-02-03T00:00:00+00:00",
+                    "date_until": "2026-05-08T23:59:59+00:00"
+                }
+            ],
+            "custom_attributes": {
+                "type": "skin",
+                "event": true,
+                "rarity": "mythic"
+            },
+            "inventory_options": {
+                "consumable": true,
+                "expiration_period": null
+            },
+            "is_paid_randomized_reward": false
+        },
+        {
+            "item_id": 1347179,
+            "sku": "cat_oriental",
+            "name": {
+                "en": "Oriental Cat",
+                "ru": "\u041e\u0440\u0438\u0435\u043d\u0442\u0430\u043b"
+            },
+            "type": "virtual_good",
+            "description": {
+                "en": "Sleek, curious and playful.",
+                "ru": "\u0421\u0442\u0440\u043e\u0439\u043d\u044b\u0439, \u043b\u044e\u0431\u043e\u043f\u044b\u0442\u043d\u044b\u0439 \u0438 \u0438\u0433\u0440\u0438\u0432\u044b\u0439."
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/f6fd0e7dc8f30ef85faed8283933c860.png",
+            "long_description": null,
+            "attributes": [],
+            "is_free": false,
+            "order": 7,
+            "groups": [
+                "cats"
+            ],
+            "regional_prices": [],
+            "prices": [],
+            "media_list": [],
+            "vc_prices": [
+                {
+                    "sku": "fish",
+                    "is_default": true,
+                    "amount": 500
+                }
+            ],
+            "is_enabled": true,
+            "is_show_in_store": false,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [],
+            "custom_attributes": {
+                "type": "cat",
+                "rarity": "epic",
+                "purchasable": false
+            },
+            "inventory_options": {
+                "consumable": true,
+                "expiration_period": null
+            },
+            "is_paid_randomized_reward": false
+        },
+        {
+            "item_id": 1347180,
+            "sku": "cat_persian",
+            "name": {
+                "en": "Persian Cat",
+                "ru": "\u041f\u0435\u0440\u0441\u0438\u0434\u0441\u043a\u0430\u044f \u043a\u043e\u0448\u043a\u0430"
+            },
+            "type": "virtual_good",
+            "description": {
+                "en": "Fluffy, calm and noble.",
+                "ru": "\u041f\u0443\u0448\u0438\u0441\u0442\u0430\u044f, \u0441\u043f\u043e\u043a\u043e\u0439\u043d\u0430\u044f \u0438 \u0431\u043b\u0430\u0433\u043e\u0440\u043e\u0434\u043d\u0430\u044f."
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/19f0b58c2d01163ec1d06604d3560cfb.png",
+            "long_description": null,
+            "attributes": [],
+            "is_free": false,
+            "order": 8,
+            "groups": [
+                "cats"
+            ],
+            "regional_prices": [],
+            "prices": [],
+            "media_list": [],
+            "vc_prices": [
+                {
+                    "sku": "fish",
+                    "is_default": true,
+                    "amount": 500
+                }
+            ],
+            "is_enabled": true,
+            "is_show_in_store": false,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [],
+            "custom_attributes": {
+                "type": "cat",
+                "rarity": "epic",
+                "purchasable": false
+            },
+            "inventory_options": {
+                "consumable": true,
+                "expiration_period": null
+            },
+            "is_paid_randomized_reward": false
+        },
+        {
+            "item_id": 1347181,
+            "sku": "cat_cornish_rex",
+            "name": {
+                "en": "Cornish Rex",
+                "ru": "\u041a\u043e\u0440\u043d\u0438\u0448 \u0440\u0435\u043a\u0441"
+            },
+            "type": "virtual_good",
+            "description": {
+                "en": "Curly coat and big ears.",
+                "ru": "\u0412\u044c\u044e\u0449\u0430\u044f\u0441\u044f \u0448\u0451\u0440\u0441\u0442\u043a\u0430 \u0438 \u0431\u043e\u043b\u044c\u0448\u0438\u0435 \u0443\u0448\u0438."
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/070bedee7fb4b088e23a0d57b6f48786.png",
+            "long_description": null,
+            "attributes": [],
+            "is_free": false,
+            "order": 9,
+            "groups": [
+                "cats"
+            ],
+            "regional_prices": [],
+            "prices": [],
+            "media_list": [],
+            "vc_prices": [
+                {
+                    "sku": "fish",
+                    "is_default": true,
+                    "amount": 500
+                }
+            ],
+            "is_enabled": true,
+            "is_show_in_store": false,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [],
+            "custom_attributes": {
+                "type": "cat",
+                "rarity": "epic",
+                "purchasable": false
+            },
+            "inventory_options": {
+                "consumable": true,
+                "expiration_period": null
+            },
+            "is_paid_randomized_reward": false
+        },
+        {
+            "item_id": 1347182,
+            "sku": "cat_bengal",
+            "name": {
+                "en": "Bengal Cat",
+                "ru": "\u0411\u0435\u043d\u0433\u0430\u043b\u044c\u0441\u043a\u0430\u044f \u043a\u043e\u0448\u043a\u0430"
+            },
+            "type": "virtual_good",
+            "description": {
+                "en": "Wild patterns, domestic heart.",
+                "ru": "\u0414\u0438\u043a\u0438\u0439 \u043e\u043a\u0440\u0430\u0441, \u0434\u043e\u043c\u0430\u0448\u043d\u0435\u0435 \u0441\u0435\u0440\u0434\u0446\u0435."
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/bbd32d91f0cf4bb804cc89cab76b0188.png",
+            "long_description": null,
+            "attributes": [],
+            "is_free": false,
+            "order": 10,
+            "groups": [
+                "cats"
+            ],
+            "regional_prices": [],
+            "prices": [],
+            "media_list": [],
+            "vc_prices": [
+                {
+                    "sku": "fish",
+                    "is_default": true,
+                    "amount": 1000
+                }
+            ],
+            "is_enabled": true,
+            "is_show_in_store": false,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [],
+            "custom_attributes": {
+                "type": "cat",
+                "rarity": "legendary",
+                "purchasable": false
+            },
+            "inventory_options": {
+                "consumable": true,
+                "expiration_period": null
+            },
+            "is_paid_randomized_reward": false
+        },
+        {
+            "item_id": 1347183,
+            "sku": "cat_ragdoll",
+            "name": {
+                "en": "Ragdoll",
+                "ru": "\u0420\u044d\u0433\u0434\u043e\u043b\u043b"
+            },
+            "type": "virtual_good",
+            "description": {
+                "en": "Goes limp like a ragdoll when held.",
+                "ru": "\u041e\u0431\u043c\u044f\u043a\u0430\u0435\u0442 \u043a\u0430\u043a \u0442\u0440\u044f\u043f\u0438\u0447\u043d\u0430\u044f \u043a\u0443\u043a\u043b\u0430 \u043d\u0430 \u0440\u0443\u043a\u0430\u0445."
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/c6443941855d496da06f536fdb19da85.png",
+            "long_description": null,
+            "attributes": [],
+            "is_free": false,
+            "order": 11,
+            "groups": [
+                "cats"
+            ],
+            "regional_prices": [],
+            "prices": [],
+            "media_list": [],
+            "vc_prices": [
+                {
+                    "sku": "fish",
+                    "is_default": true,
+                    "amount": 1000
+                }
+            ],
+            "is_enabled": true,
+            "is_show_in_store": false,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [],
+            "custom_attributes": {
+                "type": "cat",
+                "rarity": "legendary",
+                "purchasable": false
+            },
+            "inventory_options": {
+                "consumable": true,
+                "expiration_period": null
+            },
+            "is_paid_randomized_reward": false
+        },
+        {
+            "item_id": 1347184,
+            "sku": "cat_sphynx",
+            "name": {
+                "en": "Sphynx",
+                "ru": "\u0421\u0444\u0438\u043d\u043a\u0441"
+            },
+            "type": "virtual_good",
+            "description": {
+                "en": "Hairless but full of warmth.",
+                "ru": "\u0413\u043e\u043b\u044b\u0439, \u043d\u043e \u043f\u043e\u043b\u043e\u043d \u0442\u0435\u043f\u043b\u0430."
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/3676809841bc0fb5d1bf85a61f429cfe.png",
+            "long_description": null,
+            "attributes": [],
+            "is_free": false,
+            "order": 12,
+            "groups": [
+                "cats"
+            ],
+            "regional_prices": [],
+            "prices": [],
+            "media_list": [],
+            "vc_prices": [
+                {
+                    "sku": "fish",
+                    "is_default": true,
+                    "amount": 1000
+                }
+            ],
+            "is_enabled": true,
+            "is_show_in_store": false,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [],
+            "custom_attributes": {
+                "type": "cat",
+                "rarity": "legendary",
+                "purchasable": false
+            },
+            "inventory_options": {
+                "consumable": true,
+                "expiration_period": null
+            },
+            "is_paid_randomized_reward": false
+        }
+    ],
+    "virtual_currency_packages": [
+        {
+            "item_id": 1347198,
+            "sku": "yarn_pack_large",
+            "type": "bundle",
+            "name": {
+                "en": "Large Yarn Pack",
+                "ru": "\u0411\u043e\u043b\u044c\u0448\u043e\u0439 \u043f\u0430\u043a \u043a\u043b\u0443\u0431\u043e\u0447\u043a\u043e\u0432"
+            },
+            "bundle_type": "virtual_currency_package",
+            "description": {
+                "en": "50 yarn balls \u2014 endless entertainment.",
+                "ru": "50 \u043a\u043b\u0443\u0431\u043e\u0447\u043a\u043e\u0432 \u2014 \u0431\u0435\u0441\u043a\u043e\u043d\u0435\u0447\u043d\u043e\u0435 \u0440\u0430\u0437\u0432\u043b\u0435\u0447\u0435\u043d\u0438\u0435."
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/e831b8128e4111dd1425e3deaf7c003c.png",
+            "vc_prices": [],
+            "regional_prices": [],
+            "prices": [
+                {
+                    "amount": 3.99,
+                    "currency": "USD",
+                    "is_default": true,
+                    "is_enabled": true
+                }
+            ],
+            "is_enabled": true,
+            "is_show_in_store": true,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [],
+            "attributes": [],
+            "long_description": null,
+            "media_list": [],
+            "order": 1,
+            "is_free": false,
+            "groups": [
+                "currency_packs"
+            ],
+            "content": [
+                {
+                    "sku": "yarn",
+                    "quantity": 50
+                }
+            ],
+            "is_paid_randomized_reward": false
+        },
+        {
+            "item_id": 1347197,
+            "sku": "yarn_pack_small",
+            "type": "bundle",
+            "name": {
+                "en": "Small Yarn Pack",
+                "ru": "\u041c\u0430\u043b\u0435\u043d\u044c\u043a\u0438\u0439 \u043f\u0430\u043a \u043a\u043b\u0443\u0431\u043e\u0447\u043a\u043e\u0432"
+            },
+            "bundle_type": "virtual_currency_package",
+            "description": {
+                "en": "10 yarn balls \u2014 let the fun begin.",
+                "ru": "10 \u043a\u043b\u0443\u0431\u043e\u0447\u043a\u043e\u0432 \u2014 \u043f\u0443\u0441\u0442\u044c \u043d\u0430\u0447\u043d\u0451\u0442\u0441\u044f \u0432\u0435\u0441\u0435\u043b\u044c\u0435."
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/e5007406b50ac5f276320b7540cf2ce7.png",
+            "vc_prices": [],
+            "regional_prices": [],
+            "prices": [
+                {
+                    "amount": 0.99,
+                    "currency": "USD",
+                    "is_default": true,
+                    "is_enabled": true
+                }
+            ],
+            "is_enabled": true,
+            "is_show_in_store": true,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [],
+            "attributes": [],
+            "long_description": null,
+            "media_list": [],
+            "order": 1,
+            "is_free": false,
+            "groups": [
+                "currency_packs"
+            ],
+            "content": [
+                {
+                    "sku": "yarn",
+                    "quantity": 10
+                }
+            ],
+            "is_paid_randomized_reward": false
+        },
+        {
+            "item_id": 1347196,
+            "sku": "food_pack_large",
+            "type": "bundle",
+            "name": {
+                "en": "Large Food Pack",
+                "ru": "\u0411\u043e\u043b\u044c\u0448\u043e\u0439 \u043f\u0430\u043a \u043a\u043e\u0440\u043c\u0430"
+            },
+            "bundle_type": "virtual_currency_package",
+            "description": {
+                "en": "500 food \u2014 stock up!",
+                "ru": "500 \u043a\u043e\u0440\u043c\u0430 \u2014 \u0437\u0430\u043f\u0430\u0441\u0430\u0439\u0441\u044f!"
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/5b9cf5e8f350a50705bdc80110f76b77.png",
+            "vc_prices": [],
+            "regional_prices": [],
+            "prices": [
+                {
+                    "amount": 3.99,
+                    "currency": "USD",
+                    "is_default": true,
+                    "is_enabled": true
+                }
+            ],
+            "is_enabled": true,
+            "is_show_in_store": true,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [],
+            "attributes": [],
+            "long_description": null,
+            "media_list": [],
+            "order": 1,
+            "is_free": false,
+            "groups": [
+                "currency_packs"
+            ],
+            "content": [
+                {
+                    "sku": "food",
+                    "quantity": 500
+                }
+            ],
+            "is_paid_randomized_reward": false
+        },
+        {
+            "item_id": 1347195,
+            "sku": "food_pack_small",
+            "type": "bundle",
+            "name": {
+                "en": "Small Food Pack",
+                "ru": "\u041c\u0430\u043b\u0435\u043d\u044c\u043a\u0438\u0439 \u043f\u0430\u043a \u043a\u043e\u0440\u043c\u0430"
+            },
+            "bundle_type": "virtual_currency_package",
+            "description": {
+                "en": "100 food \u2014 enough for a few days.",
+                "ru": "100 \u043a\u043e\u0440\u043c\u0430 \u2014 \u0445\u0432\u0430\u0442\u0438\u0442 \u043d\u0430 \u043d\u0435\u0441\u043a\u043e\u043b\u044c\u043a\u043e \u0434\u043d\u0435\u0439."
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/a9861394b53c7d59ffeb33b6d4d38f16.png",
+            "vc_prices": [],
+            "regional_prices": [],
+            "prices": [
+                {
+                    "amount": 0.99,
+                    "currency": "USD",
+                    "is_default": true,
+                    "is_enabled": true
+                }
+            ],
+            "is_enabled": true,
+            "is_show_in_store": true,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [],
+            "attributes": [],
+            "long_description": null,
+            "media_list": [],
+            "order": 1,
+            "is_free": false,
+            "groups": [
+                "currency_packs"
+            ],
+            "content": [
+                {
+                    "sku": "food",
+                    "quantity": 100
+                }
+            ],
+            "is_paid_randomized_reward": false
+        },
+        {
+            "item_id": 1347194,
+            "sku": "fish_pack_large",
+            "type": "bundle",
+            "name": {
+                "en": "Large Fish Pack",
+                "ru": "\u0411\u043e\u043b\u044c\u0448\u043e\u0439 \u043f\u0430\u043a \u0440\u044b\u0431\u043e\u043a"
+            },
+            "bundle_type": "virtual_currency_package",
+            "description": {
+                "en": "500 fish \u2014 the best value.",
+                "ru": "500 \u0440\u044b\u0431\u043e\u043a \u2014 \u043b\u0443\u0447\u0448\u0430\u044f \u0446\u0435\u043d\u0430."
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/3bd2794846fac49d292223204a1fc097.png",
+            "vc_prices": [],
+            "regional_prices": [],
+            "prices": [
+                {
+                    "amount": 6.99,
+                    "currency": "USD",
+                    "is_default": true,
+                    "is_enabled": true
+                }
+            ],
+            "is_enabled": true,
+            "is_show_in_store": true,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [],
+            "attributes": [],
+            "long_description": null,
+            "media_list": [],
+            "order": 1,
+            "is_free": false,
+            "groups": [
+                "currency_packs"
+            ],
+            "content": [
+                {
+                    "sku": "fish",
+                    "quantity": 500
+                }
+            ],
+            "is_paid_randomized_reward": false
+        },
+        {
+            "item_id": 1347193,
+            "sku": "fish_pack_medium",
+            "type": "bundle",
+            "name": {
+                "en": "Medium Fish Pack",
+                "ru": "\u0421\u0440\u0435\u0434\u043d\u0438\u0439 \u043f\u0430\u043a \u0440\u044b\u0431\u043e\u043a"
+            },
+            "bundle_type": "virtual_currency_package",
+            "description": {
+                "en": "200 fish \u2014 a good deal.",
+                "ru": "200 \u0440\u044b\u0431\u043e\u043a \u2014 \u0432\u044b\u0433\u043e\u0434\u043d\u0430\u044f \u0441\u0434\u0435\u043b\u043a\u0430."
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/5a0327915cdbfcce406fa8c256ce4dfd.png",
+            "vc_prices": [],
+            "regional_prices": [],
+            "prices": [
+                {
+                    "amount": 2.99,
+                    "currency": "USD",
+                    "is_default": true,
+                    "is_enabled": true
+                }
+            ],
+            "is_enabled": true,
+            "is_show_in_store": true,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [],
+            "attributes": [],
+            "long_description": null,
+            "media_list": [],
+            "order": 1,
+            "is_free": false,
+            "groups": [
+                "currency_packs"
+            ],
+            "content": [
+                {
+                    "sku": "fish",
+                    "quantity": 200
+                }
+            ],
+            "is_paid_randomized_reward": false
+        },
+        {
+            "item_id": 1347192,
+            "sku": "fish_pack_small",
+            "type": "bundle",
+            "name": {
+                "en": "Small Fish Pack",
+                "ru": "\u041c\u0430\u043b\u0435\u043d\u044c\u043a\u0438\u0439 \u043f\u0430\u043a \u0440\u044b\u0431\u043e\u043a"
+            },
+            "bundle_type": "virtual_currency_package",
+            "description": {
+                "en": "50 fish to get you started.",
+                "ru": "50 \u0440\u044b\u0431\u043e\u043a \u0434\u043b\u044f \u043d\u0430\u0447\u0430\u043b\u0430."
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/9a9515cf59a3c83a0cbe126f29a7f1b2.png",
+            "vc_prices": [],
+            "regional_prices": [],
+            "prices": [
+                {
+                    "amount": 0.99,
+                    "currency": "USD",
+                    "is_default": true,
+                    "is_enabled": true
+                }
+            ],
+            "is_enabled": true,
+            "is_show_in_store": true,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [],
+            "attributes": [],
+            "long_description": null,
+            "media_list": [],
+            "order": 1,
+            "is_free": false,
+            "groups": [
+                "currency_packs"
+            ],
+            "content": [
+                {
+                    "sku": "fish",
+                    "quantity": 50
+                }
+            ],
+            "is_paid_randomized_reward": false
+        }
+    ],
+    "bundles": [
+        {
+            "item_id": 1347199,
+            "sku": "case_common",
+            "type": "bundle",
+            "name": {
+                "en": "Common Case",
+                "ru": "\u041e\u0431\u044b\u0447\u043d\u044b\u0439 \u043a\u0435\u0439\u0441"
+            },
+            "bundle_type": "standard",
+            "description": {
+                "en": "Contains common and rare cats.",
+                "ru": "\u0421\u043e\u0434\u0435\u0440\u0436\u0438\u0442 \u043e\u0431\u044b\u0447\u043d\u044b\u0445 \u0438 \u0440\u0435\u0434\u043a\u0438\u0445 \u043a\u043e\u0442\u043e\u0432."
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/3a7d8ab10c474dc28f8ff038cf8f17be.png",
+            "regional_prices": [],
+            "prices": [
+                {
+                    "amount": 0.99,
+                    "currency": "USD",
+                    "is_default": true,
+                    "is_enabled": true
+                }
+            ],
+            "virtual_prices": [
+                {
+                    "description": {
+                        "en": "The main currency of purr-case",
+                        "ru": "\u041e\u0441\u043d\u043e\u0432\u043d\u0430\u044f \u0432\u0430\u043b\u044e\u0442\u0430 purr-case"
+                    },
+                    "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/2181792ba06cdc9965cb957aa45d12c4.png",
+                    "item_id": 1347170,
+                    "sku": "fish",
+                    "name": {
+                        "en": "Fish",
+                        "ru": "\u0420\u044b\u0431\u043a\u0438"
+                    },
+                    "type": "virtual_currency",
+                    "amount": 100,
+                    "is_default": true
+                }
+            ],
+            "is_enabled": true,
+            "is_show_in_store": true,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [],
+            "custom_attributes": {
+                "type": "case",
+                "drop_table": [
+                    {
+                        "sku": "cat_grey",
+                        "weight": 50
+                    },
+                    {
+                        "sku": "cat_orange",
+                        "weight": 30
+                    },
+                    {
+                        "sku": "cat_tricolor",
+                        "weight": 10
+                    },
+                    {
+                        "sku": "cat_munchkin",
+                        "weight": 7
+                    },
+                    {
+                        "sku": "cat_maine_coon",
+                        "weight": 2
+                    },
+                    {
+                        "sku": "cat_siamese",
+                        "weight": 1
+                    }
+                ]
+            },
+            "attributes": [],
+            "long_description": null,
+            "media_list": [],
+            "order": 1,
+            "is_free": false,
+            "groups": [
+                "cases"
+            ],
+            "content": [
+                {
+                    "sku": "cat_grey",
+                    "quantity": 1
+                },
+                {
+                    "sku": "cat_orange",
+                    "quantity": 1
+                },
+                {
+                    "sku": "cat_tricolor",
+                    "quantity": 1
+                },
+                {
+                    "sku": "cat_munchkin",
+                    "quantity": 1
+                },
+                {
+                    "sku": "cat_maine_coon",
+                    "quantity": 1
+                },
+                {
+                    "sku": "cat_siamese",
+                    "quantity": 1
+                }
+            ],
+            "is_paid_randomized_reward": true
+        },
+        {
+            "item_id": 1347200,
+            "sku": "case_rare",
+            "type": "bundle",
+            "name": {
+                "en": "Rare Case",
+                "ru": "\u0420\u0435\u0434\u043a\u0438\u0439 \u043a\u0435\u0439\u0441"
+            },
+            "bundle_type": "standard",
+            "description": {
+                "en": "Contains rare and epic cats.",
+                "ru": "\u0421\u043e\u0434\u0435\u0440\u0436\u0438\u0442 \u0440\u0435\u0434\u043a\u0438\u0445 \u0438 \u044d\u043f\u0438\u0447\u0435\u0441\u043a\u0438\u0445 \u043a\u043e\u0442\u043e\u0432."
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/4ef82c19c73f7f27c35022f69ce06b10.png",
+            "regional_prices": [],
+            "prices": [
+                {
+                    "amount": 2.99,
+                    "currency": "USD",
+                    "is_default": true,
+                    "is_enabled": true
+                }
+            ],
+            "virtual_prices": [
+                {
+                    "description": {
+                        "en": "The main currency of purr-case",
+                        "ru": "\u041e\u0441\u043d\u043e\u0432\u043d\u0430\u044f \u0432\u0430\u043b\u044e\u0442\u0430 purr-case"
+                    },
+                    "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/2181792ba06cdc9965cb957aa45d12c4.png",
+                    "item_id": 1347170,
+                    "sku": "fish",
+                    "name": {
+                        "en": "Fish",
+                        "ru": "\u0420\u044b\u0431\u043a\u0438"
+                    },
+                    "type": "virtual_currency",
+                    "amount": 300,
+                    "is_default": true
+                }
+            ],
+            "is_enabled": true,
+            "is_show_in_store": true,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [],
+            "custom_attributes": {
+                "type": "case",
+                "drop_table": [
+                    {
+                        "sku": "cat_maine_coon",
+                        "weight": 40
+                    },
+                    {
+                        "sku": "cat_siamese",
+                        "weight": 30
+                    },
+                    {
+                        "sku": "cat_tricolor",
+                        "weight": 15
+                    },
+                    {
+                        "sku": "cat_munchkin",
+                        "weight": 10
+                    },
+                    {
+                        "sku": "cat_oriental",
+                        "weight": 3
+                    },
+                    {
+                        "sku": "cat_persian",
+                        "weight": 2
+                    }
+                ]
+            },
+            "attributes": [],
+            "long_description": null,
+            "media_list": [],
+            "order": 2,
+            "is_free": false,
+            "groups": [
+                "cases"
+            ],
+            "content": [
+                {
+                    "sku": "cat_maine_coon",
+                    "quantity": 1
+                },
+                {
+                    "sku": "cat_siamese",
+                    "quantity": 1
+                },
+                {
+                    "sku": "cat_tricolor",
+                    "quantity": 1
+                },
+                {
+                    "sku": "cat_munchkin",
+                    "quantity": 1
+                },
+                {
+                    "sku": "cat_oriental",
+                    "quantity": 1
+                },
+                {
+                    "sku": "cat_persian",
+                    "quantity": 1
+                }
+            ],
+            "is_paid_randomized_reward": true
+        },
+        {
+            "item_id": 1347201,
+            "sku": "case_legendary",
+            "type": "bundle",
+            "name": {
+                "en": "Legendary Case",
+                "ru": "\u041b\u0435\u0433\u0435\u043d\u0434\u0430\u0440\u043d\u044b\u0439 \u043a\u0435\u0439\u0441"
+            },
+            "bundle_type": "standard",
+            "description": {
+                "en": "Contains epic and legendary cats.",
+                "ru": "\u0421\u043e\u0434\u0435\u0440\u0436\u0438\u0442 \u044d\u043f\u0438\u0447\u0435\u0441\u043a\u0438\u0445 \u0438 \u043b\u0435\u0433\u0435\u043d\u0434\u0430\u0440\u043d\u044b\u0445 \u043a\u043e\u0442\u043e\u0432."
+            },
+            "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/e0b5bf0b26ed8617cfe252b377d81745.png",
+            "regional_prices": [],
+            "prices": [
+                {
+                    "amount": 7.99,
+                    "currency": "USD",
+                    "is_default": true,
+                    "is_enabled": true
+                }
+            ],
+            "virtual_prices": [
+                {
+                    "description": {
+                        "en": "The main currency of purr-case",
+                        "ru": "\u041e\u0441\u043d\u043e\u0432\u043d\u0430\u044f \u0432\u0430\u043b\u044e\u0442\u0430 purr-case"
+                    },
+                    "image_url": "https:\/\/cdn3.xsolla.com\/img\/misc\/images\/2181792ba06cdc9965cb957aa45d12c4.png",
+                    "item_id": 1347170,
+                    "sku": "fish",
+                    "name": {
+                        "en": "Fish",
+                        "ru": "\u0420\u044b\u0431\u043a\u0438"
+                    },
+                    "type": "virtual_currency",
+                    "amount": 1000,
+                    "is_default": true
+                }
+            ],
+            "is_enabled": true,
+            "is_show_in_store": true,
+            "regions": [],
+            "limits": {
+                "per_user": null,
+                "per_item": null,
+                "recurrent_schedule": null
+            },
+            "periods": [],
+            "custom_attributes": {
+                "type": "case",
+                "drop_table": [
+                    {
+                        "sku": "cat_oriental",
+                        "weight": 30
+                    },
+                    {
+                        "sku": "cat_persian",
+                        "weight": 25
+                    },
+                    {
+                        "sku": "cat_cornish_rex",
+                        "weight": 20
+                    },
+                    {
+                        "sku": "cat_bengal",
+                        "weight": 12
+                    },
+                    {
+                        "sku": "cat_ragdoll",
+                        "weight": 8
+                    },
+                    {
+                        "sku": "cat_sphynx",
+                        "weight": 5
+                    }
+                ]
+            },
+            "attributes": [],
+            "long_description": null,
+            "media_list": [],
+            "order": 3,
+            "is_free": false,
+            "groups": [
+                "cases"
+            ],
+            "content": [
+                {
+                    "sku": "cat_oriental",
+                    "quantity": 1
+                },
+                {
+                    "sku": "cat_persian",
+                    "quantity": 1
+                },
+                {
+                    "sku": "cat_cornish_rex",
+                    "quantity": 1
+                },
+                {
+                    "sku": "cat_bengal",
+                    "quantity": 1
+                },
+                {
+                    "sku": "cat_ragdoll",
+                    "quantity": 1
+                },
+                {
+                    "sku": "cat_sphynx",
+                    "quantity": 1
+                }
+            ],
+            "is_paid_randomized_reward": true
+        }
+    ]
+}
